@@ -1,0 +1,25 @@
+#lc4eProgress {
+	pointer-events: none;
+}
+
+#lc4eProgress .ui.mini.progress .bar {
+	height: 0.2em;
+}
+
+#lc4eProgress .ui.mini.progress {
+	border: 0px;
+	padding: 0px;
+	position: fixed;
+	z-index: 1031;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+#lc4eProgress>.spinner {
+	display: block;
+	position: fixed;
+	z-index: 1031;
+	top: 12px;
+	right: 15px;
+}

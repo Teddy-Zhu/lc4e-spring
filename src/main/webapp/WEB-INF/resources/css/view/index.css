@@ -1,0 +1,36 @@
+#menu.fixed {
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #DDDDDD;
+	box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.04);
+}
+
+.linked {
+	cursor: pointer;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#searchSite {
+	width: 100px;
+	background-color: whitesmoke;
+}
+
+#menu .column .left.menu>img {
+	width: 47px;
+	padding: 0px;
+}
+
+@media screen and ( max-width : 600px) {
+	.hidden-mobile {
+		display: none !important;
+	}
+	.ui.vertical.menu .dropdown.item .menu {
+		top: 100% !important;
+		left: 0;
+	}
+	.ui.vertical.menu .dropdown.item .menu .menu {
+		left: 1.5% !important;
+	}
+}
