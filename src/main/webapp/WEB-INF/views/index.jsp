@@ -17,17 +17,21 @@
 <body>
 	<div id="menu" class="ui secondary menu large page grid">
 		<div class="column">
+			<div class="hidden-pc">
+				<a class="item linked"> <i class="content icon"></i> Menus
+				</a>
+			</div>
 			<div class="left menu">
 				<img class="logo ui image item hidden-mobile" src="images/logo.png"> <a class="item linked"> <i class="home icon"></i> Home
 				</a> <a class="item linked"> <i class="mail icon"></i> Messages
 				</a> <a class="item linked"> <i class="user icon"></i> Friends
 				</a>
 				<div class="ui dropdown link item">
-					<i class="font icon"></i><span class="text">Language</span>
+					<i class="font icon"></i><span class="text">Language</span><i class="chevron down icon"></i>
 					<div class="menu">
 						<a class="item">C/C++</a> <a class="item">Java</a> <a class="item">JavaScript</a>
 						<div class="item">
-							<i class="dropdown icon"></i> <span class="text">Script</span>
+							<span class="text">Script</span><i class="chevron right icon hidden-mobile"></i><i class="chevron down icon hidden-pc"></i>
 							<div class="menu">
 								<div class="item">Python</div>
 								<div class="divider"></div>
@@ -43,7 +47,23 @@
 						<input id="searchSite" type="text" placeholder="Search..."> <i class="search link icon"></i>
 					</div>
 				</div>
-				<a class="ui item linked"> Logout </a>
+				<div class="ui item animated fade button">
+					<div class="visible content">Sign Up</div>
+					<div class="hidden content">
+						<i class="add user icon"></i>
+					</div>
+				</div>
+				<div class="ui item animated button">
+					<div class="visible content">Sign In</div>
+					<div class="hidden content">
+						<i class="user icon"></i>
+					</div>
+				</div>
+				<div class="ui item hidden-mobile">
+					<div class="ui linked label">
+						<i class="resize horizontal icon"></i>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -99,6 +119,55 @@
 					<a> <i class="user icon"></i> 22 Friends
 					</a>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="config-tool" class="hidden-mobile closed">
+		<a id="config-tool-cog"> <i class="large setting loading icon"></i>
+		</a>
+		<div id="config-tool-options" class="ui segment">
+			<h4 class="ui header">
+				Area List<i class="linked angle double left icon transition hidden"></i>
+			</h4>
+			<div id="menu1" class="ui animated selection list">
+				<div class="item" data-target="#menu2">
+					Fixed Header<i class="angle double right icon"></i>
+				</div>
+				<div class="item">
+					<div class="ui slider checkbox">
+						<input type="checkbox" name="public"> <label>Fixed Left Menu</label>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ui toggle checkbox">
+						<input type="checkbox" name="public"> <label>Fixed Footer</label>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ui checkbox">
+						<input type="checkbox" name="public"> <label>Boxed Layout</label>
+					</div>
+				</div>
+				<div class="item">
+					<div class="ui toggle red checkbox">
+						<input type="checkbox" name="public"> <label>Right-to-Left</label>
+					</div>
+				</div>
+			</div>
+			<div id="menu2" data-parent="#menu1" class="ui animated selection list transition hidden">
+				<div class="item">second select</div>
+				<div class="item">second select</div>
+				<div class="item" data-target="#menu3">
+					third select <i class="angle double right icon"></i>
+				</div>
+			</div>
+			<div id="menu3" data-parent="#menu2" class="ui animated selection list transition hidden">
+				<div class="item">third select11</div>
+			</div>
+			<h4 class="ui header">Skin Color</h4>
+			<div class="ui list">
+				<a class="ui red label"></a> <a class="ui teal label"></a> <a class="ui blue label"></a> <a class="ui purple label"></a> <a class="ui green label"></a> <a class="ui red label"></a>
 			</div>
 		</div>
 	</div>

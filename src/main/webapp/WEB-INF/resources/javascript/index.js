@@ -40,45 +40,60 @@ $(function() {
 	$('#menu .ui.dropdown.item').dropdown({
 		action : "nothing",
 		transition : "horizontal flip",
-		on : 'hover'
+		on : 'click'
 	});
 
 	$('#searchSite').on('focus', function() {
-		$(this).animate({
-			width : '+=100px',
-		});
+		$(this).addClass('expended');
 	}).on('blur', function() {
-		$(this).animate({
-			width : '-=100px',
-		});
+		$(this).removeClass('expended')
 	})
-	
+
+	$('#menu .right.menu .resize.horizontal.icon').on('click', function() {
+		$('#menu').toggleClass('expended');
+	})
+
 	$('#menu').visibility({
 		onUpdate : function(data) {
 			if (data.width < 600) {
 				$('#menu').addClass('fluid vertical');
 			} else {
-				$('#menu').removeClass('fluid vertical');
+				$('#menu').removeClass('fluid vertical').find('.column>.menu').show();
 			}
 		}
 	});
-	
+
+	$('#menu .column div:first a').on('click', function() {
+		$('#menu .column>.menu').slideToggle();
+	});
+
+	$('#config-tool-options .angle.double.left.icon').on('click', function() {
+		if ($($('#config-tool-options .ui.animated.selection.list:not(.hidden)').transition('fade left').attr('data-parent')).transition('fade left').attr('id') == 'menu1') {
+			$(this).addClass('transition hidden');
+		}
+	});
+
+	$("#config-tool-options .ui.list .item[data-target^='#']").on('click', function() {
+		$(this).parent().transition('fade left');
+		$($(this).attr('data-target')).transition('fade left');
+		$('#config-tool-options .angle.double.left.icon').removeClass('transition hidden');
+	});
+
+	$('#config-tool-cog').on('click', function() {
+		$('#config-tool').toggleClass('closed');
+	});
+
 	$('body').visibility({
 		offset : -1,
 		once : false,
 		continuous : false,
 		onTopPassed : function() {
-			$('#menu').addClass('light fixed').find('.column').animate({
-				'padding-top' : '-=0.5rem',
-				'padding-bottom' : '-=0.5rem',
-			}, 200);
+			$('#menu').addClass('light fixed').find('.column').addClass('reduce');
 		},
 		onTopPassedReverse : function() {
-			$('#menu').removeClass('light fixed').find('.column').animate({
-				'padding-top' : '+=0.5rem',
-				'padding-bottom' : '+=0.5rem',
-			}, 300);
+			$('#menu').removeClass('light fixed').find('.column').removeClass('reduce');
 		}
 	});
 
+	$('#config-tool-options .ui.checkbox').checkbox();
 })
