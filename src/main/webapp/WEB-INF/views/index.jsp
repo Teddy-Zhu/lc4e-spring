@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="alternate icon" type="image/png" href="images/logo.png">
-<title>Index</title>
+<title>Light Community</title>
 <meta name="description" content="Light Community For EveryOne" />
 <meta name="keywords" content="html5, ui, library, framework, javascript" />
 <link rel="stylesheet" type="text/css" class="ui" href="plugins/semantic-ui/semantic.min.css">
@@ -59,9 +59,9 @@
 						<i class="user icon"></i>
 					</div>
 				</div>
-				<div class="ui item hidden-mobile">
+				<div id="expendHeader" class="ui item hidden-mobile">
 					<div class="ui linked label">
-						<i class="resize horizontal icon"></i>
+						<i class="maximize icon"></i>
 					</div>
 				</div>
 			</div>
@@ -140,7 +140,7 @@
 					</div>
 				</div>
 				<div class="item">
-					<div class="ui toggle checkbox">
+					<div id="fixFooter" class="ui toggle checkbox">
 						<input type="checkbox" name="public"> <label>Fixed Footer</label>
 					</div>
 				</div>
@@ -171,7 +171,34 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="ui footer column grid">
+		<div class="eight wide column">
+			<div class="ui horizontal segment">
+				<h3 class="ui header">Light Community</h3>
+				<p>Designed By ZhuXi.Drived by Semantic UI</p>
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+					<input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id" value="7ZAF2Q8DBZAQL">
+					<button type="submit" class="ui teal button">Donate Semantic</button>
+				</form>
+			</div>
+		</div>
+		<div class="four wide column">
+			<div class="ui horizontal segment">
+				<h5 class="ui teal header">Contributers</h5>
+				<div class="ui link list">
+					<a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
+				</div>
+			</div>
+		</div>
+		<div class="four wide column">
+			<div class="ui horizontal segment">
+				<h5 class="ui teal header">LC4E Network</h5>
+				<div class="ui link list">
+					<a class="item" href="http://coding.net">Coding.Net</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="plugins/jquery/jquery.js"></script>
 	<script type="text/javascript" src="plugins/semantic-ui/semantic.min.js"></script>
 	<script type="text/javascript" src="plugins/lc4e/jquery-extend.js"></script>

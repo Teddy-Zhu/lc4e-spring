@@ -49,7 +49,7 @@ $(function() {
 		$(this).removeClass('expended')
 	})
 
-	$('#menu .right.menu .resize.horizontal.icon').on('click', function() {
+	$('#expendHeader').on('click', function() {
 		$('#menu').toggleClass('expended');
 	})
 
@@ -88,12 +88,18 @@ $(function() {
 		once : false,
 		continuous : false,
 		onTopPassed : function() {
-			$('#menu').addClass('light fixed').find('.column').addClass('reduce');
+			$('#menu').addClass('fixed').find('.column').addClass('reduce');
 		},
 		onTopPassedReverse : function() {
-			$('#menu').removeClass('light fixed').find('.column').removeClass('reduce');
+			$('#menu').removeClass('fixed').find('.column').removeClass('reduce');
 		}
 	});
 
 	$('#config-tool-options .ui.checkbox').checkbox();
+
+	$('#fixFooter').checkbox({
+		onChange : function(e) {
+			$('.ui.footer').toggleClass('fixed');
+		}
+	})
 })
