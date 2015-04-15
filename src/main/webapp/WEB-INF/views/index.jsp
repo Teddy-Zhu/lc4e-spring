@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="alternate icon" type="image/png" href="images/logo.png">
+<link rel="shortcut icon" href="images/logo.png" />
 <title>Light Community</title>
 <meta name="description" content="Light Community For EveryOne" />
 <meta name="keywords" content="html5, ui, library, framework, javascript" />
