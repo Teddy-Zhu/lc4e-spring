@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2015-04-14 18:06:46
+Date: 2015-04-15 17:05:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `l4_areablock`;
 CREATE TABLE `l4_areablock` (
   `intId` int(11) NOT NULL,
   `intBlockedAreaId` int(11) NOT NULL,
-  `intUserId` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'operate person',
+  `intUserGroupId` int(11) NOT NULL,
   `dateCreateTime` datetime NOT NULL,
   PRIMARY KEY (`intId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -32,12 +32,29 @@ CREATE TABLE `l4_areablock` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for l4_areaclose
+-- ----------------------------
+DROP TABLE IF EXISTS `l4_areaclose`;
+CREATE TABLE `l4_areaclose` (
+  `intId` int(11) NOT NULL,
+  `intAreaId` int(11) NOT NULL,
+  `intUserId` int(11) NOT NULL,
+  `isClosed` int(11) NOT NULL,
+  `dateCreateTime` datetime NOT NULL,
+  PRIMARY KEY (`intId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of l4_areaclose
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for l4_areafollow
 -- ----------------------------
 DROP TABLE IF EXISTS `l4_areafollow`;
 CREATE TABLE `l4_areafollow` (
   `intId` int(11) NOT NULL,
-  `intUser` int(11) NOT NULL,
+  `intUserId` int(11) NOT NULL,
   `intFollowedAreaId` int(11) NOT NULL,
   `dateCreateTime` datetime NOT NULL,
   PRIMARY KEY (`intId`)
@@ -55,6 +72,8 @@ CREATE TABLE `l4_areas` (
   `intAreaId` int(11) NOT NULL,
   `intParentAreaId` int(11) NOT NULL,
   `strAreaName` varchar(255) COLLATE utf8_bin NOT NULL,
+  `strAreaCss` varchar(255) COLLATE utf8_bin NOT NULL,
+  `strAreaIcon` varchar(255) COLLATE utf8_bin NOT NULL,
   `dateCreateTime` datetime NOT NULL,
   `intUserId` int(11) NOT NULL,
   PRIMARY KEY (`intAreaId`)
@@ -228,12 +247,13 @@ CREATE TABLE `l4_menus` (
   `strMenuCss` varchar(255) COLLATE utf8_bin NOT NULL,
   `strMenuIcon` varchar(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`intMenuId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of l4_menus
 -- ----------------------------
 INSERT INTO `l4_menus` VALUES ('1', '0', '0', '1', 'Menu', 'Menu', 'red', 'browser');
+INSERT INTO `l4_menus` VALUES ('2', '1', '1', '5', 'user/signin', 'SignIn', 'basic teal  button', 'user');
 
 -- ----------------------------
 -- Table structure for l4_message
