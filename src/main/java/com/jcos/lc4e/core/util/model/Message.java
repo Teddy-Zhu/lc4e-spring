@@ -24,6 +24,12 @@ public class Message {
 		this.data = data;
 	}
 
+	public Message(String message) {
+		this.result = false;
+		this.message = message;
+		this.data = null;
+	}
+
 	public Message() {
 		this.result = false;
 		this.message = "";
