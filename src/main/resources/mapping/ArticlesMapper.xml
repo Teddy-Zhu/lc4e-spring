@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.ArticlesMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.Articles" >
+    <id column="intArticleId" property="intarticleid" jdbcType="INTEGER" />
+    <result column="intAreaId" property="intareaid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="strArticleTitle" property="strarticletitle" jdbcType="VARCHAR" />
+    <result column="strArticleContent" property="strarticlecontent" jdbcType="VARCHAR" />
+    <result column="isHide" property="ishide" jdbcType="INTEGER" />
+    <result column="isDeleted" property="isdeleted" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+    <result column="dateModified" property="datemodified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intArticleId, intAreaId, intUserId, strArticleTitle, strArticleContent, isHide, isDeleted, 
+    dateCreateTime, dateModified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_articles
+    where intArticleId = #{intarticleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_articles
+    where intArticleId = #{intarticleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.Articles" >
+    insert into l4_articles (intArticleId, intAreaId, intUserId, 
+      strArticleTitle, strArticleContent, isHide, 
+      isDeleted, dateCreateTime, dateModified
+      )
+    values (#{intarticleid,jdbcType=INTEGER}, #{intareaid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, 
+      #{strarticletitle,jdbcType=VARCHAR}, #{strarticlecontent,jdbcType=VARCHAR}, #{ishide,jdbcType=INTEGER}, 
+      #{isdeleted,jdbcType=INTEGER}, #{datecreatetime,jdbcType=TIMESTAMP}, #{datemodified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.Articles" >
+    insert into l4_articles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intarticleid != null" >
+        intArticleId,
+      </if>
+      <if test="intareaid != null" >
+        intAreaId,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+      <if test="strarticletitle != null" >
+        strArticleTitle,
+      </if>
+      <if test="strarticlecontent != null" >
+        strArticleContent,
+      </if>
+      <if test="ishide != null" >
+        isHide,
+      </if>
+      <if test="isdeleted != null" >
+        isDeleted,
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime,
+      </if>
+      <if test="datemodified != null" >
+        dateModified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intarticleid != null" >
+        #{intarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="intareaid != null" >
+        #{intareaid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="strarticletitle != null" >
+        #{strarticletitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strarticlecontent != null" >
+        #{strarticlecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null" >
+        #{ishide,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodified != null" >
+        #{datemodified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.Articles" >
+    update l4_articles
+    <set >
+      <if test="intareaid != null" >
+        intAreaId = #{intareaid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="strarticletitle != null" >
+        strArticleTitle = #{strarticletitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strarticlecontent != null" >
+        strArticleContent = #{strarticlecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null" >
+        isHide = #{ishide,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null" >
+        isDeleted = #{isdeleted,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodified != null" >
+        dateModified = #{datemodified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intArticleId = #{intarticleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.Articles" >
+    update l4_articles
+    set intAreaId = #{intareaid,jdbcType=INTEGER},
+      intUserId = #{intuserid,jdbcType=INTEGER},
+      strArticleTitle = #{strarticletitle,jdbcType=VARCHAR},
+      strArticleContent = #{strarticlecontent,jdbcType=VARCHAR},
+      isHide = #{ishide,jdbcType=INTEGER},
+      isDeleted = #{isdeleted,jdbcType=INTEGER},
+      dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      dateModified = #{datemodified,jdbcType=TIMESTAMP}
+    where intArticleId = #{intarticleid,jdbcType=INTEGER}
+  </update>
+</mapper>

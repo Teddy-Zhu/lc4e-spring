@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.MessagesMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.Messages" >
+    <id column="intMessageId" property="intmessageid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="intDestUserId" property="intdestuserid" jdbcType="INTEGER" />
+    <result column="intRead" property="intread" jdbcType="INTEGER" />
+    <result column="strMessageTitle" property="strmessagetitle" jdbcType="VARCHAR" />
+    <result column="strMessageContent" property="strmessagecontent" jdbcType="VARCHAR" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+    <result column="dateModifiedTime" property="datemodifiedtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intMessageId, intUserId, intDestUserId, intRead, strMessageTitle, strMessageContent, 
+    dateCreateTime, dateModifiedTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_messages
+    where intMessageId = #{intmessageid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_messages
+    where intMessageId = #{intmessageid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.Messages" >
+    insert into l4_messages (intMessageId, intUserId, intDestUserId, 
+      intRead, strMessageTitle, strMessageContent, 
+      dateCreateTime, dateModifiedTime)
+    values (#{intmessageid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, #{intdestuserid,jdbcType=INTEGER}, 
+      #{intread,jdbcType=INTEGER}, #{strmessagetitle,jdbcType=VARCHAR}, #{strmessagecontent,jdbcType=VARCHAR}, 
+      #{datecreatetime,jdbcType=TIMESTAMP}, #{datemodifiedtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.Messages" >
+    insert into l4_messages
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intmessageid != null" >
+        intMessageId,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+      <if test="intdestuserid != null" >
+        intDestUserId,
+      </if>
+      <if test="intread != null" >
+        intRead,
+      </if>
+      <if test="strmessagetitle != null" >
+        strMessageTitle,
+      </if>
+      <if test="strmessagecontent != null" >
+        strMessageContent,
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime,
+      </if>
+      <if test="datemodifiedtime != null" >
+        dateModifiedTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intmessageid != null" >
+        #{intmessageid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intdestuserid != null" >
+        #{intdestuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intread != null" >
+        #{intread,jdbcType=INTEGER},
+      </if>
+      <if test="strmessagetitle != null" >
+        #{strmessagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strmessagecontent != null" >
+        #{strmessagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="datecreatetime != null" >
+        #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodifiedtime != null" >
+        #{datemodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.Messages" >
+    update l4_messages
+    <set >
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intdestuserid != null" >
+        intDestUserId = #{intdestuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intread != null" >
+        intRead = #{intread,jdbcType=INTEGER},
+      </if>
+      <if test="strmessagetitle != null" >
+        strMessageTitle = #{strmessagetitle,jdbcType=VARCHAR},
+      </if>
+      <if test="strmessagecontent != null" >
+        strMessageContent = #{strmessagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodifiedtime != null" >
+        dateModifiedTime = #{datemodifiedtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intMessageId = #{intmessageid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.Messages" >
+    update l4_messages
+    set intUserId = #{intuserid,jdbcType=INTEGER},
+      intDestUserId = #{intdestuserid,jdbcType=INTEGER},
+      intRead = #{intread,jdbcType=INTEGER},
+      strMessageTitle = #{strmessagetitle,jdbcType=VARCHAR},
+      strMessageContent = #{strmessagecontent,jdbcType=VARCHAR},
+      dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      dateModifiedTime = #{datemodifiedtime,jdbcType=TIMESTAMP}
+    where intMessageId = #{intmessageid,jdbcType=INTEGER}
+  </update>
+</mapper>

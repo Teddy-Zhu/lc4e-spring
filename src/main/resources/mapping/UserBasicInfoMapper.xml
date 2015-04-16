@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.UserBasicInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.UserBasicInfo" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="strUserName" property="strusername" jdbcType="VARCHAR" />
+    <result column="strUserNick" property="strusernick" jdbcType="VARCHAR" />
+    <result column="strEmail" property="stremail" jdbcType="VARCHAR" />
+    <result column="strPassword" property="strpassword" jdbcType="VARCHAR" />
+    <result column="strPhoneNumber" property="strphonenumber" jdbcType="VARCHAR" />
+    <result column="strSign" property="strsign" jdbcType="VARCHAR" />
+    <result column="strAvatar" property="stravatar" jdbcType="VARCHAR" />
+    <result column="intLocationId" property="intlocationid" jdbcType="INTEGER" />
+    <result column="dateBirthDay" property="datebirthday" jdbcType="TIMESTAMP" />
+    <result column="dateCreate" property="datecreate" jdbcType="TIMESTAMP" />
+    <result column="dateModified" property="datemodified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intUserId, strUserName, strUserNick, strEmail, strPassword, strPhoneNumber, 
+    strSign, strAvatar, intLocationId, dateBirthDay, dateCreate, dateModified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_userbasicinfo
+    where intId = #{intid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_userbasicinfo
+    where intId = #{intid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
+    insert into l4_userbasicinfo (intId, intUserId, strUserName, 
+      strUserNick, strEmail, strPassword, 
+      strPhoneNumber, strSign, strAvatar, 
+      intLocationId, dateBirthDay, dateCreate, 
+      dateModified)
+    values (#{intid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, #{strusername,jdbcType=VARCHAR}, 
+      #{strusernick,jdbcType=VARCHAR}, #{stremail,jdbcType=VARCHAR}, #{strpassword,jdbcType=VARCHAR}, 
+      #{strphonenumber,jdbcType=VARCHAR}, #{strsign,jdbcType=VARCHAR}, #{stravatar,jdbcType=VARCHAR}, 
+      #{intlocationid,jdbcType=INTEGER}, #{datebirthday,jdbcType=TIMESTAMP}, #{datecreate,jdbcType=TIMESTAMP}, 
+      #{datemodified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
+    insert into l4_userbasicinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        intId,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+      <if test="strusername != null" >
+        strUserName,
+      </if>
+      <if test="strusernick != null" >
+        strUserNick,
+      </if>
+      <if test="stremail != null" >
+        strEmail,
+      </if>
+      <if test="strpassword != null" >
+        strPassword,
+      </if>
+      <if test="strphonenumber != null" >
+        strPhoneNumber,
+      </if>
+      <if test="strsign != null" >
+        strSign,
+      </if>
+      <if test="stravatar != null" >
+        strAvatar,
+      </if>
+      <if test="intlocationid != null" >
+        intLocationId,
+      </if>
+      <if test="datebirthday != null" >
+        dateBirthDay,
+      </if>
+      <if test="datecreate != null" >
+        dateCreate,
+      </if>
+      <if test="datemodified != null" >
+        dateModified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="strusername != null" >
+        #{strusername,jdbcType=VARCHAR},
+      </if>
+      <if test="strusernick != null" >
+        #{strusernick,jdbcType=VARCHAR},
+      </if>
+      <if test="stremail != null" >
+        #{stremail,jdbcType=VARCHAR},
+      </if>
+      <if test="strpassword != null" >
+        #{strpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="strphonenumber != null" >
+        #{strphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="strsign != null" >
+        #{strsign,jdbcType=VARCHAR},
+      </if>
+      <if test="stravatar != null" >
+        #{stravatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intlocationid != null" >
+        #{intlocationid,jdbcType=INTEGER},
+      </if>
+      <if test="datebirthday != null" >
+        #{datebirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datecreate != null" >
+        #{datecreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodified != null" >
+        #{datemodified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
+    update l4_userbasicinfo
+    <set >
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="strusername != null" >
+        strUserName = #{strusername,jdbcType=VARCHAR},
+      </if>
+      <if test="strusernick != null" >
+        strUserNick = #{strusernick,jdbcType=VARCHAR},
+      </if>
+      <if test="stremail != null" >
+        strEmail = #{stremail,jdbcType=VARCHAR},
+      </if>
+      <if test="strpassword != null" >
+        strPassword = #{strpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="strphonenumber != null" >
+        strPhoneNumber = #{strphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="strsign != null" >
+        strSign = #{strsign,jdbcType=VARCHAR},
+      </if>
+      <if test="stravatar != null" >
+        strAvatar = #{stravatar,jdbcType=VARCHAR},
+      </if>
+      <if test="intlocationid != null" >
+        intLocationId = #{intlocationid,jdbcType=INTEGER},
+      </if>
+      <if test="datebirthday != null" >
+        dateBirthDay = #{datebirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datecreate != null" >
+        dateCreate = #{datecreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datemodified != null" >
+        dateModified = #{datemodified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
+    update l4_userbasicinfo
+    set intUserId = #{intuserid,jdbcType=INTEGER},
+      strUserName = #{strusername,jdbcType=VARCHAR},
+      strUserNick = #{strusernick,jdbcType=VARCHAR},
+      strEmail = #{stremail,jdbcType=VARCHAR},
+      strPassword = #{strpassword,jdbcType=VARCHAR},
+      strPhoneNumber = #{strphonenumber,jdbcType=VARCHAR},
+      strSign = #{strsign,jdbcType=VARCHAR},
+      strAvatar = #{stravatar,jdbcType=VARCHAR},
+      intLocationId = #{intlocationid,jdbcType=INTEGER},
+      dateBirthDay = #{datebirthday,jdbcType=TIMESTAMP},
+      dateCreate = #{datecreate,jdbcType=TIMESTAMP},
+      dateModified = #{datemodified,jdbcType=TIMESTAMP}
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+</mapper>

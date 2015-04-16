@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.MenusMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.Menus" >
+    <id column="intMenuId" property="intmenuid" jdbcType="INTEGER" />
+    <result column="intParentMenuId" property="intparentmenuid" jdbcType="INTEGER" />
+    <result column="intMenuLocation" property="intmenulocation" jdbcType="INTEGER" />
+    <result column="intMenuOrderId" property="intmenuorderid" jdbcType="INTEGER" />
+    <result column="strMenuPath" property="strmenupath" jdbcType="VARCHAR" />
+    <result column="strMenuName" property="strmenuname" jdbcType="VARCHAR" />
+    <result column="strMenuCss" property="strmenucss" jdbcType="VARCHAR" />
+    <result column="strMenuIcon" property="strmenuicon" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intMenuId, intParentMenuId, intMenuLocation, intMenuOrderId, strMenuPath, strMenuName, 
+    strMenuCss, strMenuIcon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_menus
+    where intMenuId = #{intmenuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_menus
+    where intMenuId = #{intmenuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.Menus" >
+    insert into l4_menus (intMenuId, intParentMenuId, intMenuLocation, 
+      intMenuOrderId, strMenuPath, strMenuName, 
+      strMenuCss, strMenuIcon)
+    values (#{intmenuid,jdbcType=INTEGER}, #{intparentmenuid,jdbcType=INTEGER}, #{intmenulocation,jdbcType=INTEGER}, 
+      #{intmenuorderid,jdbcType=INTEGER}, #{strmenupath,jdbcType=VARCHAR}, #{strmenuname,jdbcType=VARCHAR}, 
+      #{strmenucss,jdbcType=VARCHAR}, #{strmenuicon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.Menus" >
+    insert into l4_menus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intmenuid != null" >
+        intMenuId,
+      </if>
+      <if test="intparentmenuid != null" >
+        intParentMenuId,
+      </if>
+      <if test="intmenulocation != null" >
+        intMenuLocation,
+      </if>
+      <if test="intmenuorderid != null" >
+        intMenuOrderId,
+      </if>
+      <if test="strmenupath != null" >
+        strMenuPath,
+      </if>
+      <if test="strmenuname != null" >
+        strMenuName,
+      </if>
+      <if test="strmenucss != null" >
+        strMenuCss,
+      </if>
+      <if test="strmenuicon != null" >
+        strMenuIcon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intmenuid != null" >
+        #{intmenuid,jdbcType=INTEGER},
+      </if>
+      <if test="intparentmenuid != null" >
+        #{intparentmenuid,jdbcType=INTEGER},
+      </if>
+      <if test="intmenulocation != null" >
+        #{intmenulocation,jdbcType=INTEGER},
+      </if>
+      <if test="intmenuorderid != null" >
+        #{intmenuorderid,jdbcType=INTEGER},
+      </if>
+      <if test="strmenupath != null" >
+        #{strmenupath,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenuname != null" >
+        #{strmenuname,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenucss != null" >
+        #{strmenucss,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenuicon != null" >
+        #{strmenuicon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.Menus" >
+    update l4_menus
+    <set >
+      <if test="intparentmenuid != null" >
+        intParentMenuId = #{intparentmenuid,jdbcType=INTEGER},
+      </if>
+      <if test="intmenulocation != null" >
+        intMenuLocation = #{intmenulocation,jdbcType=INTEGER},
+      </if>
+      <if test="intmenuorderid != null" >
+        intMenuOrderId = #{intmenuorderid,jdbcType=INTEGER},
+      </if>
+      <if test="strmenupath != null" >
+        strMenuPath = #{strmenupath,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenuname != null" >
+        strMenuName = #{strmenuname,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenucss != null" >
+        strMenuCss = #{strmenucss,jdbcType=VARCHAR},
+      </if>
+      <if test="strmenuicon != null" >
+        strMenuIcon = #{strmenuicon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where intMenuId = #{intmenuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.Menus" >
+    update l4_menus
+    set intParentMenuId = #{intparentmenuid,jdbcType=INTEGER},
+      intMenuLocation = #{intmenulocation,jdbcType=INTEGER},
+      intMenuOrderId = #{intmenuorderid,jdbcType=INTEGER},
+      strMenuPath = #{strmenupath,jdbcType=VARCHAR},
+      strMenuName = #{strmenuname,jdbcType=VARCHAR},
+      strMenuCss = #{strmenucss,jdbcType=VARCHAR},
+      strMenuIcon = #{strmenuicon,jdbcType=VARCHAR}
+    where intMenuId = #{intmenuid,jdbcType=INTEGER}
+  </update>
+</mapper>
