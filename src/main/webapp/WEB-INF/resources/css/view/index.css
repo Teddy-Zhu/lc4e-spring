@@ -7,7 +7,12 @@ body {
 	transition: all 0.2s ease-in-out 0s;
 }
 
-.ui.footer.grid {
+.ui.footer.segment {
+	border-radius: 0em;
+	padding: 4em 0em 5em;
+	padding-left: 8%;
+	padding-right: 8%;
+	margin-top: 1%;
 	-webkit-transition: all 0.2s ease-in-out 0s;
 	transition: all 0.2s ease-in-out 0s;
 }
@@ -129,12 +134,7 @@ body {
 	display: inline;
 }
 
-.ui.footer.grid {
-	padding-left: 8%;
-	padding-right: 8%;
-}
-
-.ui.footer.grid.fixed {
+.ui.footer.segment.fixed {
 	position: fixed;
 	z-index: 101;
 	margin: 0;
