@@ -135,6 +135,8 @@ body {
 }
 
 .ui.footer.segment.fixed {
+	padding-top: 1em;
+	padding-bottom: 0em;
 	position: fixed;
 	z-index: 101;
 	margin: 0;
@@ -144,4 +146,6 @@ body {
 	background-color: #FFFFFF;
 	border-bottom: 1px solid #DDDDDD;
 	box-shadow: 0px -2px 3px rgba(0, 0, 0, 0.04);
+	position: fixed;
+	position: fixed
 }
