@@ -72,7 +72,11 @@ public class ValidateAspectHandle {
 			} else {
 				arg = getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
 			}
-
+			
+			if (validateField.defaultInt() != -1 || !"".equals(validateField.defaultString())) {
+				arg = validateField.defaultInt() == -1 ? validateField.defaultString() : validateField.defaultInt();
+			}
+			
 			if (validateField.NotNull()) {
 				if (arg == null) {
 					return false;

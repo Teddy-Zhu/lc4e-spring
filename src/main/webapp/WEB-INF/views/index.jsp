@@ -12,7 +12,6 @@
 <link rel="stylesheet" type="text/css" class="ui" href="plugins/semantic-ui/semantic.min.css">
 <link rel="stylesheet" type="text/css" class="ui" href="plugins/lc4e/jquery-extend.css">
 <link rel="stylesheet" type="text/css" class="ui" href="css/view/index.css">
-
 </head>
 <body>
 	<div id="menu" class="ui secondary menu large page grid">

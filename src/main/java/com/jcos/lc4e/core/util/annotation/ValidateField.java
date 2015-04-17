@@ -13,6 +13,10 @@ public @interface ValidateField {
 	 */
 	public int index() default -1;
 
+	public int defaultInt() default -1;
+
+	public String defaultString() default "";
+
 	/**
 	 * validate field in parameter[index]
 	 */
