@@ -149,3 +149,11 @@ body {
 	position: fixed;
 	position: fixed
 }
+
+#menu.vertical .ui.dropdown .menu .item .dropdown.icon:before {
+	content: '\f0d7';
+}
+
+#menu.vertical .dropdown.item>.dropdown.icon:before {
+	content: '\f0d7';
+}

@@ -39,7 +39,8 @@ $(function() {
 	})
 	$('#menu .ui.dropdown.item').dropdown({
 		action : "nothing",
-		transition : "horizontal flip",
+		transition : "scale",
+		duration : '800',
 		on : 'click'
 	});
 
@@ -58,7 +59,7 @@ $(function() {
 			if (data.width < 600) {
 				$('#menu').addClass('fluid vertical');
 			} else {
-				$('#menu').removeClass('fluid vertical').find('.column>.menu').show();
+				$('#menu.fluid.vertical').removeClass('fluid vertical').find('.column>.menu').show();
 			}
 		}
 	});
@@ -83,15 +84,14 @@ $(function() {
 		$('#config-tool').toggleClass('closed');
 	});
 
-	$('body').visibility({
+	$('html').visibility({
 		offset : -1,
 		once : false,
-		continuous : false,
 		onTopPassed : function() {
 			$('#menu').addClass('fixed').find('.column').addClass('reduce');
 		},
 		onTopPassedReverse : function() {
-			$('#menu').removeClass('fixed').find('.column').removeClass('reduce');
+			$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
 		}
 	});
 

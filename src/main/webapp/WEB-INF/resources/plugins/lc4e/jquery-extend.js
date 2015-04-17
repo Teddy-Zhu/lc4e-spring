@@ -177,11 +177,11 @@
 			showActivity : true,
 			limitValues : true,
 			label : "percent",
-			precision : 1,
+			precision : 0.001,
 			indicating : true,
 			total : false,
 			value : false,
-			autoUpdateSpeed : 300,
+			autoUpdateSpeed : 200,
 			autoUpdate : true,
 			showLoading : true,
 			onChange : function(percent, value, total) {
@@ -207,6 +207,19 @@
 				$progressBar = $that;
 				$that.progress({
 					percent : data
+				});
+				break;
+			}
+			case "end": {
+				$progressBar = $that;
+				$that.progress({
+					percent : '100'
+				}).find('.bar').one('webkitTransitionEnd transitionend mozTransitionEnd oTransitionEnd', function() {
+					if ($progressBar.attr("id") == "lc4eProgressBar") {
+						$('#lc4eProgress').remove();
+					} else {
+						$progressBar.remove();
+					}
 				});
 				break;
 			}
@@ -261,8 +274,9 @@
 				}
 				$progressBar = $('#' + progressId);
 
-				options.onSuccess = function() {
-					options.onComplete();
+				options.onSuccess = function(total) {
+					console.log(total);
+					options.onComplete(total);
 					clearInterval($progressBar.data('interval'));
 					$progressBar.removeData('interval');
 					if ($progressBar.attr("id") == "lc4eProgressBar") {

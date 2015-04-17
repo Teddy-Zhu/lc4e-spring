@@ -27,11 +27,11 @@
 				</a> <a class="item linked"> <i class="user icon"></i> Friends
 				</a>
 				<div class="ui dropdown link item">
-					<i class="font icon"></i><span class="text">Language</span><i class="chevron down icon"></i>
+					<i class="font icon"></i><span class="text">Language</span><i class="dropdown icon"></i>
 					<div class="menu">
 						<a class="item">C/C++</a> <a class="item">Java</a> <a class="item">JavaScript</a>
-						<div class="item">
-							<span class="text">Script</span><i class="chevron right icon hidden-mobile"></i><i class="chevron down icon hidden-pc"></i>
+						<div class="ui link item">
+							<span class="text">Script</span><i class="dropdown icon"></i>
 							<div class="menu">
 								<div class="item">Python</div>
 								<div class="divider"></div>
@@ -67,63 +67,90 @@
 			</div>
 		</div>
 	</div>
-	<div class="ui two column centered grid">
-		<div class="one column row"></div>
-		<div class="one column">
-			<div class="one centered column">
-				<div id="testLogin" class="ui button">testLogin</div>
-				<div id="testToken" class="ui teal basic button">testToken</div>
-				<div id="testLoader" class="ui black button">testLoader</div>
+	<div id="content">
+		<div class="ui two column centered grid">
+			<div class="centered column"></div>
+			<div class="column">
+				<div class="one centered column">
+					<div id="testLogin" class="ui button">testLogin</div>
+					<div id="testToken" class="ui teal basic button">testToken</div>
+					<div id="testLoader" class="ui black button">testLoader</div>
+				</div>
+				<h4 class="ui horizontal header divider">
+					<i class="bar chart icon"></i> Functions
+				</h4>
+				<div class="one centered column">
+					<div id="testModal" class="ui negative button">testModal</div>
+					<div class="ui buttons">
+						<div id="testAttachedProgress" class="ui positive button">testAttachedProgress</div>
+						<div class="or" data-text="OR"></div>
+						<div id="testProgress" class="ui primary button">testProgress</div>
+					</div>
+				</div>
 			</div>
-			<h4 class="ui horizontal header divider">
-				<i class="bar chart icon"></i> Functions
-			</h4>
-			<div class="one centered column">
-				<div id="testModal" class="ui negative button">testModal</div>
-				<div class="ui buttons">
-					<div id="testAttachedProgress" class="ui positive button">testAttachedProgress</div>
-					<div class="or" data-text="OR"></div>
-					<div id="testProgress" class="ui primary button">testProgress</div>
+			<div class="centered column">
+				<div id="idcard" class="ui card">
+					<div class="image">
+						<img src="/images/wireframe/image.png">
+					</div>
+					<div class="content">
+						<a class="header">Project</a>
+						<div class="meta">
+							<span class="date">Started in 2015</span>
+						</div>
+					</div>
+					<div class="extra content">
+						<a> <i class="user icon"></i> 22 Friends
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="centered column">
+				<div id="idcard" class="ui card">
+					<div class="image">
+						<img src="/images/wireframe/image.png">
+					</div>
+					<div class="content">
+						<a class="header">Project</a>
+						<div class="meta">
+							<span class="date">Started in 2015</span>
+						</div>
+					</div>
+					<div class="extra content">
+						<a> <i class="user icon"></i> 22 Friends
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="centered column">
-			<div id="idcard" class="ui card">
-				<div class="image">
-					<img src="/images/wireframe/image.png">
-				</div>
-				<div class="content">
-					<a class="header">Project</a>
-					<div class="meta">
-						<span class="date">Started in 2015</span>
+		<div class="ui inverted black footer vertical segment">
+			<div class="container">
+				<div class="ui stackable inverted divided relaxed grid">
+					<div class="eight wide column">
+						<h3 class="ui inverted header">Light Community</h3>
+						<p>Designed By ZhuXi.Drived by Semantic UI.</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id" value="7ZAF2Q8DBZAQL">
+							<button type="submit" class="ui teal button">Donate Semantic</button>
+						</form>
 					</div>
-				</div>
-				<div class="extra content">
-					<a> <i class="user icon"></i> 22 Friends
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="centered column">
-			<div id="idcard" class="ui card">
-				<div class="image">
-					<img src="/images/wireframe/image.png">
-				</div>
-				<div class="content">
-					<a class="header">Project</a>
-					<div class="meta">
-						<span class="date">Started in 2015</span>
+					<div class="four wide column">
+						<h5 class="ui teal inverted header">Contributers</h5>
+						<div class="ui inverted link list">
+							<a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
+						</div>
 					</div>
-				</div>
-				<div class="extra content">
-					<a> <i class="user icon"></i> 22 Friends
-					</a>
+					<div class="four wide column">
+						<h5 class="ui teal inverted header">LC4E Network</h5>
+						<div class="ui inverted link list">
+							<a class="item" href="http://coding.net">Coding.Net</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div id="config-tool" class="hidden-mobile closed">
+	<div id="config-tool" class="closed">
 		<a id="config-tool-cog"> <i class="large setting loading icon"></i>
 		</a>
 		<div id="config-tool-options" class="ui segment">
@@ -171,34 +198,6 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="ui inverted black footer vertical segment">
-		<div class="container">
-			<div class="ui stackable inverted divided relaxed grid">
-				<div class="eight wide column">
-					<h3 class="ui inverted header">Light Community</h3>
-					<p>Designed By ZhuXi.Drived by Semantic UI.</p>
-					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-						<input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id" value="7ZAF2Q8DBZAQL">
-						<button type="submit" class="ui teal button">Donate Semantic</button>
-					</form>
-				</div>
-				<div class="four wide column">
-					<h5 class="ui teal inverted header">Contributers</h5>
-					<div class="ui inverted link list">
-						<a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
-					</div>
-				</div>
-				<div class="four wide column">
-					<h5 class="ui teal inverted header">LC4E Network</h5>
-					<div class="ui inverted link list">
-						<a class="item" href="http://coding.net">Coding.Net</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<script type="text/javascript" src="plugins/jquery/jquery.js"></script>
 	<script type="text/javascript" src="plugins/semantic-ui/semantic.min.js"></script>
 	<script type="text/javascript" src="plugins/lc4e/jquery-extend.js"></script>
