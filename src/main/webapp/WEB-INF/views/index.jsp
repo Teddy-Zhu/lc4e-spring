@@ -70,8 +70,8 @@
 	<!-- Heard Menu End -->
 	<!-- Content Start -->
 	<div id="content">
-		<div id="mainContent" class="ui grid">
-			<div class="ten wide column">
+		<div id="mainContent" class="ui page  grid">
+			<div id="leftContent" class="ten wide column">
 				<div class="ui divided items">
 					<div class="item">
 						<div class="ui label">AnnounceMent</div>
@@ -181,7 +181,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="six wide column">Test</div>
+			<div id="rightContent" class="six wide column">Test</div>
 		</div>
 
 		<div class="ui inverted black footer vertical segment">
