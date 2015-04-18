@@ -7,8 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="alternate icon" type="image/png" href="images/logo.png">
 <title>Light Community</title>
-<meta name="description" content="Light Community For EveryOne" />
-<meta name="keywords" content="html5, ui, library, framework, javascript" />
 <link rel="stylesheet" type="text/css" class="ui" href="plugins/semantic-ui/semantic.min.css">
 <link rel="stylesheet" type="text/css" class="ui" href="plugins/lc4e/jquery-extend.css">
 <link rel="stylesheet" type="text/css" class="ui" href="css/view/index.css">
@@ -262,9 +260,6 @@
 		</div>
 	</div>
 	<!-- Slider Bar End -->
-	<script type="text/javascript" src="plugins/jquery/jquery.js"></script>
-	<script type="text/javascript" src="plugins/semantic-ui/semantic.min.js"></script>
-	<script type="text/javascript" src="plugins/lc4e/jquery-extend.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
+	<script src="plugins/require/require.js" data-main="js/index"></script>
 </body>
 </html>
