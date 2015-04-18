@@ -53,7 +53,17 @@ $(function() {
 	$('#expendHeader').on('click', function() {
 		$('#menu').toggleClass('expended');
 	})
-	
+
+/*	$('#menu').visibility({
+		onUpdate : function(data) {
+			if (data.width < 600) {
+				$('#menu').addClass('fluid vertical');
+			} else {
+				$('#menu.fluid.vertical').removeClass('fluid vertical').find('.column>.menu').show();
+			}
+		}
+	});
+*/
 	$('#menu .column div:first a').on('click', function() {
 		$('#menu .column>.menu').slideToggle();
 	});
