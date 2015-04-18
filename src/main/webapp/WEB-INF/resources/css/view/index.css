@@ -69,6 +69,13 @@ body {
 	.hidden-mb {
 		display: none !important;
 	}
+	#mainContent.ui.grid {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	#menu>.column>.hidden-pc>.item:before {
+		width: 0;
+	}
 	#menu .dropdown.item .menu {
 		top: 100% !important;
 		left: 0;
