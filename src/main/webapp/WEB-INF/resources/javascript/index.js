@@ -28,16 +28,16 @@ require.config({
 		"se-visibility" : "/plugins/semantic-ui/components/visibility.min",
 	},
 	shim : {
-		'lc4e' : [ 'jquery', 'se-dimmer', 'se-modal','se-progress'],
+		'lc4e' : [ 'jquery', 'semantic' ],
 		'semantic' : [ 'jquery' ],
 		"se-accordion" : [ 'jquery' ],
 		"se-api" : [ 'jquery' ],
 		"se-breadcrumb" : [ 'jquery' ],
 		"se-checkbox" : [ 'jquery' ],
 		"se-dimmer" : [ 'jquery' ],
-		"se-form" :[ 'jquery' ],
+		"se-form" : [ 'jquery' ],
 		"se-dropdown" : [ 'jquery' ],
-		"se-modal" :[ 'jquery' ],
+		"se-modal" : [ 'jquery' ],
 		"se-nag" : [ 'jquery' ],
 		"se-popup" : [ 'jquery' ],
 		"se-progress" : [ 'jquery' ],
@@ -51,11 +51,11 @@ require.config({
 		"se-tab" : [ 'jquery' ],
 		"se-table" : [ 'jquery' ],
 		"se-transition" : [ 'jquery' ],
-		"se-video" :[ 'jquery' ],
+		"se-video" : [ 'jquery' ],
 		"se-visibility" : [ 'jquery' ],
 	}
 });
-require([ 'jquery', 'lc4e' ,'se-search','se-checkbox','se-shape','se-dropdown','se-visibility','se-transition'], function($) {
+require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 	$(function() {
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
