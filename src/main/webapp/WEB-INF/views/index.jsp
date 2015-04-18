@@ -22,7 +22,7 @@
 				</a>
 			</div>
 			<div class="left menu">
-				<img class="logo ui image item hidden-mobile" src="images/logo.png"> <a class="item linked"> <i class="home icon"></i> Home
+				<img class="logo ui image item hidden-mb" src="images/logo.png"> <a class="item linked"> <i class="home icon"></i> Home
 				</a> <a class="item linked"> <i class="mail icon"></i> Messages
 				</a> <a class="item linked"> <i class="user icon"></i> Friends
 				</a>
@@ -59,7 +59,7 @@
 						<i class="user icon"></i>
 					</div>
 				</div>
-				<div id="expendHeader" class="ui item hidden-mobile">
+				<div id="expendHeader" class="ui item hidden-mb">
 					<div class="ui linked label">
 						<i class="maximize icon"></i>
 					</div>
@@ -85,7 +85,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">User</div>
+							<div class="ui teal ribbon label hidden-mb">User</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
@@ -101,7 +101,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">Admin</div>
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
@@ -117,7 +117,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">Admin</div>
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
@@ -133,7 +133,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">Admin</div>
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
@@ -149,7 +149,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">Admin</div>
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
@@ -165,7 +165,7 @@
 					</div>
 					<div class="item">
 						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label">Admin</div>
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
 							<img src="/images/wireframe/image.png">
 						</div>
 						<div class="content">
