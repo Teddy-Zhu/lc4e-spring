@@ -102,4 +102,10 @@ $(function() {
 			$('.ui.footer').toggleClass('fixed');
 		}
 	})
+
+	$('#announce').shape();
+	$('#announce').data('interval', setInterval(function() {
+		$('#announce').shape('flip down');
+	}, 3000));
+
 })

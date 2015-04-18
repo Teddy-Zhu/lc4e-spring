@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" class="ui" href="css/view/index.css">
 </head>
 <body>
+	<!-- Header Menu Start -->
 	<div id="menu" class="ui secondary menu large page grid">
 		<div class="column">
 			<div class="hidden-pc">
@@ -66,62 +67,123 @@
 			</div>
 		</div>
 	</div>
+	<!-- Heard Menu End -->
+	<!-- Content Start -->
 	<div id="content">
-		<div class="ui two column centered grid">
-			<div class="centered column"></div>
-			<div class="column">
-				<div class="one centered column">
-					<div id="testLogin" class="ui button">testLogin</div>
-					<div id="testToken" class="ui teal basic button">testToken</div>
-					<div id="testLoader" class="ui black button">testLoader</div>
-				</div>
-				<h4 class="ui horizontal header divider">
-					<i class="bar chart icon"></i> Functions
-				</h4>
-				<div class="one centered column">
-					<div id="testModal" class="ui negative button">testModal</div>
-					<div class="ui buttons">
-						<div id="testAttachedProgress" class="ui positive button">testAttachedProgress</div>
-						<div class="or" data-text="OR"></div>
-						<div id="testProgress" class="ui primary button">testProgress</div>
-					</div>
-				</div>
-			</div>
-			<div class="centered column">
-				<div id="idcard" class="ui card">
-					<div class="image">
-						<img src="/images/wireframe/image.png">
-					</div>
-					<div class="content">
-						<a class="header">Project</a>
-						<div class="meta">
-							<span class="date">Started in 2015</span>
+		<div id="mainContent" class="ui grid">
+			<div class="ten wide column">
+				<div class="ui divided items">
+					<div class="item">
+						<div class="ui label">AnnounceMent</div>
+						<div id="announce" class="ui text shape">
+							<div class="sides">
+								<div class="active ui header side">Did you know? This side starts visible.</div>
+								<div class="ui header side">Help, its another side!</div>
+								<div class="ui header side">This is the last side</div>
+							</div>
 						</div>
 					</div>
-					<div class="extra content">
-						<a> <i class="user icon"></i> 22 Friends
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="centered column">
-				<div id="idcard" class="ui card">
-					<div class="image">
-						<img src="/images/wireframe/image.png">
-					</div>
-					<div class="content">
-						<a class="header">Project</a>
-						<div class="meta">
-							<span class="date">Started in 2015</span>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">User</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">The friction between your thoughts and your code</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
 						</div>
 					</div>
-					<div class="extra content">
-						<a> <i class="user icon"></i> 22 Friends
-						</a>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">SEND AND RECEIVE POST REQUESTS WITH PHP</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">How to build SkyEye staticly</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">Manipulating Linux command line output</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">Mastering Linux vi editor</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="six wide column">Test</div>
 		</div>
+
 		<div class="ui inverted black footer vertical segment">
 			<div class="container">
 				<div class="ui stackable inverted divided relaxed grid">
@@ -149,6 +211,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- Content  End -->
+	<!-- Slider Bar Start -->
 	<div id="config-tool" class="closed">
 		<a id="config-tool-cog"> <i class="large setting loading icon"></i>
 		</a>
@@ -197,6 +261,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Slider Bar End -->
 	<script type="text/javascript" src="plugins/jquery/jquery.js"></script>
 	<script type="text/javascript" src="plugins/semantic-ui/semantic.min.js"></script>
 	<script type="text/javascript" src="plugins/lc4e/jquery-extend.js"></script>

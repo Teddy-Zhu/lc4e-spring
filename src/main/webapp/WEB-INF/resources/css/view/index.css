@@ -104,7 +104,7 @@ body {
 	background-clip: padding-box;
 	box-shadow: -3px 3px 3px -2px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
-	left: -50px;
+	left: -3rem;
 	padding: 10px;
 	position: absolute;
 	text-align: center;
@@ -156,4 +156,46 @@ body {
 
 #menu.vertical .dropdown.item>.dropdown.icon:before {
 	content: '\f0d7';
+}
+
+/*for article*/
+#mainContent.ui.grid {
+	padding-left: 12%;
+	padding-right: 12%;
+}
+
+@media only screen and (max-width: 767px) {
+	#mainContent.ui.grid .ten.wide.column .ui.divided.items>.item>.image {
+		width: 70px !important;
+		max-width: 30% !important;
+		margin-left: inherit;
+	}
+}
+
+#mainContent.ui.grid .ten.wide.column .ui.divided.items>.item>.image {
+	/*top: .7rem;*/
+}
+
+#mainContent.ui.grid .ui.divided.items>.item {
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+}
+
+#mainContent.ui.grid .ui.divided.items>.item>.content {
+	padding-top: 0.5em;
+}
+
+#mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label {
+	top: .3rem;
+	padding: .2rem calc(-.5rem + 1.2em) .2rem calc(-.5rem + 1.2em);
+	left: calc(.37rem - 1.2em);
+}
+
+#mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label:after {
+	border-width: 0 0.8em 0.8em 0;
+}
+
+#announce {
+	margin-left: .8rem;
+	top: .2rem;
 }
