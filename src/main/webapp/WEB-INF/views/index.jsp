@@ -72,7 +72,7 @@
 			<div id="leftContent" class="ten wide column">
 				<div class="ui divided items">
 					<div class="item">
-						<div class="ui label">AnnounceMent</div>
+						<div class="ui label"><i class="announcement icon"></i><div class="hidden-mb">AnnounceMent</div></div>
 						<div id="announce" class="ui text shape">
 							<div class="sides">
 								<div class="active ui header side">Did you know? This side starts visible.</div>
