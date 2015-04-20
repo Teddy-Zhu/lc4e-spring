@@ -72,7 +72,10 @@
 			<div id="leftContent" class="ten wide column">
 				<div class="ui divided items">
 					<div class="item">
-						<div class="ui label"><i class="announcement icon"></i><div class="hidden-mb">AnnounceMent</div></div>
+						<div class="ui label">
+							<i class="announcement icon"></i>
+							<div class="hidden-mb">AnnounceMent</div>
+						</div>
 						<div id="announce" class="ui text shape">
 							<div class="sides">
 								<div class="active ui header side">Did you know? This side starts visible.</div>
@@ -177,36 +180,57 @@
 							</div>
 						</div>
 					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="ui fluid tiny image">
+							<div class="ui teal ribbon label hidden-mb">Admin</div>
+							<img src="/images/wireframe/image.png">
+						</div>
+						<div class="content">
+							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
+							<div class="extra">
+								<div class="ui label">IMAX</div>
+								<div class="ui label">
+									<i class="globe icon"></i> Additional Languages
+								</div>
+								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div id="rightContent" class="six wide column">Test</div>
-		</div>
-
-		<div class="ui inverted black footer vertical segment">
-			<div class="container">
-				<div class="ui stackable inverted divided relaxed grid">
-					<div class="eight wide column">
-						<h3 class="ui inverted header">Light Community</h3>
-						<p>Designed By ZhuXi.Drived by Semantic UI.</p>
-						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-							<input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id" value="7ZAF2Q8DBZAQL">
-							<button type="submit" class="ui teal button">Donate Semantic</button>
-						</form>
-					</div>
-					<div class="four wide column">
-						<h5 class="ui teal inverted header">Contributers</h5>
-						<div class="ui inverted link list">
-							<a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
-						</div>
-					</div>
-					<div class="four wide column">
-						<h5 class="ui teal inverted header">LC4E Network</h5>
-						<div class="ui inverted link list">
-							<a class="item" href="http://coding.net">Coding.Net</a>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!-- Content  End -->
@@ -260,6 +284,32 @@
 		</div>
 	</div>
 	<!-- Slider Bar End -->
+	<div class="ui inverted black footer vertical segment">
+		<div class="container">
+			<div class="ui stackable inverted divided relaxed grid">
+				<div class="eight wide column">
+					<h3 class="ui inverted header">Light Community</h3>
+					<p>Designed By ZhuXi.Drived by Semantic UI.</p>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id" value="7ZAF2Q8DBZAQL">
+						<button type="submit" class="ui teal button">Donate Semantic</button>
+					</form>
+				</div>
+				<div class="four wide column">
+					<h5 class="ui teal inverted header">Contributers</h5>
+					<div class="ui inverted link list">
+						<a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
+					</div>
+				</div>
+				<div class="four wide column">
+					<h5 class="ui teal inverted header">LC4E Network</h5>
+					<div class="ui inverted link list">
+						<a class="item" href="http://coding.net">Coding.Net</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script src="plugins/require/require.js" data-main="js/index"></script>
 </body>
 </html>

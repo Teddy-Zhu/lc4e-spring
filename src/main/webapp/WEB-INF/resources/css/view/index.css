@@ -9,7 +9,7 @@ body {
 
 .ui.footer.segment {
 	border-radius: 0em;
-	padding: 4em 0em 5em;
+	padding: 4em 0em 2em;
 	padding-left: 8%;
 	padding-right: 8%;
 	margin-top: 1%;
@@ -251,9 +251,9 @@ body {
 }
 
 #mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label {
-	top: .3rem;
-	padding: .2rem calc(-.5rem + 1.2em) .2rem calc(-.5rem + 1.2em);
-	left: calc(.37rem - 1.2em);
+	top: .3em;
+	padding: .2em calc(-.5em + 1.2em) .2em calc(-.5em + 1.2em);
+	left: calc(.49em - 1.2em);
 }
 
 #mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label:after {
