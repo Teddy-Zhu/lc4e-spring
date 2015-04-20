@@ -13,9 +13,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jcos.lc4e.core.util.annotation.AuthLogin;
 import com.jcos.lc4e.core.util.annotation.AuthToken;
 import com.jcos.lc4e.core.util.model.LoginSession;
+import com.jcos.lc4e.core.util.model.Message;
 
 public class AuthFilter implements HandlerInterceptor {
 	/**
@@ -43,22 +45,16 @@ public class AuthFilter implements HandlerInterceptor {
 			if (login != null) {
 				LoginSession loginSession = (LoginSession) request.getSession().getAttribute("loginSession");
 				if (loginSession == null || loginSession.getUser() == null) {
-					// for request from ajax
-					response.setStatus(2000); // web errorCode in config
-					if (request.getHeader("x-requested-with") != null && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
-						return false;
-					} else {
-						String str = "<script language='javascript'>if (typeof jQuery == 'undefined') { window.location.href = 'ErrorPage/404'; }else{$.logout();}</script>";
-						try {
-							PrintWriter writer = response.getWriter();
-							writer.write(str);
-							writer.flush();
-							writer.close();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						return false;
+					Message msg = new Message("Not Login");
+					try {
+						PrintWriter writer = response.getWriter();
+						writer.write(JSONObject.toJSONString(msg));
+						writer.flush();
+						writer.close();
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
+					return false;
 				}
 			}
 			// auth token for csrf simply

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.jcos.lc4e.core.util.annotation.AuthLogin;
+
 @Controller
 public class ViewController {
 
@@ -17,6 +19,7 @@ public class ViewController {
 	}
 
 	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)
+	@AuthLogin
 	public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "SignUp";
 	}
