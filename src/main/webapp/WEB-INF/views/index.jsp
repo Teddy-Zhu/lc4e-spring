@@ -70,7 +70,7 @@
 	<div id="content">
 		<div id="mainContent" class="ui page  grid">
 			<div id="leftContent" class="ten wide column">
-				<div class="ui divided items">
+				<div id="announcement">
 					<div class="item">
 						<div class="ui label">
 							<i class="announcement icon"></i>
@@ -84,153 +84,67 @@
 							</div>
 						</div>
 					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">User</div>
-							<img src="/images/wireframe/image.png">
-						</div>
-						<div class="content">
-							<a class="header">The friction between your thoughts and your code</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
-						</div>
+				</div>
+				<div id="articlelist" class="ui segment">
+					<div class="ui divided items"></div>
+				</div>
+				<div id="articlebottons" class="ui segment">
+					<div class="ui left floated labeled icon button">
+						<i class="angle double left icon"></i> Preview
 					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
-						</div>
-						<div class="content">
-							<a class="header">SEND AND RECEIVE POST REQUESTS WITH PHP</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
-						</div>
+					<div class="ui right floated right labeled icon button">
+						<i class="angle double right icon"></i> Next
 					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
+
+				</div>
+
+			</div>
+			<div id="rightContent" class="six wide column">
+				<div id="todayHot" class="ui segment">
+					<h4 class="ui horizontal header divider">
+						<i class="bar chart icon"></i> Today HotSpot
+					</h4>
+					<div class="ui divided items">
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-						<div class="content">
-							<a class="header">How to build SkyEye staticly</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-						<div class="content">
-							<a class="header">Manipulating Linux command line output</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-						<div class="content">
-							<a class="header">Mastering Linux vi editor</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-						<div class="content">
-							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
-						</div>
-						<div class="content">
-							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
-						</div>
-						<div class="content">
-							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
-						</div>
-					</div>
-					<div class="item">
-						<div class="ui fluid tiny image">
-							<div class="ui teal ribbon label hidden-mb">Admin</div>
-							<img src="/images/wireframe/image.png">
-						</div>
-						<div class="content">
-							<a class="header">LIST OF FAVORITE OS X WEB DEVELOPER APPS</a>
-							<div class="extra">
-								<div class="ui label">IMAX</div>
-								<div class="ui label">
-									<i class="globe icon"></i> Additional Languages
-								</div>
-								<a class="ui red image right floated label"><i class="ban icon"></i>block </a>
-							</div>
+						<div class="item">
+							<div class="ui label">Java</div>
+							<div class="content">Did you know? This side starts visible.</div>
 						</div>
 					</div>
 				</div>
+				<div class="ui vertical rectangle test ad" data-text="Advertisement"></div>
 			</div>
-			<div id="rightContent" class="six wide column">Test</div>
 		</div>
 	</div>
 	<!-- Content  End -->

@@ -23,4 +23,9 @@ public class ViewController {
 	public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "SignUp";
 	}
+	
+	@RequestMapping(value = "/Articles", method = RequestMethod.GET)
+	public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "articletest";
+	}
 }

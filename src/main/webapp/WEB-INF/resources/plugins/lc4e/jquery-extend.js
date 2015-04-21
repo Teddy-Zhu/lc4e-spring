@@ -7,6 +7,51 @@
  */
 
 (function($) {
+	$.fn.Lc4eAnimate = function(options) {
+		var defaults = {
+			speed : "normal",
+			animation : "slideInDown",
+			show : true,
+			interval : 100,
+			onComplete : function($thedom) {
+			},
+			onFinish : function($that) {
+
+			},
+			onBefore : function($thedom) {
+			}
+		}, $that = $(this), animate = function($thedom, complete) {
+			var animateClass = ((options.speed == 'normal') ? 'animated' : ('animated-' + options.speed)) + ' ' + options.animation;
+			options.onBefore();
+			$thedom.show();
+			$thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+				$thedom.removeClass(animateClass)
+				options.onComplete($thedom);
+				if (options.show) {
+					$thedom.show();
+				} else {
+					$thedom.hide();
+				}
+				if (complete) {
+					options.onFinish($that);
+				}
+			});
+		};
+		function animateIndex(i, complete) {
+			return function() {
+				animate($($that[i]), complete);
+			}
+		}
+		options = $.extend(defaults, options);
+		for (var i = 0, len = $that.length; i < len; i++) {
+			if (i == $that.length - 1) {
+				setTimeout(animateIndex(i, true), options.interval * i);
+			} else {
+				setTimeout(animateIndex(i), options.interval * i);
+			}
+		}
+		return $that;
+	}
 	$.fn.Lc4eDimmer = function(options, data) {
 		var defaults = {
 			type : 'loader', // loader or dimmer
@@ -47,6 +92,10 @@
 			}
 			case "show": {
 				$that.find('.ui.dimmer').addClass('active')
+				break;
+			}
+			case "remove": {
+				$that.find('.ui.dimmer').remove();
 				break;
 			}
 			default: {
@@ -200,107 +249,102 @@
 			location : "bottom"
 		}, standardtemplate = '<div id="lc4eProgress"><div class="ui mini progress {Indicating} {Color}" id="lc4eProgressBar"><div class="bar"></div></div>{Loading}</div>', attachedBar = '<div {Id} class="ui attached progress {Color} {Indicating} {Location}"><div class="bar"></div></div>', $operate;
 
-		this.each(function() {
-			var options, $that = $(this), html = "", template = "", progressId = "", $progressBar;
-			switch (option) {
-			case "setPercent": {
-				$progressBar = $that;
-				$that.progress({
-					percent : data
-				});
-				break;
+		var options, $that = $(this), html = "", template = "", progressId = "", $progressBar;
+		switch (option) {
+		case "setPercent": {
+			$progressBar = $that;
+			$that.progress({
+				percent : data
+			});
+			break;
+		}
+		case "end": {
+			$progressBar = $that;
+			$that.progress({
+				percent : '100'
+			}).find('.bar').one('webkitTransitionEnd transitionend mozTransitionEnd oTransitionEnd', function() {
+				if ($progressBar.attr("id") == "lc4eProgressBar") {
+					$('#lc4eProgress').remove();
+				} else {
+					$progressBar.remove();
+				}
+			});
+			break;
+		}
+		case "hide": {
+			$progressBar = undefined;
+			$that.remove();
+			break;
+		}
+		case "increment": {
+			$progressBar = $that;
+			$that.progress("increment");
+			break;
+		}
+		case "autoincrement": {
+			$progressBar = $that;
+			var progressInter = setInterval(function() {
+				$progressBar.progress('increment');
+			}, options.autoUpdateSpeed);
+			$that.data('interval', progressInter);
+			break;
+		}
+		case "stop": {
+			$progressBar = $that;
+			clearInterval($that.data('interval'));
+			$that.removeData('interval');
+			break;
+		}
+		default: {
+			options = $.extend(defaults, option);
+			if (options.type == "attached") {
+				options = $.extend(attachDefaults, options);
+				if ($that.find('.ui.attached.progress').data('interval') != undefined) {
+					clearInterval($that.find('.ui.attached.progress').data('interval'));
+				}
+				$that.find('.ui.attached.progress').remove();
+				progressId = 'AttachedBar-' + $.Lc4eRandom();
+				template = attachedBar.replace(/{Location}/, options.location).replace(/{Id}/, 'id="' + progressId + '"');
+			} else {
+				template = standardtemplate.replace(/{Loading}/, options.showLoading ? '<div class="spinner"><div class="ui mini active loader"></div></div>' : "");
+				progressId = "lc4eProgressBar";
+				if ($('#' + progressId).data('interval') != undefined) {
+					clearInterval($('#' + progressId).data('interval'));
+				}
+				$('#lc4eProgress').remove();
 			}
-			case "end": {
-				$progressBar = $that;
-				$that.progress({
-					percent : '100'
-				}).find('.bar').one('webkitTransitionEnd transitionend mozTransitionEnd oTransitionEnd', function() {
-					if ($progressBar.attr("id") == "lc4eProgressBar") {
-						$('#lc4eProgress').remove();
-					} else {
-						$progressBar.remove();
-					}
-				});
-				break;
+
+			html = template.replace(/{Color}/, options.indicating ? "" : options.color).replace(/{Indicating}/, options.indicating ? "indicating" : "");
+			if (options.type == "attached" && options.location == "top") {
+				$that.prepend(html);
+			} else {
+				$that.append(html);
 			}
-			case "hide": {
-				$progressBar = undefined;
-				$that.remove();
-				break;
+			$progressBar = $('#' + progressId);
+
+			options.onSuccess = function(total) {
+				options.onComplete(total);
+				clearInterval($progressBar.data('interval'));
+				$progressBar.removeData('interval');
+				if ($progressBar.attr("id") == "lc4eProgressBar") {
+					$('#lc4eProgress').remove();
+				} else {
+					$progressBar.remove();
+				}
 			}
-			case "increment": {
-				$progressBar = $that;
-				$that.progress("increment");
-				break;
-			}
-			case "autoincrement": {
-				$progressBar = $that;
+			$progressBar.progress(options);
+			clearInterval($progressBar.data('interval'));
+			if (options.autoUpdate) {
 				var progressInter = setInterval(function() {
 					$progressBar.progress('increment');
 				}, options.autoUpdateSpeed);
-				$that.data('interval', progressInter);
-				break;
+				$progressBar.data('interval', progressInter);
 			}
-			case "stop": {
-				$progressBar = $that;
-				clearInterval($that.data('interval'));
-				$that.removeData('interval');
-				break;
-			}
-			default: {
-				options = $.extend(defaults, option);
-				if (options.type == "attached") {
-					options = $.extend(attachDefaults, options);
-					if ($that.find('.ui.attached.progress').data('interval') != undefined) {
-						clearInterval($that.find('.ui.attached.progress').data('interval'));
-					}
-					$that.find('.ui.attached.progress').remove();
-					progressId = 'AttachedBar-' + $.Lc4eRandom();
-					template = attachedBar.replace(/{Location}/, options.location).replace(/{Id}/, 'id="' + progressId + '"');
-				} else {
-					template = standardtemplate.replace(/{Loading}/, options.showLoading ? '<div class="spinner"><div class="ui mini active loader"></div></div>' : "");
-					progressId = "lc4eProgressBar";
-					if ($('#' + progressId).data('interval') != undefined) {
-						clearInterval($('#' + progressId).data('interval'));
-					}
-					$('#lc4eProgress').remove();
-				}
 
-				html = template.replace(/{Color}/, options.indicating ? "" : options.color).replace(/{Indicating}/, options.indicating ? "indicating" : "");
-				if (options.type == "attached" && options.location == "top") {
-					$that.prepend(html);
-				} else {
-					$that.append(html);
-				}
-				$progressBar = $('#' + progressId);
-
-				options.onSuccess = function(total) {
-					console.log(total);
-					options.onComplete(total);
-					clearInterval($progressBar.data('interval'));
-					$progressBar.removeData('interval');
-					if ($progressBar.attr("id") == "lc4eProgressBar") {
-						$('#lc4eProgress').remove();
-					} else {
-						$progressBar.remove();
-					}
-				}
-				$progressBar.progress(options);
-				clearInterval($progressBar.data('interval'));
-				if (options.autoUpdate) {
-					var progressInter = setInterval(function() {
-						$progressBar.progress('increment');
-					}, options.autoUpdateSpeed);
-					$progressBar.data('interval', progressInter);
-				}
-
-				break;
-			}
-			}
-			$operate = $progressBar;
-			return false;
-		});
-		return $operate;
+			break;
+		}
+		}
+		return $progressBar;
 	}
 	$.extend({
 		Lc4eRandom : function() {

@@ -57,6 +57,7 @@ require.config({
 });
 require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 	$(function() {
+
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
 			transition : "scale",
@@ -73,13 +74,25 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 		$('#expendHeader').on('click', function() {
 			$('#menu').toggleClass('expended');
 		})
-
-		/*
-		 * $('#menu').visibility({ onUpdate : function(data) { if (data.width <
-		 * 600) { $('#menu').addClass('fluid vertical'); } else {
-		 * $('#menu.fluid.vertical').removeClass('fluid
-		 * vertical').find('.column>.menu').show(); } } });
-		 */
+		var $progress = $('#articlelist .ui.divided.items').Lc4eProgress({
+			type : "attached",
+			location : 'top'
+		});
+		$.get('Articles').done(function(data) {
+			$('#articlelist>.ui.divided.items').append(data);
+			$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
+				animation : 'fadeInUpArt',
+				speed : 'fast',
+				interval : 100,
+				onComplete : function($that) {
+					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
+					$that.find('.ui.fluid.image img').popup();
+				},
+				onFinish : function() {
+					$progress.Lc4eProgress('end');
+				}
+			})
+		})
 		$('#menu .column div:first a').on('click', function() {
 			$('#menu .column>.menu').slideToggle();
 		});
@@ -103,6 +116,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 		$('html').visibility({
 			offset : -1,
 			once : false,
+			continuous : false,
 			onTopPassed : function() {
 				$('#menu').addClass('fixed').find('.column').addClass('reduce');
 			},
@@ -115,6 +129,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 
 		$('#fixFooter').checkbox({
 			onChange : function(e) {
+				$('#content').toggleClass('footerFixed');
 				$('.ui.footer').toggleClass('fixed');
 			}
 		})

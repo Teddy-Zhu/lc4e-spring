@@ -40,8 +40,20 @@ body {
 	transition: all 0.2s ease-in-out 0s;
 }
 
-#leftContent div:first-child .item:first-child .ui.label .hidden-mb {
+#announcement .item:first-child .ui.label .hidden-mb {
 	display: inline-block;
+}
+
+#articlelist {
+	margin-top: .5em;
+}
+
+#articlelist .ui.divided.items {
+	min-height: 700px;
+}
+
+#articlelist .ui.divided.items .item>.ui.image {
+	width: 5rem;
 }
 
 #menu .column.reduce {
@@ -218,46 +230,99 @@ body {
 
 /*for article*/
 #mainContent.ui.grid {
-	padding-left: 12%;
-	padding-right: 12%;
+	padding-left: 8%;
+	padding-right: 8%;
 }
 
 @media only screen and (max-width: 767px) {
-	#mainContent.ui.grid #leftContent .ui.divided.items>.item>.image {
+	#mainContent.ui.grid #articlelist .ui.divided.items>.item>.image {
 		width: 70px !important;
 		max-width: 30% !important;
 		margin-left: inherit;
 	}
-	#mainContent #leftContent.ten.wide.column {
+	#mainContent #leftContent {
 		width: 100% !important;
 	}
-	#mainContent #leftContent.six.wide.column {
+	#mainContent #rightContent {
 		width: 100% !important;
 	}
 }
 
-#mainContent.ui.grid #leftContent .ui.divided.items>.item>.image {
-	/*top: .7rem;*/
-	
+/*common label*/
+.ui.transparent.label {
+	background: transparent;
 }
 
-#mainContent.ui.grid .ui.divided.items>.item {
+#articlelist .ui.divided.items>.item {
 	padding-bottom: 0.5em;
 	padding-top: 0.5em;
 }
 
-#mainContent.ui.grid .ui.divided.items>.item>.content {
+#articlelist .ui.divided.items>.item>.content {
 	padding-top: 0.5em;
 }
 
-#mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label {
+#articlelist .ui.divided.items>.item img {
+	border-radius: .25rem;
+}
+
+#articlelist .ui.divided.items>.item>.content>.header i.icon {
+	margin: 0 0 0 0;
+}
+
+#articlelist .ui.divided.items>.item>.content>.extra>.ui.label .icon {
+	margin: 0 .1em 0 0;
+}
+
+#articlelist {
+	/*	box-shadow: none;
+	background-color: transparent;*/
+	
+}
+
+#articlelist .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label {
 	top: .3em;
-	padding: .2em calc(-.5em + 1.2em) .2em calc(-.5em + 1.2em);
+	padding: .2em .3em .2em .3em;
 	left: calc(.49em - 1.2em);
 }
 
-#mainContent.ui.grid .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label:after {
+#articlelist .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label:after {
 	border-width: 0 0.8em 0.8em 0;
+}
+
+#articlelist .ui.divided.items>.item>.content>.extra>.ui.label {
+	padding: .2em .25em;
+	margin: .55rem .2rem 0 0;
+}
+
+#articlelist .ui.divided.items>.item>.content>.extra>.ui.dropdown.button {
+	padding: .2rem .2em .4em .2em;
+	margin-top: .5em;
+	margin-bottom: -1em;
+}
+
+#rightContent>.ui.segment>.ui.divided.items>.item>.ui.label {
+	padding: .1em .2em;
+}
+
+#rightContent>.ui.segment>.ui.divided.items>.item>.content {
+	display: inline-block;
+}
+
+#rightContent>.ui.ad {
+	width: 100%
+}
+
+#rightContent>.ui.segment>.ui.divided.items>.item {
+	padding: .5em 0;
+}
+
+#rightContent>.ui.segment>.ui.divided.items>.item>.content:after {
+	display: none;
+}
+
+#content.footerFixed {
+	margin-bottom: 130px;
 }
 
 #announce {
