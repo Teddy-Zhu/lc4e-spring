@@ -95,17 +95,18 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			$('#config-tool').toggleClass('closed');
 		});
 
-		$('html').waypoint({
-			element : $('#todayHot')[0],
-			handler : function(direction) {
-				if (direction == "up") {
-					$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
-				} else {
-					$('#menu').addClass('fixed').find('.column').addClass('reduce');
-				}
+		$('html').visibility({
+			offset : -1,
+			once : false,
+			continuous : false,
+			onTopPassed : function() {
+				$('#menu').addClass('fixed').find('.column').addClass('reduce');
 			},
-			offset : -1
-		})
+			onTopPassedReverse : function() {
+				$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
+			}
+		});
+
 		$('#config-tool-options .ui.checkbox').checkbox();
 
 		$('#fixFooter').checkbox({
