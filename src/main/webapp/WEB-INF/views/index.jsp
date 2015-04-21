@@ -104,44 +104,7 @@
 					<h4 class="ui horizontal header divider">
 						<i class="bar chart icon"></i> Today HotSpot
 					</h4>
-					<div class="ui divided items">
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-						<div class="item">
-							<div class="ui label">Java</div>
-							<div class="content">Did you know? This side starts visible.</div>
-						</div>
-					</div>
+					<div class="ui divided items"></div>
 				</div>
 				<div class="ui vertical rectangle test ad" data-text="Advertisement"></div>
 			</div>

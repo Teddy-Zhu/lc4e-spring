@@ -74,25 +74,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 		$('#expendHeader').on('click', function() {
 			$('#menu').toggleClass('expended');
 		})
-		var $progress = $('#articlelist .ui.divided.items').Lc4eProgress({
-			type : "attached",
-			location : 'top'
-		});
-		$.get('Articles').done(function(data) {
-			$('#articlelist>.ui.divided.items').append(data);
-			$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
-				animation : 'fadeInUpArt',
-				speed : 'fast',
-				interval : 100,
-				onComplete : function($that) {
-					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
-					$that.find('.ui.fluid.image img').popup();
-				},
-				onFinish : function() {
-					$progress.Lc4eProgress('end');
-				}
-			})
-		})
+
 		$('#menu .column div:first a').on('click', function() {
 			$('#menu .column>.menu').slideToggle();
 		});
@@ -139,5 +121,33 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			$('#announce').shape('flip down');
 		}, 3000));
 
+		var $progress = $('#articlelist .ui.divided.items').Lc4eProgress({
+			type : "attached",
+			location : 'top'
+		});
+		$.get('Articles').done(function(data) {
+			$('#articlelist>.ui.divided.items').append(data);
+			$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
+				animation : 'fadeInUpArt',
+				speed : 'fast',
+				interval : 100,
+				onComplete : function($that) {
+					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
+					$that.find('.ui.fluid.image img').popup();
+				},
+				onFinish : function() {
+					$progress.Lc4eProgress('end');
+				}
+			})
+		})
+
+		$.get('TopHots').done(function(data) {
+			$('#todayHot>.ui.divided.items').append(data);
+			$('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
+				animation : 'fadeInRightArt',
+				speed : 'normal',
+				interval : 50,
+			})
+		})
 	})
 });

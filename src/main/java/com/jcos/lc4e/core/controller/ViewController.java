@@ -28,4 +28,9 @@ public class ViewController {
 	public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "articletest";
 	}
+	
+	@RequestMapping(value = "/TopHots", method = RequestMethod.GET)
+	public String tophostsTest(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "topHotTest";
+	}
 }

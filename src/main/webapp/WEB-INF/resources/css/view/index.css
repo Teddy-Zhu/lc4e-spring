@@ -56,6 +56,10 @@ body {
 	width: 5rem;
 }
 
+#todayHot {
+	min-height: 300px;
+}
+
 #menu .column.reduce {
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;

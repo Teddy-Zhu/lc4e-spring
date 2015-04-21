@@ -1220,6 +1220,39 @@
   animation-name: fadeInLeft;
 }
 
+@-webkit-keyframes fadeInLeftArt {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-10%, 0, 0);
+    transform: translate3d(-10%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInLeftArt {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-10%, 0, 0);
+    transform: translate3d(-10%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInLeftArt {
+  -webkit-animation-name: fadeInLeftArt;
+  animation-name: fadeInLeftArt;
+}
+
 @-webkit-keyframes fadeInLeftBig {
   0% {
     opacity: 0;
@@ -1284,6 +1317,39 @@
 .fadeInRight {
   -webkit-animation-name: fadeInRight;
   animation-name: fadeInRight;
+}
+
+@-webkit-keyframes fadeInRightArt {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(10%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRightArt {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(10%, 0, 0);
+    transform: translate3d(10%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInRightArt {
+  -webkit-animation-name: fadeInRightArt;
+  animation-name: fadeInRightArt;
 }
 
 @-webkit-keyframes fadeInRightBig {
