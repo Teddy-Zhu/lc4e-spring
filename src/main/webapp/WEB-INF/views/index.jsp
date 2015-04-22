@@ -111,6 +111,9 @@
 		</div>
 	</div>
 	<!-- Content  End -->
+	<!-- Right Buttons Start -->
+	<a id="GTTop" href="#"><i class="circular large arrow up icon"></i></a>
+	<!-- Right Buttons End -->
 	<!-- Slider Bar Start -->
 	<div id="config-tool" class="closed">
 		<a id="config-tool-cog"> <i class="large setting loading icon"></i>

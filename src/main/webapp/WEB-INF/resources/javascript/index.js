@@ -101,9 +101,11 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			continuous : false,
 			onTopPassed : function() {
 				$('#menu').addClass('fixed').find('.column').addClass('reduce');
+				$('#GTTop').transition('fade');
 			},
 			onTopPassedReverse : function() {
 				$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
+				$('#GTTop').transition('fade');
 			}
 		});
 
@@ -147,6 +149,14 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 				speed : 'fast',
 				interval : 80,
 			})
+		})
+
+		$('#GTTop').on('click', function(e) {
+			e.preventDefault();
+			$('html').animatescroll({
+				scrollSpeed : 1000,
+				easing : 'easeOutBounce'
+			});
 		})
 	})
 });

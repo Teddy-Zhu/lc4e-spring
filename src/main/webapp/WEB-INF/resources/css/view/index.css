@@ -336,3 +336,11 @@ body {
 	margin-left: .8rem;
 	top: .2rem;
 }
+
+#GTTop {
+	position: fixed;
+	bottom: 100px;
+	z-index: 1000;
+	right: 3em;
+	display: none;
+}
