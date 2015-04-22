@@ -116,6 +116,12 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			}
 		})
 
+		$('#boxedLayout').checkbox({
+			onChange : function(e) {
+				$('#articlelist').toggleClass('nobox');
+			}
+		})
+
 		$('#announce').shape();
 		$('#announce').data('interval', setInterval(function() {
 			$('#announce').shape('flip down');

@@ -85,7 +85,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="articlelist" class="ui segment">
+				<div id="articlelist" class="ui nobox segment">
 					<div class="ui divided items"></div>
 				</div>
 				<div id="articlebottons" class="ui segment">
@@ -134,7 +134,7 @@
 					</div>
 				</div>
 				<div class="item">
-					<div class="ui checkbox">
+					<div id="boxedLayout" class="ui checkbox">
 						<input type="checkbox" name="public"> <label>Boxed Layout</label>
 					</div>
 				</div>
