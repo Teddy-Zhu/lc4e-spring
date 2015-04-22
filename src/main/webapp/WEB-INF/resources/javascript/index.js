@@ -106,7 +106,18 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			onTopPassedReverse : function() {
 				$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
 				$('#GTTop').transition('fade');
+
 			}
+		});
+
+		$('#userItem .ui.image').popup({
+			position : 'bottom center',
+			transition : "horizontal flip",
+			popup : $('#userCardPop'),
+			exclusive : false,
+			hideOnScroll : false,
+			on : 'click',
+			closable : true
 		});
 
 		$('#config-tool-options .ui.checkbox').checkbox();
@@ -149,6 +160,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 				speed : 'fast',
 				interval : 80,
 			})
+
 		})
 
 		$('#GTTop').on('click', function(e) {

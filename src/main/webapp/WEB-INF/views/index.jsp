@@ -45,6 +45,39 @@
 						<input id="searchSite" type="text" placeholder="Search..."> <i class="search link icon"></i>
 					</div>
 				</div>
+				<div id="userItem" class="item">
+					<img class="ui headered image" src="/images/wireframe/image.png">
+					<div class="floating circular ui red label">22</div>
+					<div id="userCardPop" class="ui flowing popup">
+						<div id="userCard" class="ui card">
+							<div class="content">
+								<div class="centered aligned header">User</div>
+								<div class="ui clearing divider"></div>
+								<div class="description">
+									<div class="ui divided items">
+										<div class="item">
+											<i class="comments outline icon"></i> Comments <a class="ui right floated teal circular label"> 11 </a>
+										</div>
+										<div class="item">
+											<i class="diamond icon"></i> Diamonds <a class="ui right floated teal circular label"> 111 </a>
+										</div>
+										<div class="item">
+											<i class="mail outline icon"></i> Messages <a class="ui  right floated teal circular label"> 2111 </a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="extra content">
+								<span class="left floated"> <i class="users icon"></i> Follows <a class="ui transparent circular label"> 10 </a>
+								</span> <span class="right floated"> <i class="star icon"></i> Favorites <a class="ui transparent circular label"> 5 </a>
+								</span>
+							</div>
+							<div class="ui bottom attached button">
+								<i class="setting icon"></i> Settings
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="ui item animated fade button">
 					<div class="visible content">Sign Up</div>
 					<div class="hidden content">
@@ -100,7 +133,7 @@
 
 			</div>
 			<div id="rightContent" class="six wide column">
-				<div id="todayHot" class="ui segment">
+				<div id="todayHot" class="ui sticky segment">
 					<h4 class="ui horizontal header divider">
 						<i class="bar chart icon"></i> Today HotSpot
 					</h4>

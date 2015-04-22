@@ -328,8 +328,54 @@ body {
 	display: none;
 }
 
+#menu .ui.headered.image {
+	margin-left: auto;
+	margin-right: auto;
+	width: 3.5em;
+	border-radius: .45rem;
+	-webkit-transition: width 0.2s ease, height 0.2s ease;
+	transition: width 0.2s ease, height 0.2s ease;
+	border-radius: .45rem;
+}
+
+#userCard {
+	box-shadow: none;
+}
+
+#menu.ui.menu  .item:before {
+	content: initial;
+}
+
+#userCard .item>i.icon {
+	opacity: 1;
+	float: none;
+	margin: .5em 0 0 0;
+}
+
+#userItem {
+	padding: 0 0 0 0;
+}
+
+#userItem>.ui.floating.label {
+	top: -.2em;
+	padding: .1em .5em;
+}
+
 #content.footerFixed {
 	margin-bottom: 130px;
+}
+
+#userCard>.content>.header {
+	text-align: center;
+}
+
+#userCard>.content>.description {
+	padding: 0 2.1em 0 2.1em;
+}
+
+#userCard>.content>.description>.ui.divided.items>.item {
+	padding: .2em 0;
+	color: black;
 }
 
 #announce {
