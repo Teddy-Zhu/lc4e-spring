@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2015-04-16 18:16:06
+Date: 2015-04-22 10:53:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -114,6 +114,22 @@ CREATE TABLE `l4_articlefollow` (
 
 -- ----------------------------
 -- Records of l4_articlefollow
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for l4_articlerecord
+-- ----------------------------
+DROP TABLE IF EXISTS `l4_articlerecord`;
+CREATE TABLE `l4_articlerecord` (
+  `intId` int(11) NOT NULL,
+  `intArticleId` int(11) NOT NULL,
+  `intHotCount` int(11) NOT NULL,
+  `intViewCount` int(11) NOT NULL,
+  PRIMARY KEY (`intId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of l4_articlerecord
 -- ----------------------------
 
 -- ----------------------------
