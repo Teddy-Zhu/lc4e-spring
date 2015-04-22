@@ -36,8 +36,8 @@ body {
 }
 
 #mainContent {
-	-webkit-transition: height 0.3s ease, background-color 0.3s ease;
-	transition: height 0.3s ease, background-color 0.3s ease;
+	-webkit-transition: height 0.3s ease, background 0.3s ease, border 0.4s ease, box-shadow 0.4s ease;
+	transition: height 0.3s ease, background 0.3s ease, border 0.4s ease, box-shadow 0.4s ease;
 }
 
 #announcement .item:first-child .ui.label .hidden-mb {
@@ -191,8 +191,8 @@ body {
 	position: absolute;
 	text-align: center;
 	width: 50px;
-	-webkit-transition: all 0.1s ease-in-out 0s;
-	transition: all 0.1s ease-in-out 0s;
+	-webkit-transition: left 0.1s ease;
+	transition: left 0.1s ease;
 	margin: 1rem 0;
 }
 
@@ -279,9 +279,8 @@ body {
 }
 
 #articlelist {
-	/*	box-shadow: none;
-	background-color: transparent;*/
-	
+	box-shadow: none;
+	background-color: transparent;
 }
 
 #articlelist .ui.divided.items>.item>.ui.card .image>.ribbon.label, .ui.image>.ui.ribbon.label {
