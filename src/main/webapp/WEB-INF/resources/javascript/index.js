@@ -60,8 +60,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
-			transition : "scale",
-			duration : '800',
+			transition : "fade up",
 			on : 'click'
 		});
 
