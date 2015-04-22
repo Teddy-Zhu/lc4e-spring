@@ -121,10 +121,6 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			$('#announce').shape('flip down');
 		}, 3000));
 
-		var $progress = $('#articlelist .ui.divided.items').Lc4eProgress({
-			type : "attached",
-			location : 'top'
-		});
 		$.get('Articles').done(function(data) {
 			$('#articlelist>.ui.divided.items').append(data);
 			$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
@@ -135,9 +131,6 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
 					$that.find('.ui.fluid.image img').popup();
 				},
-				onFinish : function() {
-					$progress.Lc4eProgress('end');
-				}
 			})
 		})
 
@@ -145,8 +138,8 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			$('#todayHot>.ui.divided.items').append(data);
 			$('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
 				animation : 'fadeInRightArt',
-				speed : 'normal',
-				interval : 50,
+				speed : 'fast',
+				interval : 80,
 			})
 		})
 	})
