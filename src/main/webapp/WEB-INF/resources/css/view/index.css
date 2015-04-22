@@ -3,8 +3,8 @@ body {
 }
 
 #menu {
-	-webkit-transition: all 0.2s ease-in-out 0s;
-	transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: padding 0.2s ease, background 0.3s ease;
+	transition: padding 0.2s ease, background 0.3s ease;
 }
 
 .ui.footer.segment {
@@ -13,13 +13,13 @@ body {
 	padding-left: 8%;
 	padding-right: 8%;
 	margin-top: 1%;
-	-webkit-transition: all 0.2s ease-in-out 0s;
-	transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: padding 0.5s ease;
+	transition: padding 0.5s ease;
 }
 
 #menu .column {
-	-webkit-transition: all 0.3s ease-in-out 0s;
-	transition: all 0.3s ease-in-out 0s;
+	-webkit-transition: padding 0.2s ease;
+	transition: padding 0.2s ease;
 }
 
 #menu.expended {
@@ -36,8 +36,8 @@ body {
 }
 
 #mainContent {
-	-webkit-transition: all 0.2s ease-in-out 0s;
-	transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: height 0.3s ease, background-color 0.3s ease;
+	transition: height 0.3s ease, background-color 0.3s ease;
 }
 
 #announcement .item:first-child .ui.label .hidden-mb {
@@ -80,8 +80,8 @@ body {
 }
 
 #searchSite {
-	-webkit-transition: all 0.2s ease-in-out 0s;
-	transition: all 0.2s ease-in-out 0s;
+	-webkit-transition: width 0.5s ease;
+	transition: width 0.5s ease;
 }
 
 #searchSite {
