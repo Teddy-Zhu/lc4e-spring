@@ -20,6 +20,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	
 		<!-- jackson for json -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -48,7 +55,7 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<!-- mybatis jar -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
