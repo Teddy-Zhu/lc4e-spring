@@ -57,6 +57,11 @@ require.config({
 });
 require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 	$(function() {
+		var requestAnimationFrame = (function() {
+			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+				window.setTimeout(callback, 0);
+			};
+		})();
 
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
@@ -99,11 +104,11 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			once : false,
 			continuous : false,
 			onTopPassed : function() {
-				$('#menu').addClass('fixed').find('.column').addClass('reduce');
+				$('#menu').addClass('fixed');
 				$('#GTTop').transition('fade');
 			},
 			onTopPassedReverse : function() {
-				$('#menu.fixed').removeClass('fixed').find('.column').removeClass('reduce');
+				$('#menu.fixed').removeClass('fixed');
 				$('#GTTop').transition('fade');
 
 			}
@@ -141,7 +146,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 
 		$.get('Articles').done(function(data) {
 			$('#articlelist>.ui.divided.items').append(data);
-			$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
+			requestAnimationFrame($('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
 				animation : 'fadeInUpArt',
 				speed : 'fast',
 				interval : 100,
@@ -149,16 +154,16 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
 					$that.find('.ui.fluid.image img').popup();
 				},
-			})
+			}))
 		})
 
 		$.get('TopHots').done(function(data) {
 			$('#todayHot>.ui.divided.items').append(data);
-			$('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
+			requestAnimationFrame($('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
 				animation : 'fadeInRightArt',
 				speed : 'fast',
 				interval : 80,
-			})
+			}))
 
 		})
 
