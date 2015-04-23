@@ -331,11 +331,14 @@ body {
 #menu .ui.headered.image {
 	margin-left: auto;
 	margin-right: auto;
-	width: 3.5em;
-	border-radius: .45rem;
+	width: 2.7em;
+	border-radius: .25rem;
 	-webkit-transition: width 0.2s ease, height 0.2s ease;
 	transition: width 0.2s ease, height 0.2s ease;
-	border-radius: .45rem;
+}
+
+#userCardPop {
+	padding: 0 0;
 }
 
 #userCard {
@@ -358,7 +361,12 @@ body {
 
 #userItem>.ui.floating.label {
 	top: -.2em;
-	padding: .1em .5em;
+	min-width: 1em;
+	min-height: 1em;
+	width: 1.5em;
+	height: 1.5em;
+	left: 120%;
+	padding: .25em !important;
 }
 
 #content.footerFixed {

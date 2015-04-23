@@ -46,23 +46,23 @@
 					</div>
 				</div>
 				<div id="userItem" class="item">
-					<img class="ui headered image" src="/images/wireframe/image.png">
+					<img class="ui headered linked image" src="/images/wireframe/image.png">
 					<div class="floating circular ui red label">22</div>
 					<div id="userCardPop" class="ui flowing popup">
 						<div id="userCard" class="ui card">
 							<div class="content">
-								<div class="centered aligned header">User</div>
+								<div class="centered aligned header">Admin</div>
 								<div class="ui clearing divider"></div>
 								<div class="description">
 									<div class="ui divided items">
 										<div class="item">
-											<i class="comments outline icon"></i> Comments <a class="ui right floated teal circular label"> 11 </a>
+											<i class="comments outline icon"></i> Comments <a class="ui right floated circular label"> 11 </a>
 										</div>
 										<div class="item">
-											<i class="diamond icon"></i> Diamonds <a class="ui right floated teal circular label"> 111 </a>
+											<i class="diamond icon"></i> Diamonds <a class="ui right floated circular label"> 111 </a>
 										</div>
 										<div class="item">
-											<i class="mail outline icon"></i> Messages <a class="ui  right floated teal circular label"> 2111 </a>
+											<i class="mail outline icon"></i> Messages <a class="ui  right floated circular label"> 2111 </a>
 										</div>
 									</div>
 								</div>
