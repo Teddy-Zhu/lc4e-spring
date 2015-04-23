@@ -57,7 +57,11 @@ require.config({
 });
 require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 	$(function() {
-
+		var requestAnimationFrame = (function() {
+			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+				window.setTimeout(callback, 0);
+			};
+		})();
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
 			transition : "fade up",
@@ -99,13 +103,18 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 			once : false,
 			continuous : false,
 			onTopPassed : function() {
-				$('#menu').addClass('fixed');
-				$('#GTTop').transition('fade');
+				function animate() {
+					$('#menu').addClass('fixed');
+					$('#GTTop').transition('fade');
+				}
+				requestAnimationFrame(animate);
 			},
 			onTopPassedReverse : function() {
-				$('#menu.fixed').removeClass('fixed');
-				$('#GTTop').transition('fade');
-
+				function animate() {
+					$('#menu.fixed').removeClass('fixed');
+					$('#GTTop').transition('fade');
+				}
+				requestAnimationFrame(animate);
 			}
 		});
 
