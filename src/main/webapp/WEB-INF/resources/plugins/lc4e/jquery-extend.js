@@ -9,12 +9,6 @@
 
 (function($) {
 
-	var requestAnimationFrame = (function() {
-		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
-			window.setTimeout(callback, 0);
-		};
-	})();
-
 	/* animate scroll */
 	// defines various easing effects
 	$.easing['jswing'] = $.easing['swing'];
@@ -250,8 +244,15 @@
 			},
 			onBefore : function($thedom) {
 			}
-		}, $that = $(this), animate = function($thedom, complete) {
-			var animateClass = ((options.speed == 'normal') ? 'animated' : ('animated-' + options.speed)) + ' ' + options.animation;
+		}, $that = $(this), count = 0;
+		var requestAnimationFrame = (function() {
+			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+				window.setTimeout(callback, 0);
+			};
+		})();
+
+		function animate() {
+			var $thedom = $($that[count]), animateClass = ((options.speed == 'normal') ? 'animated' : ('animated-' + options.speed)) + ' ' + options.animation;
 			options.onBefore();
 			$thedom.show();
 			$thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
@@ -262,23 +263,21 @@
 				} else {
 					$thedom.hide();
 				}
-				if (complete) {
+				if (count == $that.length - 1) {
 					options.onFinish($that);
 				}
 			});
-		};
-		function animateIndex(i, complete) {
+			count++;
+		}
+
+		function animateIndex() {
 			return function() {
-				requestAnimationFrame(animate($($that[i]), complete));
+				requestAnimationFrame(animate);
 			}
 		}
 		options = $.extend(defaults, options);
 		for (var i = 0, len = $that.length; i < len; i++) {
-			if (i == $that.length - 1) {
-				setTimeout(animateIndex(i, true), options.interval * i);
-			} else {
-				setTimeout(animateIndex(i), options.interval * i);
-			}
+			setTimeout(animateIndex(), options.interval * i);
 		}
 		return $that;
 	}
