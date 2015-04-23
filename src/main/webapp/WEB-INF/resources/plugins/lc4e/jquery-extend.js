@@ -9,6 +9,12 @@
 
 (function($) {
 
+	var requestAnimationFrame = (function() {
+		return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+			window.setTimeout(callback, 0);
+		};
+	})();
+
 	/* animate scroll */
 	// defines various easing effects
 	$.easing['jswing'] = $.easing['swing'];
@@ -263,7 +269,7 @@
 		};
 		function animateIndex(i, complete) {
 			return function() {
-				animate($($that[i]), complete);
+				requestAnimationFrame(animate($($that[i]), complete));
 			}
 		}
 		options = $.extend(defaults, options);
