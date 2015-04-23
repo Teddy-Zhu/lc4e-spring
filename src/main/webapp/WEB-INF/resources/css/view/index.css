@@ -393,8 +393,8 @@ body {
 
 #GTTop {
 	position: fixed;
-	bottom: 100px;
+	bottom: 15em;
 	z-index: 1000;
-	right: 3em;
+	right: 5em;
 	display: none;
 }
