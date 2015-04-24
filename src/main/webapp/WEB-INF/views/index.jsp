@@ -122,10 +122,10 @@
 					<div class="ui divided items"></div>
 				</div>
 				<div id="articlebottons" class="ui segment">
-					<div class="ui left floated labeled icon button">
+					<div id="prePage" class="ui left floated labeled icon button">
 						<i class="angle double left icon"></i> Preview
 					</div>
-					<div class="ui right floated right labeled icon button">
+					<div id="nextPage" class="ui right floated right labeled icon button">
 						<i class="angle double right icon"></i> Next
 					</div>
 
