@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50622
 File Encoding         : 65001
 
-Date: 2015-04-24 12:51:18
+Date: 2015-04-24 12:58:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,8 @@ CREATE TABLE `l4_sys_area` (
   `isShow` int(11) NOT NULL DEFAULT '1',
   `dateCreateTime` datetime NOT NULL,
   `intUserId` int(11) NOT NULL,
-  PRIMARY KEY (`intAreaId`)
+  PRIMARY KEY (`intAreaId`),
+  UNIQUE KEY `areaabbr` (`strAreaAbbr`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
@@ -306,7 +307,8 @@ CREATE TABLE `l4_sys_permission` (
   `strPermissionName` varchar(255) COLLATE utf8_bin NOT NULL,
   `strPermissionDescription` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '0',
   `intAvaliable` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`intPermissionId`)
+  PRIMARY KEY (`intPermissionId`),
+  UNIQUE KEY `permissionname` (`strPermissionAbbr`) USING HASH
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
@@ -364,7 +366,10 @@ CREATE TABLE `l4_user` (
   `strUserPass` varchar(255) COLLATE utf8_bin NOT NULL,
   `strUserPassSalt` varchar(255) COLLATE utf8_bin NOT NULL,
   `intLocked` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '1',
-  PRIMARY KEY (`intUserId`)
+  PRIMARY KEY (`intUserId`),
+  UNIQUE KEY `username` (`strUserName`) USING HASH,
+  UNIQUE KEY `useremail` (`strUserMail`) USING HASH,
+  UNIQUE KEY `usernick` (`strUserNick`) USING HASH
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
