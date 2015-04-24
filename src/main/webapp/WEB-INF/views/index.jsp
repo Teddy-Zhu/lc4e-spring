@@ -223,6 +223,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="plugins/require/require.js" data-main="js/index"></script>
+	<script src="plugins/require/require.min.js" data-main="js/index"></script>
 </body>
 </html>
