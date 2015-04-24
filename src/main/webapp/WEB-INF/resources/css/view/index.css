@@ -323,6 +323,10 @@ body {
 	display: none;
 }
 
+#expendHeader .ui.label {
+	padding: .3em .5em;
+}
+
 #menu .ui.headered.image {
 	margin-left: auto;
 	margin-right: auto;
