@@ -1,5 +1,7 @@
 package com.jcos.lc4e.core.web.viewcontroller;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,17 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.LocaleResolver;
 
 import com.jcos.lc4e.core.entity.Message;
 import com.jcos.lc4e.core.service.UserService;
-import com.jcos.lc4e.core.util.annotation.ValidateField;
-import com.jcos.lc4e.core.util.annotation.ValidateGroup;
+import com.jcos.lc4e.core.util.l10n.ParserMessage;
 
 @Controller
 public class ViewController {
 
 	@Inject
 	private UserService userService;
+
+	@Inject
+	private ParserMessage parseMessage;
+
+	@Inject
+	private LocaleResolver localeResolver;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -49,10 +57,15 @@ public class ViewController {
 	}
 
 	@RequestMapping(value = "/View", method = RequestMethod.GET)
-	@ResponseBody
-	@ValidateGroup(fields = { @ValidateField(index = 0, NotNull = true, minLen = 4, maxLen = 15) })
-	public Message SignIn(String username, HttpServletRequest request, HttpServletResponse response, Model model) {
-		return new Message(true, userService.findByUsername(username).getStruserpass());
+	public String View(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+		model.addAttribute("exception", parseMessage.getL18NMessage("test", locale));
+		return "unauthorized";
+	}
 
+	@RequestMapping(value = "/ChangeLocale", method = RequestMethod.GET)
+	@ResponseBody
+	public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+		localeResolver.setLocale(request, response, Locale.CHINESE);
+		return new Message(true, "Change Success");
 	}
 }

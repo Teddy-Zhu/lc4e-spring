@@ -1,5 +1,9 @@
 package com.jcos.lc4e.core.util.exception;
 
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
@@ -13,20 +17,48 @@ import org.springframework.web.servlet.ModelAndView;
 public class DefaultExceptionHandler {
 
 	@ExceptionHandler({ UnauthorizedException.class })
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView processException(NativeWebRequest request, UnauthorizedException e) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", e);
+		mv.addObject("exception", e.getMessage());
 		mv.setViewName("unauthorized");
 		return mv;
 	}
 
 	@ExceptionHandler({ AuthorizationException.class })
-	@ResponseStatus(HttpStatus.UNAUTHORIZED)
-	public ModelAndView process500Exception(NativeWebRequest request, AuthorizationException e) {
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView processException(NativeWebRequest request, AuthorizationException e) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", e);
+		mv.addObject("exception", e.getMessage());
 		mv.setViewName("unauthorized");
 		return mv;
 	}
+
+	@ExceptionHandler({ IncorrectCredentialsException.class, UnknownAccountException.class })
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView processException(NativeWebRequest request, Exception e) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", "");
+		mv.setViewName("unauthorized");
+		return mv;
+	}
+
+	@ExceptionHandler({ ExcessiveAttemptsException.class })
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView processException(NativeWebRequest request, ExcessiveAttemptsException e) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", e.getMessage());
+		mv.setViewName("unauthorized");
+		return mv;
+	}
+
+	@ExceptionHandler({ LockedAccountException.class })
+	@ResponseStatus(HttpStatus.OK)
+	public ModelAndView processException(NativeWebRequest request, LockedAccountException e) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("exception", e.getMessage());
+		mv.setViewName("unauthorized");
+		return mv;
+	}
+
 }
