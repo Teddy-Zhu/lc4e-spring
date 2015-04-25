@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE>
 <html>
 <head>
@@ -123,10 +124,10 @@
 				</div>
 				<div id="articlebottons" class="ui segment">
 					<div id="prePage" class="ui left floated labeled icon button">
-						<i class="angle double left icon"></i> Preview
+						<i class="angle double left icon"></i> <spring:message code="index.preBtn"/>
 					</div>
 					<div id="nextPage" class="ui right floated right labeled icon button">
-						<i class="angle double right icon"></i> Next
+						<i class="angle double right icon"></i> <spring:message code="index.nextBtn"/>
 					</div>
 
 				</div>
