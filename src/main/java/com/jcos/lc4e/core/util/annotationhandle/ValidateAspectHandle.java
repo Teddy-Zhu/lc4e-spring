@@ -11,9 +11,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import com.jcos.lc4e.core.entity.Message;
 import com.jcos.lc4e.core.util.annotation.ValidateField;
 import com.jcos.lc4e.core.util.annotation.ValidateGroup;
-import com.jcos.lc4e.core.util.model.Message;
 
 @Component
 @Aspect
@@ -43,10 +43,8 @@ public class ValidateAspectHandle {
 			flag = false;
 		} finally {
 			if (flag) {
-				logger.info("validate success and continue");
 				return joinPoint.proceed();
 			} else {
-				logger.info("validate failed return failed message");
 				return new Message("Parameter validation error");
 			}
 		}
@@ -72,11 +70,11 @@ public class ValidateAspectHandle {
 			} else {
 				arg = getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
 			}
-			
+
 			if (validateField.defaultInt() != -1 || !"".equals(validateField.defaultString())) {
 				arg = validateField.defaultInt() == -1 ? validateField.defaultString() : validateField.defaultInt();
 			}
-			
+
 			if (validateField.NotNull()) {
 				if (arg == null) {
 					return false;

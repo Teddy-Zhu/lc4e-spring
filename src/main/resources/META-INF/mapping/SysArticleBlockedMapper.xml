@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysArticleBlockedMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysArticleBlocked" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="intBlockedArticleId" property="intblockedarticleid" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intUserId, intBlockedArticleId, dateCreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_article_blocked
+    where intId = #{intid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_article_blocked
+    where intId = #{intid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysArticleBlocked" >
+    insert into l4_sys_article_blocked (intId, intUserId, intBlockedArticleId, 
+      dateCreateTime)
+    values (#{intid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, #{intblockedarticleid,jdbcType=INTEGER}, 
+      #{datecreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleBlocked" >
+    insert into l4_sys_article_blocked
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        intId,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+      <if test="intblockedarticleid != null" >
+        intBlockedArticleId,
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intblockedarticleid != null" >
+        #{intblockedarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleBlocked" >
+    update l4_sys_article_blocked
+    <set >
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="intblockedarticleid != null" >
+        intBlockedArticleId = #{intblockedarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysArticleBlocked" >
+    update l4_sys_article_blocked
+    set intUserId = #{intuserid,jdbcType=INTEGER},
+      intBlockedArticleId = #{intblockedarticleid,jdbcType=INTEGER},
+      dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP}
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+</mapper>

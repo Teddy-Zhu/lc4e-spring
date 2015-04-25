@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysArticleTopDownMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysArticleTopDown" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intArticleId" property="intarticleid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="intTopDown" property="inttopdown" jdbcType="INTEGER" />
+    <result column="dateCreate" property="datecreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intArticleId, intUserId, intTopDown, dateCreate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_article_topdown
+    where intId = #{intid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_article_topdown
+    where intId = #{intid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysArticleTopDown" >
+    insert into l4_sys_article_topdown (intId, intArticleId, intUserId, 
+      intTopDown, dateCreate)
+    values (#{intid,jdbcType=INTEGER}, #{intarticleid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, 
+      #{inttopdown,jdbcType=INTEGER}, #{datecreate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleTopDown" >
+    insert into l4_sys_article_topdown
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        intId,
+      </if>
+      <if test="intarticleid != null" >
+        intArticleId,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+      <if test="inttopdown != null" >
+        intTopDown,
+      </if>
+      <if test="datecreate != null" >
+        dateCreate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=INTEGER},
+      </if>
+      <if test="intarticleid != null" >
+        #{intarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="inttopdown != null" >
+        #{inttopdown,jdbcType=INTEGER},
+      </if>
+      <if test="datecreate != null" >
+        #{datecreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleTopDown" >
+    update l4_sys_article_topdown
+    <set >
+      <if test="intarticleid != null" >
+        intArticleId = #{intarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+      <if test="inttopdown != null" >
+        intTopDown = #{inttopdown,jdbcType=INTEGER},
+      </if>
+      <if test="datecreate != null" >
+        dateCreate = #{datecreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysArticleTopDown" >
+    update l4_sys_article_topdown
+    set intArticleId = #{intarticleid,jdbcType=INTEGER},
+      intUserId = #{intuserid,jdbcType=INTEGER},
+      intTopDown = #{inttopdown,jdbcType=INTEGER},
+      dateCreate = #{datecreate,jdbcType=TIMESTAMP}
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+</mapper>

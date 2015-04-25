@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.User">
+		<id column="intUserId" property="intuserid" jdbcType="INTEGER" />
+		<result column="strUserName" property="strusername" jdbcType="VARCHAR" />
+		<result column="strUserMail" property="strusermail" jdbcType="VARCHAR" />
+		<result column="strUserNick" property="strusernick" jdbcType="VARCHAR" />
+		<result column="strUserPass" property="struserpass" jdbcType="VARCHAR" />
+		<result column="strUserPassSalt" property="struserpasssalt" jdbcType="VARCHAR" />
+		<result column="intLocked" property="intlocked" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		intUserId, strUserName, strUserMail, strUserNick, strUserPass, strUserPassSalt, intLocked
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from l4_user
+		where intUserId = #{intuserid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from l4_user
+		where intUserId = #{intuserid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.jcos.lc4e.core.database.model.User">
+		insert into l4_user (intUserId, strUserName, strUserMail,
+		strUserNick, strUserPass, strUserPassSalt,
+		intLocked)
+		values (#{intuserid,jdbcType=INTEGER},
+		#{strusername,jdbcType=VARCHAR}, #{strusermail,jdbcType=VARCHAR},
+		#{strusernick,jdbcType=VARCHAR}, #{struserpass,jdbcType=VARCHAR}, #{struserpasssalt,jdbcType=VARCHAR},
+		#{intlocked,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.User">
+		insert into l4_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="intuserid != null">
+				intUserId,
+			</if>
+			<if test="strusername != null">
+				strUserName,
+			</if>
+			<if test="strusermail != null">
+				strUserMail,
+			</if>
+			<if test="strusernick != null">
+				strUserNick,
+			</if>
+			<if test="struserpass != null">
+				strUserPass,
+			</if>
+			<if test="struserpasssalt != null">
+				strUserPassSalt,
+			</if>
+			<if test="intlocked != null">
+				intLocked,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="intuserid != null">
+				#{intuserid,jdbcType=INTEGER},
+			</if>
+			<if test="strusername != null">
+				#{strusername,jdbcType=VARCHAR},
+			</if>
+			<if test="strusermail != null">
+				#{strusermail,jdbcType=VARCHAR},
+			</if>
+			<if test="strusernick != null">
+				#{strusernick,jdbcType=VARCHAR},
+			</if>
+			<if test="struserpass != null">
+				#{struserpass,jdbcType=VARCHAR},
+			</if>
+			<if test="struserpasssalt != null">
+				#{struserpasssalt,jdbcType=VARCHAR},
+			</if>
+			<if test="intlocked != null">
+				#{intlocked,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.User">
+		update l4_user
+		<set>
+			<if test="strusername != null">
+				strUserName = #{strusername,jdbcType=VARCHAR},
+			</if>
+			<if test="strusermail != null">
+				strUserMail = #{strusermail,jdbcType=VARCHAR},
+			</if>
+			<if test="strusernick != null">
+				strUserNick = #{strusernick,jdbcType=VARCHAR},
+			</if>
+			<if test="struserpass != null">
+				strUserPass = #{struserpass,jdbcType=VARCHAR},
+			</if>
+			<if test="struserpasssalt != null">
+				strUserPassSalt = #{struserpasssalt,jdbcType=VARCHAR},
+			</if>
+			<if test="intlocked != null">
+				intLocked = #{intlocked,jdbcType=INTEGER},
+			</if>
+		</set>
+		where intUserId = #{intuserid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.User">
+		update l4_user
+		set strUserName = #{strusername,jdbcType=VARCHAR},
+		strUserMail = #{strusermail,jdbcType=VARCHAR},
+		strUserNick =
+		#{strusernick,jdbcType=VARCHAR},
+		strUserPass = #{struserpass,jdbcType=VARCHAR},
+		strUserPassSalt = #{struserpasssalt,jdbcType=VARCHAR},
+		intLocked = #{intlocked,jdbcType=INTEGER}
+		where intUserId =
+		#{intuserid,jdbcType=INTEGER}
+	</update>
+	<select id="findUserRolesByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+		select strRoleAbbr from vw_user_role_permission where strUserName = #{username,jdbcType=VARCHAR}
+	</select>
+	<select id="findUserPermissionsByUserName" resultType="java.lang.String" parameterType="java.lang.String">
+		select distinct strPermissionAbbr from vw_user_role_permission where strUserName =
+		#{username,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findUserByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from l4_user
+		where strUserName = #{username,jdbcType=VARCHAR}
+	</select>
+</mapper>

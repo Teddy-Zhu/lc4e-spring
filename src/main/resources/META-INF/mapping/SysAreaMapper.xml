@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysArea" >
+    <id column="intAreaId" property="intareaid" jdbcType="INTEGER" />
+    <result column="intParentAreaId" property="intparentareaid" jdbcType="INTEGER" />
+    <result column="strAreaAbbr" property="strareaabbr" jdbcType="VARCHAR" />
+    <result column="strAreaName" property="strareaname" jdbcType="VARCHAR" />
+    <result column="strAreaDescription" property="strareadescription" jdbcType="VARCHAR" />
+    <result column="strAreaCss" property="strareacss" jdbcType="VARCHAR" />
+    <result column="strAreaIcon" property="strareaicon" jdbcType="VARCHAR" />
+    <result column="isShow" property="isshow" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intAreaId, intParentAreaId, strAreaAbbr, strAreaName, strAreaDescription, strAreaCss, 
+    strAreaIcon, isShow, dateCreateTime, intUserId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_area
+    where intAreaId = #{intareaid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_area
+    where intAreaId = #{intareaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysArea" >
+    insert into l4_sys_area (intAreaId, intParentAreaId, strAreaAbbr, 
+      strAreaName, strAreaDescription, strAreaCss, 
+      strAreaIcon, isShow, dateCreateTime, 
+      intUserId)
+    values (#{intareaid,jdbcType=INTEGER}, #{intparentareaid,jdbcType=INTEGER}, #{strareaabbr,jdbcType=VARCHAR}, 
+      #{strareaname,jdbcType=VARCHAR}, #{strareadescription,jdbcType=VARCHAR}, #{strareacss,jdbcType=VARCHAR}, 
+      #{strareaicon,jdbcType=VARCHAR}, #{isshow,jdbcType=INTEGER}, #{datecreatetime,jdbcType=TIMESTAMP}, 
+      #{intuserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysArea" >
+    insert into l4_sys_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intareaid != null" >
+        intAreaId,
+      </if>
+      <if test="intparentareaid != null" >
+        intParentAreaId,
+      </if>
+      <if test="strareaabbr != null" >
+        strAreaAbbr,
+      </if>
+      <if test="strareaname != null" >
+        strAreaName,
+      </if>
+      <if test="strareadescription != null" >
+        strAreaDescription,
+      </if>
+      <if test="strareacss != null" >
+        strAreaCss,
+      </if>
+      <if test="strareaicon != null" >
+        strAreaIcon,
+      </if>
+      <if test="isshow != null" >
+        isShow,
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime,
+      </if>
+      <if test="intuserid != null" >
+        intUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intareaid != null" >
+        #{intareaid,jdbcType=INTEGER},
+      </if>
+      <if test="intparentareaid != null" >
+        #{intparentareaid,jdbcType=INTEGER},
+      </if>
+      <if test="strareaabbr != null" >
+        #{strareaabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="strareaname != null" >
+        #{strareaname,jdbcType=VARCHAR},
+      </if>
+      <if test="strareadescription != null" >
+        #{strareadescription,jdbcType=VARCHAR},
+      </if>
+      <if test="strareacss != null" >
+        #{strareacss,jdbcType=VARCHAR},
+      </if>
+      <if test="strareaicon != null" >
+        #{strareaicon,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intuserid != null" >
+        #{intuserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysArea" >
+    update l4_sys_area
+    <set >
+      <if test="intparentareaid != null" >
+        intParentAreaId = #{intparentareaid,jdbcType=INTEGER},
+      </if>
+      <if test="strareaabbr != null" >
+        strAreaAbbr = #{strareaabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="strareaname != null" >
+        strAreaName = #{strareaname,jdbcType=VARCHAR},
+      </if>
+      <if test="strareadescription != null" >
+        strAreaDescription = #{strareadescription,jdbcType=VARCHAR},
+      </if>
+      <if test="strareacss != null" >
+        strAreaCss = #{strareacss,jdbcType=VARCHAR},
+      </if>
+      <if test="strareaicon != null" >
+        strAreaIcon = #{strareaicon,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        isShow = #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="datecreatetime != null" >
+        dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="intuserid != null" >
+        intUserId = #{intuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where intAreaId = #{intareaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysArea" >
+    update l4_sys_area
+    set intParentAreaId = #{intparentareaid,jdbcType=INTEGER},
+      strAreaAbbr = #{strareaabbr,jdbcType=VARCHAR},
+      strAreaName = #{strareaname,jdbcType=VARCHAR},
+      strAreaDescription = #{strareadescription,jdbcType=VARCHAR},
+      strAreaCss = #{strareacss,jdbcType=VARCHAR},
+      strAreaIcon = #{strareaicon,jdbcType=VARCHAR},
+      isShow = #{isshow,jdbcType=INTEGER},
+      dateCreateTime = #{datecreatetime,jdbcType=TIMESTAMP},
+      intUserId = #{intuserid,jdbcType=INTEGER}
+    where intAreaId = #{intareaid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -4,10 +4,6 @@
   <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.UserBasicInfo" >
     <id column="intId" property="intid" jdbcType="INTEGER" />
     <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
-    <result column="strUserName" property="strusername" jdbcType="VARCHAR" />
-    <result column="strUserNick" property="strusernick" jdbcType="VARCHAR" />
-    <result column="strEmail" property="stremail" jdbcType="VARCHAR" />
-    <result column="strPassword" property="strpassword" jdbcType="VARCHAR" />
     <result column="strPhoneNumber" property="strphonenumber" jdbcType="VARCHAR" />
     <result column="strSign" property="strsign" jdbcType="VARCHAR" />
     <result column="strAvatar" property="stravatar" jdbcType="VARCHAR" />
@@ -17,51 +13,37 @@
     <result column="dateModified" property="datemodified" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    intId, intUserId, strUserName, strUserNick, strEmail, strPassword, strPhoneNumber, 
-    strSign, strAvatar, intLocationId, dateBirthDay, dateCreate, dateModified
+    intId, intUserId, strPhoneNumber, strSign, strAvatar, intLocationId, dateBirthDay, 
+    dateCreate, dateModified
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from l4_userbasicinfo
+    from l4_user_basicinfo
     where intId = #{intid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from l4_userbasicinfo
+    delete from l4_user_basicinfo
     where intId = #{intid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
-    insert into l4_userbasicinfo (intId, intUserId, strUserName, 
-      strUserNick, strEmail, strPassword, 
-      strPhoneNumber, strSign, strAvatar, 
-      intLocationId, dateBirthDay, dateCreate, 
-      dateModified)
-    values (#{intid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, #{strusername,jdbcType=VARCHAR}, 
-      #{strusernick,jdbcType=VARCHAR}, #{stremail,jdbcType=VARCHAR}, #{strpassword,jdbcType=VARCHAR}, 
-      #{strphonenumber,jdbcType=VARCHAR}, #{strsign,jdbcType=VARCHAR}, #{stravatar,jdbcType=VARCHAR}, 
-      #{intlocationid,jdbcType=INTEGER}, #{datebirthday,jdbcType=TIMESTAMP}, #{datecreate,jdbcType=TIMESTAMP}, 
-      #{datemodified,jdbcType=TIMESTAMP})
+    insert into l4_user_basicinfo (intId, intUserId, strPhoneNumber, 
+      strSign, strAvatar, intLocationId, 
+      dateBirthDay, dateCreate, dateModified
+      )
+    values (#{intid,jdbcType=INTEGER}, #{intuserid,jdbcType=INTEGER}, #{strphonenumber,jdbcType=VARCHAR}, 
+      #{strsign,jdbcType=VARCHAR}, #{stravatar,jdbcType=VARCHAR}, #{intlocationid,jdbcType=INTEGER}, 
+      #{datebirthday,jdbcType=TIMESTAMP}, #{datecreate,jdbcType=TIMESTAMP}, #{datemodified,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
-    insert into l4_userbasicinfo
+    insert into l4_user_basicinfo
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="intid != null" >
         intId,
       </if>
       <if test="intuserid != null" >
         intUserId,
-      </if>
-      <if test="strusername != null" >
-        strUserName,
-      </if>
-      <if test="strusernick != null" >
-        strUserNick,
-      </if>
-      <if test="stremail != null" >
-        strEmail,
-      </if>
-      <if test="strpassword != null" >
-        strPassword,
       </if>
       <if test="strphonenumber != null" >
         strPhoneNumber,
@@ -92,18 +74,6 @@
       <if test="intuserid != null" >
         #{intuserid,jdbcType=INTEGER},
       </if>
-      <if test="strusername != null" >
-        #{strusername,jdbcType=VARCHAR},
-      </if>
-      <if test="strusernick != null" >
-        #{strusernick,jdbcType=VARCHAR},
-      </if>
-      <if test="stremail != null" >
-        #{stremail,jdbcType=VARCHAR},
-      </if>
-      <if test="strpassword != null" >
-        #{strpassword,jdbcType=VARCHAR},
-      </if>
       <if test="strphonenumber != null" >
         #{strphonenumber,jdbcType=VARCHAR},
       </if>
@@ -128,22 +98,10 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
-    update l4_userbasicinfo
+    update l4_user_basicinfo
     <set >
       <if test="intuserid != null" >
         intUserId = #{intuserid,jdbcType=INTEGER},
-      </if>
-      <if test="strusername != null" >
-        strUserName = #{strusername,jdbcType=VARCHAR},
-      </if>
-      <if test="strusernick != null" >
-        strUserNick = #{strusernick,jdbcType=VARCHAR},
-      </if>
-      <if test="stremail != null" >
-        strEmail = #{stremail,jdbcType=VARCHAR},
-      </if>
-      <if test="strpassword != null" >
-        strPassword = #{strpassword,jdbcType=VARCHAR},
       </if>
       <if test="strphonenumber != null" >
         strPhoneNumber = #{strphonenumber,jdbcType=VARCHAR},
@@ -170,12 +128,8 @@
     where intId = #{intid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.UserBasicInfo" >
-    update l4_userbasicinfo
+    update l4_user_basicinfo
     set intUserId = #{intuserid,jdbcType=INTEGER},
-      strUserName = #{strusername,jdbcType=VARCHAR},
-      strUserNick = #{strusernick,jdbcType=VARCHAR},
-      strEmail = #{stremail,jdbcType=VARCHAR},
-      strPassword = #{strpassword,jdbcType=VARCHAR},
       strPhoneNumber = #{strphonenumber,jdbcType=VARCHAR},
       strSign = #{strsign,jdbcType=VARCHAR},
       strAvatar = #{stravatar,jdbcType=VARCHAR},

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysArticleRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysArticleRecord" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intArticleId" property="intarticleid" jdbcType="INTEGER" />
+    <result column="intHotCount" property="inthotcount" jdbcType="INTEGER" />
+    <result column="intViewCount" property="intviewcount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intArticleId, intHotCount, intViewCount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_article_record
+    where intId = #{intid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_article_record
+    where intId = #{intid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysArticleRecord" >
+    insert into l4_sys_article_record (intId, intArticleId, intHotCount, 
+      intViewCount)
+    values (#{intid,jdbcType=INTEGER}, #{intarticleid,jdbcType=INTEGER}, #{inthotcount,jdbcType=INTEGER}, 
+      #{intviewcount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleRecord" >
+    insert into l4_sys_article_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        intId,
+      </if>
+      <if test="intarticleid != null" >
+        intArticleId,
+      </if>
+      <if test="inthotcount != null" >
+        intHotCount,
+      </if>
+      <if test="intviewcount != null" >
+        intViewCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=INTEGER},
+      </if>
+      <if test="intarticleid != null" >
+        #{intarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="inthotcount != null" >
+        #{inthotcount,jdbcType=INTEGER},
+      </if>
+      <if test="intviewcount != null" >
+        #{intviewcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysArticleRecord" >
+    update l4_sys_article_record
+    <set >
+      <if test="intarticleid != null" >
+        intArticleId = #{intarticleid,jdbcType=INTEGER},
+      </if>
+      <if test="inthotcount != null" >
+        intHotCount = #{inthotcount,jdbcType=INTEGER},
+      </if>
+      <if test="intviewcount != null" >
+        intViewCount = #{intviewcount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysArticleRecord" >
+    update l4_sys_article_record
+    set intArticleId = #{intarticleid,jdbcType=INTEGER},
+      intHotCount = #{inthotcount,jdbcType=INTEGER},
+      intViewCount = #{intviewcount,jdbcType=INTEGER}
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+</mapper>

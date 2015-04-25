@@ -7,14 +7,6 @@ public class UserBasicInfo {
 
     private Integer intuserid;
 
-    private String strusername;
-
-    private String strusernick;
-
-    private String stremail;
-
-    private String strpassword;
-
     private String strphonenumber;
 
     private String strsign;
@@ -43,38 +35,6 @@ public class UserBasicInfo {
 
     public void setIntuserid(Integer intuserid) {
         this.intuserid = intuserid;
-    }
-
-    public String getStrusername() {
-        return strusername;
-    }
-
-    public void setStrusername(String strusername) {
-        this.strusername = strusername == null ? null : strusername.trim();
-    }
-
-    public String getStrusernick() {
-        return strusernick;
-    }
-
-    public void setStrusernick(String strusernick) {
-        this.strusernick = strusernick == null ? null : strusernick.trim();
-    }
-
-    public String getStremail() {
-        return stremail;
-    }
-
-    public void setStremail(String stremail) {
-        this.stremail = stremail == null ? null : stremail.trim();
-    }
-
-    public String getStrpassword() {
-        return strpassword;
-    }
-
-    public void setStrpassword(String strpassword) {
-        this.strpassword = strpassword == null ? null : strpassword.trim();
     }
 
     public String getStrphonenumber() {

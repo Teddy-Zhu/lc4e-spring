@@ -1,6 +1,5 @@
 package com.jcos.lc4e.core.util.annotationhandle;
 
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,11 +12,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
-import com.jcos.lc4e.core.util.annotation.AuthLogin;
 import com.jcos.lc4e.core.util.annotation.AuthToken;
-import com.jcos.lc4e.core.util.model.LoginSession;
-import com.jcos.lc4e.core.util.model.Message;
 
 public class AuthFilter implements HandlerInterceptor {
 	/**
@@ -40,23 +35,6 @@ public class AuthFilter implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
-			// auth login
-			AuthLogin login = ((HandlerMethod) handler).getMethodAnnotation(AuthLogin.class);
-			if (login != null) {
-				LoginSession loginSession = (LoginSession) request.getSession().getAttribute("loginSession");
-				if (loginSession == null || loginSession.getUser() == null) {
-					Message msg = new Message("Not Login");
-					try {
-						PrintWriter writer = response.getWriter();
-						writer.write(JSONObject.toJSONString(msg));
-						writer.flush();
-						writer.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					return false;
-				}
-			}
 			// auth token for csrf simply
 			AuthToken token = ((HandlerMethod) handler).getMethodAnnotation(AuthToken.class);
 			if (token != null) {

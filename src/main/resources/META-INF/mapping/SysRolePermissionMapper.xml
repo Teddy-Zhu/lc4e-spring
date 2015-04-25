@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysRolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysRolePermission" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intRoleId" property="introleid" jdbcType="INTEGER" />
+    <result column="intPermissionId" property="intpermissionid" jdbcType="INTEGER" />
+    <result column="dateCreated" property="datecreated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intRoleId, intPermissionId, dateCreated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_role_permission
+    where intId = #{intid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_role_permission
+    where intId = #{intid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysRolePermission" >
+    insert into l4_sys_role_permission (intId, intRoleId, intPermissionId, 
+      dateCreated)
+    values (#{intid,jdbcType=INTEGER}, #{introleid,jdbcType=INTEGER}, #{intpermissionid,jdbcType=INTEGER}, 
+      #{datecreated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysRolePermission" >
+    insert into l4_sys_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        intId,
+      </if>
+      <if test="introleid != null" >
+        intRoleId,
+      </if>
+      <if test="intpermissionid != null" >
+        intPermissionId,
+      </if>
+      <if test="datecreated != null" >
+        dateCreated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="intid != null" >
+        #{intid,jdbcType=INTEGER},
+      </if>
+      <if test="introleid != null" >
+        #{introleid,jdbcType=INTEGER},
+      </if>
+      <if test="intpermissionid != null" >
+        #{intpermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="datecreated != null" >
+        #{datecreated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysRolePermission" >
+    update l4_sys_role_permission
+    <set >
+      <if test="introleid != null" >
+        intRoleId = #{introleid,jdbcType=INTEGER},
+      </if>
+      <if test="intpermissionid != null" >
+        intPermissionId = #{intpermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="datecreated != null" >
+        dateCreated = #{datecreated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysRolePermission" >
+    update l4_sys_role_permission
+    set intRoleId = #{introleid,jdbcType=INTEGER},
+      intPermissionId = #{intpermissionid,jdbcType=INTEGER},
+      dateCreated = #{datecreated,jdbcType=TIMESTAMP}
+    where intId = #{intid,jdbcType=INTEGER}
+  </update>
+</mapper>

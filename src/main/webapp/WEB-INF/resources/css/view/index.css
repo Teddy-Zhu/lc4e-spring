@@ -91,6 +91,7 @@ body {
 #menu .column .left.menu>img {
 	width: 47px;
 	padding: 0px;
+	margin-right: 10px;
 }
 
 @media screen and ( max-width : 600px) {

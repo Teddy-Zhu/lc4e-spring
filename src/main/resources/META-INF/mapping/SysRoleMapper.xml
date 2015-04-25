@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysRole" >
+    <id column="intRoleId" property="introleid" jdbcType="INTEGER" />
+    <result column="strRoleAbbr" property="strroleabbr" jdbcType="VARCHAR" />
+    <result column="strRoleName" property="strrolename" jdbcType="VARCHAR" />
+    <result column="strRoleDesciption" property="strroledesciption" jdbcType="VARCHAR" />
+    <result column="intAvailable" property="intavailable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intRoleId, strRoleAbbr, strRoleName, strRoleDesciption, intAvailable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from l4_sys_role
+    where intRoleId = #{introleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from l4_sys_role
+    where intRoleId = #{introleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jcos.lc4e.core.database.model.SysRole" >
+    insert into l4_sys_role (intRoleId, strRoleAbbr, strRoleName, 
+      strRoleDesciption, intAvailable)
+    values (#{introleid,jdbcType=INTEGER}, #{strroleabbr,jdbcType=VARCHAR}, #{strrolename,jdbcType=VARCHAR}, 
+      #{strroledesciption,jdbcType=VARCHAR}, #{intavailable,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jcos.lc4e.core.database.model.SysRole" >
+    insert into l4_sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="introleid != null" >
+        intRoleId,
+      </if>
+      <if test="strroleabbr != null" >
+        strRoleAbbr,
+      </if>
+      <if test="strrolename != null" >
+        strRoleName,
+      </if>
+      <if test="strroledesciption != null" >
+        strRoleDesciption,
+      </if>
+      <if test="intavailable != null" >
+        intAvailable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="introleid != null" >
+        #{introleid,jdbcType=INTEGER},
+      </if>
+      <if test="strroleabbr != null" >
+        #{strroleabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="strrolename != null" >
+        #{strrolename,jdbcType=VARCHAR},
+      </if>
+      <if test="strroledesciption != null" >
+        #{strroledesciption,jdbcType=VARCHAR},
+      </if>
+      <if test="intavailable != null" >
+        #{intavailable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jcos.lc4e.core.database.model.SysRole" >
+    update l4_sys_role
+    <set >
+      <if test="strroleabbr != null" >
+        strRoleAbbr = #{strroleabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="strrolename != null" >
+        strRoleName = #{strrolename,jdbcType=VARCHAR},
+      </if>
+      <if test="strroledesciption != null" >
+        strRoleDesciption = #{strroledesciption,jdbcType=VARCHAR},
+      </if>
+      <if test="intavailable != null" >
+        intAvailable = #{intavailable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where intRoleId = #{introleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jcos.lc4e.core.database.model.SysRole" >
+    update l4_sys_role
+    set strRoleAbbr = #{strroleabbr,jdbcType=VARCHAR},
+      strRoleName = #{strrolename,jdbcType=VARCHAR},
+      strRoleDesciption = #{strroledesciption,jdbcType=VARCHAR},
+      intAvailable = #{intavailable,jdbcType=INTEGER}
+    where intRoleId = #{introleid,jdbcType=INTEGER}
+  </update>
+</mapper>
