@@ -25,7 +25,7 @@ public class ViewController {
 	private UserService userService;
 
 	@Inject
-	private ParserMessage parseMessage;
+	private ParserMessage msg;
 
 	@Inject
 	private LocaleResolver localeResolver;
@@ -58,7 +58,7 @@ public class ViewController {
 
 	@RequestMapping(value = "/View", method = RequestMethod.GET)
 	public String View(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
-		model.addAttribute("exception", parseMessage.getL18NMessage("test", locale));
+		model.addAttribute("exception", msg.L18N("test", locale));
 		return "unauthorized";
 	}
 
