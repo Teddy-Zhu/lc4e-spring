@@ -8,7 +8,6 @@
  */
 
 (function($) {
-
 	/* animate scroll */
 	// defines various easing effects
 	$.easing['jswing'] = $.easing['swing'];
@@ -576,6 +575,17 @@
 		return $progressBar;
 	}
 	$.extend({
+		Lc4eAjax : function(data) {
+			if (typeof data.bfSend == "function") {
+				data.beforeSend = function(xhr) {
+					var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
+					console.log(l + t + l);
+					xhr.setRequestHeader(tk, l + t + l);
+					data.bfSend.call();
+				}
+			}
+			$.ajax(data);
+		},
 		Lc4eRandom : function() {
 			function random(a, b) {
 				return Math.random() > 0.5 ? -1 : 1;

@@ -1,7 +1,7 @@
 require.config({
 	paths : {
 		"jquery" : "/plugins/jquery/jquery.min",
-		"semantic" : "/plugins/semantic-ui/semantic.min",
+		"semantic" : "http://cdn.bootcss.com/semantic-ui/1.12.0/semantic.min",
 		"lc4e" : "/plugins/lc4e/jquery-extend",
 		"se-accordion" : "/plugins/semantic-ui/components/accordion.min",
 		"se-api" : "/plugins/semantic-ui/components/api.min",

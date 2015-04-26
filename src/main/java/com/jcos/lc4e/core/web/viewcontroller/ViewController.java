@@ -16,6 +16,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import com.jcos.lc4e.core.entity.Message;
 import com.jcos.lc4e.core.service.UserService;
+import com.jcos.lc4e.core.util.annotation.AuthToken;
 import com.jcos.lc4e.core.util.l10n.ParserMessage;
 
 @Controller
@@ -50,7 +51,7 @@ public class ViewController {
 		return "topHotTest";
 	}
 
-	@RequiresRoles("visitor")
+	@AuthToken
 	@RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "topHotTest";
