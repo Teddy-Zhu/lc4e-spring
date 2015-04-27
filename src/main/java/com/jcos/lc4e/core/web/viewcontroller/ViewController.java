@@ -17,7 +17,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.jcos.lc4e.core.entity.Message;
 import com.jcos.lc4e.core.service.UserService;
 import com.jcos.lc4e.core.util.annotation.AuthToken;
-import com.jcos.lc4e.core.util.l10n.ParserMessage;
+import com.jcos.lc4e.core.util.l18n.ParserMessage;
 
 @Controller
 public class ViewController {

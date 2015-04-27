@@ -1,4 +1,4 @@
-package com.jcos.lc4e.core.util.l10n;
+package com.jcos.lc4e.core.util.l18n;
 
 import org.apache.log4j.Logger;
 
