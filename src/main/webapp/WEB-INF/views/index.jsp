@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="alternate icon" type="image/png" href="images/logo.png">
 <title>Light Community</title>
-<link rel="stylesheet" type="text/css" class="ui" href="plugins/semantic-ui/semantic.min.css">
-<link rel="stylesheet" type="text/css" class="ui" href="plugins/lc4e/jquery-extend.css">
+<link rel="stylesheet" type="text/css" class="ui" href="plugins/semantic-ui/1.12.0/semantic.min.css">
+<link rel="stylesheet" type="text/css" class="ui" href="js/lc4e/jquery-extend.css">
 <link rel="stylesheet" type="text/css" class="ui" href="css/view/index.css">
 </head>
 <body>
@@ -224,6 +224,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="plugins/require/require.min.js" data-main="js/index"></script>
+	<script src="plugins/require.js/2.1.17/require.min.js" data-main="js/index"></script>
 </body>
 </html>
