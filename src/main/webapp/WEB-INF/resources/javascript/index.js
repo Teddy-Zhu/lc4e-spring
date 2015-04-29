@@ -150,7 +150,7 @@ require([ 'jquery', 'lc4e', 'semantic' ], function($) {
 
 		getArticles = function() {
 			$.get('Articles').done(function(data) {
-				$('#articlelist>.ui.divided.items').empty().append(data);
+				$('#articlelist>.ui.divided.items').html(data);
 				$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
 					animation : 'fadeInUpArt',
 					speed : 'fast',
