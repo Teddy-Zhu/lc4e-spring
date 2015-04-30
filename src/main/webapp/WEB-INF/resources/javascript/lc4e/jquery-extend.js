@@ -188,9 +188,9 @@
 		    if (settings.type !== 'GET') {
 		      settings.timeout = 0
 		    }
-
-		    xhr.setRequestHeader('X-PJAX', 'true')
-		    xhr.setRequestHeader('X-PJAX-Container', context.selector)
+		    
+		    var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = options.url.length.toString(), t = new Date().getTime().toString();
+			xhr.setRequestHeader(tk, l + t + l);
 
 		    if (!fire('pjax:beforeSend', [xhr, settings]))
 		      return false
@@ -1480,7 +1480,6 @@
 			if (typeof data.bfSend == "function") {
 				data.beforeSend = function(xhr) {
 					var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
-					console.log(l + t + l);
 					xhr.setRequestHeader(tk, l + t + l);
 					data.bfSend.call();
 				}

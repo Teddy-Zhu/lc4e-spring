@@ -26,6 +26,7 @@ require.config({
 		"se-transition" : "/plugins/semantic-ui/1.12.0/components/transition.min",
 		"se-video" : "/plugins/semantic-ui/1.12.0/components/video.min",
 		"se-visibility" : "/plugins/semantic-ui/1.12.0/components/visibility.min",
+		"moment" : "/plugins/moment/moment.min"
 	},
 	shim : {
 		'lc4e' : [ 'jquery', 'semantic' ],
@@ -55,8 +56,9 @@ require.config({
 		"se-visibility" : [ 'jquery' ],
 	}
 });
-require([ 'jquery', 'lc4e', 'semantic' ], function($) {
+require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 	$(function() {
+		console.log(moment());
 		var requestAnimationFrame = (function() {
 			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
 				window.setTimeout(callback, 0);
