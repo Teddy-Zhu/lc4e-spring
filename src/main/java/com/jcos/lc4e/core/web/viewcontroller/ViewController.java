@@ -66,7 +66,7 @@ public class ViewController {
 	@RequestMapping(value = "/ChangeLocale", method = RequestMethod.GET)
 	@ResponseBody
 	public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
-		localeResolver.setLocale(request, response, Locale.CHINESE);
+		localeResolver.setLocale(request, response, Locale.CHINA);
 		return new Message(true, "Change Success");
 	}
 }
