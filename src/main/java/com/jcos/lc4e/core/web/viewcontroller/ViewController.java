@@ -35,6 +35,11 @@ public class ViewController {
 	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "index";
 	}
+	
+	@RequestMapping(value = "/articleTemplate", method = RequestMethod.GET)
+	public String articleTemplate(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "articleTemplate";
+	}
 
 	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)
 	public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {

@@ -151,18 +151,29 @@ require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 		}, 3000));
 
 		getArticles = function() {
-			$.get('Articles').done(function(data) {
-				$('#articlelist>.ui.divided.items').html(data);
-				$('#articlelist>.ui.divided.items>.item').Lc4eAnimate({
-					animation : 'fadeInUpArt',
-					speed : 'fast',
-					interval : 100,
-					onComplete : function($that) {
-						$that.find('.content>.extra>.ui.dropdown.button').dropdown();
-						$that.find('.ui.fluid.image img').popup();
-					},
-				})
+			$('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
+				url : 'Member/GetArticles',
+				templateUrl : 'articleTemplate',
+				data : {
+					size : 20
+				},
+				animation : 'fadeInUpArt',
+				speed : 'fast',
+				interval : 100,
+				onComplete : function($that) {
+					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
+					$that.find('.ui.fluid.image img').popup();
+				},
 			})
+			/*
+			 * $.get('Articles').done(function(data) {
+			 * $('#articlelist>.ui.divided.items').html(data);
+			 * $('#articlelist>.ui.divided.items>.item').Lc4eAnimate({ animation :
+			 * 'fadeInUpArt', speed : 'fast', interval : 100, onComplete :
+			 * function($that) {
+			 * $that.find('.content>.extra>.ui.dropdown.button').dropdown();
+			 * $that.find('.ui.fluid.image img').popup(); }, }) })
+			 */
 		};
 		getArticles.call();
 

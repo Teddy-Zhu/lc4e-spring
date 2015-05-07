@@ -1,11 +1,9 @@
 package com.jcos.lc4e.core.util.l18n;
 
-import org.apache.log4j.Logger;
-
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Service;
 
 public class ParserMessage {
 	/**
