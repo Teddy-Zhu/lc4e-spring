@@ -245,11 +245,6 @@
 			onBefore : function($thedom) {
 			}
 		}, $that = $(this), count = 0;
-		var requestAnimationFrame = (function() {
-			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
-				window.setTimeout(callback, 0);
-			};
-		})();
 
 		function animate() {
 			var $thedom = $($that[count]), animateClass = new Array();
@@ -277,7 +272,7 @@
 
 		function animateIndex() {
 			return function() {
-				requestAnimationFrame(animate);
+				$.requestAnimationFrame(animate);
 			}
 		}
 		options = $.extend(defaults, options);
@@ -598,11 +593,6 @@
 			onBefore : function($thedom) {
 			}
 		}, tmpajax, dtd = $.Deferred(), count = 0, thisDom = this;
-		var requestAnimationFrame = (function() {
-			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
-				window.setTimeout(callback, 0);
-			};
-		})();
 		options = $.extend(defaults, options);
 
 		if (options.needToken) {
@@ -632,7 +622,7 @@
 					}
 					function animateIndex() {
 						return function() {
-							requestAnimationFrame(animate);
+							$.requestAnimationFrame(animate);
 						}
 					}
 
@@ -726,6 +716,12 @@
 		},
 		Lc4eProgress : function(option, data) {
 			return $("body").Lc4eProgress(option, data);
-		}
+		},
+		requestAnimationFrame : function(callback) {
+			var requestAnimation = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
+				window.setTimeout(callback, 0);
+			};
+			return requestAnimation(callback);
+		},
 	});
 })(jQuery);

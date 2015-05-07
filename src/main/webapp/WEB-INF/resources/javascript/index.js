@@ -58,12 +58,7 @@ require.config({
 });
 require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 	$(function() {
-		console.log(moment());
-		var requestAnimationFrame = (function() {
-			return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
-				window.setTimeout(callback, 0);
-			};
-		})(), getArticles;
+		var getArticles;
 		$('#menu .ui.dropdown.item').dropdown({
 			action : "nothing",
 			transition : "scale",
@@ -109,14 +104,14 @@ require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 					$('#menu').addClass('fixed');
 					$('#GTTop').transition('fade');
 				}
-				requestAnimationFrame(animate);
+				$.requestAnimationFrame(animate);
 			},
 			onTopPassedReverse : function() {
 				function animate() {
 					$('#menu.fixed').removeClass('fixed');
 					$('#GTTop').transition('fade');
 				}
-				requestAnimationFrame(animate);
+				$.requestAnimationFrame(animate);
 			}
 		});
 
