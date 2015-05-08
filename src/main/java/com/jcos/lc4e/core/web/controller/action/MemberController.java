@@ -1,19 +1,18 @@
-package com.jcos.lc4e.core.web.actioncontroller;
+package com.jcos.lc4e.core.web.controller.action;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jcos.lc4e.core.database.model.User;
+import com.jcos.lc4e.core.database.service.UserService;
 import com.jcos.lc4e.core.entity.Article;
 import com.jcos.lc4e.core.entity.Message;
 import com.jcos.lc4e.core.entity.Popup;
-import com.jcos.lc4e.core.service.UserService;
 import com.jcos.lc4e.core.util.annotation.ValidateField;
 import com.jcos.lc4e.core.util.annotation.ValidateGroup;
 import com.jcos.lc4e.core.util.credentials.PassDisposer;
@@ -33,9 +32,9 @@ import com.jcos.lc4e.core.util.credentials.PassDisposer;
 @RequestMapping(value = "/Member")
 public class MemberController {
 
-	@Inject
+	@Autowired
 	private UserService userService;
-	@Inject
+	@Autowired
 	private PassDisposer passDisposer;
 
 	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)

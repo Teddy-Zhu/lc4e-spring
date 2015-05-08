@@ -155,8 +155,7 @@ require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 				animation : 'fadeInUpArt',
 				speed : 'fast',
 				interval : 100,
-				onComplete : function($that) {
-					$that.find('.content>.extra>.ui.dropdown.button').dropdown();
+				onFinish : function($that) {
 					$that.find('.ui.fluid.image img').popup();
 				},
 			})

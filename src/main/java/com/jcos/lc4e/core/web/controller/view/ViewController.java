@@ -1,12 +1,11 @@
-package com.jcos.lc4e.core.web.viewcontroller;
+package com.jcos.lc4e.core.web.controller.view;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,21 +13,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
 
+import com.jcos.lc4e.core.database.dao.UserMapper;
+import com.jcos.lc4e.core.database.service.UserService;
 import com.jcos.lc4e.core.entity.Message;
-import com.jcos.lc4e.core.service.UserService;
-import com.jcos.lc4e.core.util.annotation.AuthToken;
+import com.jcos.lc4e.core.util.annotation.ValidateToken;
 import com.jcos.lc4e.core.util.l18n.ParserMessage;
 
 @Controller
 public class ViewController {
 
-	@Inject
+	@Autowired
 	private UserService userService;
 
-	@Inject
+	@Autowired
+	private UserMapper userDao;
+	@Autowired
 	private ParserMessage msg;
 
-	@Inject
+	@Autowired
 	private LocaleResolver localeResolver;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -56,7 +58,7 @@ public class ViewController {
 		return "topHotTest";
 	}
 
-	@AuthToken
+	@ValidateToken
 	@RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "topHotTest";
@@ -73,5 +75,11 @@ public class ViewController {
 	public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
 		localeResolver.setLocale(request, response, Locale.CHINA);
 		return new Message(true, "Change Success");
+	}
+	
+	@RequestMapping(value = "/testUser", method = RequestMethod.GET)
+	@ResponseBody
+	public Message testUser(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+		return new Message(true,userDao.selecttest("teddy"));
 	}
 }

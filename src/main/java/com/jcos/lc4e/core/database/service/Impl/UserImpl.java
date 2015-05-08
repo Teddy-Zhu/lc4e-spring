@@ -1,18 +1,17 @@
-package com.jcos.lc4e.core.service.Impl;
+package com.jcos.lc4e.core.database.service.Impl;
 
 import java.util.Set;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jcos.lc4e.core.database.dao.UserMapper;
 import com.jcos.lc4e.core.database.model.User;
-import com.jcos.lc4e.core.service.UserService;
+import com.jcos.lc4e.core.database.service.UserService;
 
 @Service
 public class UserImpl implements UserService {
-	@Inject
+	@Autowired
 	private UserMapper userDao;
 
 	@Override

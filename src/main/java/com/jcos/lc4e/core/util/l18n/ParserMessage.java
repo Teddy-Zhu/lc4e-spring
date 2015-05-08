@@ -23,7 +23,6 @@ public class ParserMessage {
 
 	public String L18N(String code, Locale locale, String... args) {
 		String message = messages.getMessage(code, args, code, locale);
-		logger.info(message);
 		return message;
 	}
 }

@@ -1,16 +1,20 @@
 package com.jcos.lc4e.core.util.realm;
 
-import javax.inject.Inject;
-
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.jcos.lc4e.core.database.model.User;
-import com.jcos.lc4e.core.service.UserService;
+import com.jcos.lc4e.core.database.service.UserService;
 
 /**
  * <p>
@@ -22,7 +26,7 @@ import com.jcos.lc4e.core.service.UserService;
  */
 public class UserRealm extends AuthorizingRealm {
 
-	@Inject
+	@Autowired
 	private UserService userService;
 
 	@Override

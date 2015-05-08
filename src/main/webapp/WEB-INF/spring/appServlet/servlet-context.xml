@@ -65,11 +65,7 @@
 			<value>4096</value>
 		</property>
 	</bean>
-
-	<mvc:interceptors>
-		<bean class="com.jcos.lc4e.core.util.annotationhandle.AuthFilter"></bean>
-	</mvc:interceptors>
-
+	
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
 			<bean class="com.jcos.lc4e.core.util.annotationhandle.CurrentUserMethodArgumentResolver" />

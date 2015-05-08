@@ -3,6 +3,7 @@ package com.jcos.lc4e.core.database.dao;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import com.jcos.lc4e.core.database.model.User;
 
@@ -24,4 +25,8 @@ public interface UserMapper {
 	Set<String> findUserPermissionsByUserName(@Param(value = "username") String username);
 
 	User findUserByUserName(@Param(value = "username") String username);
+	
+	
+	@Select("SELECT * FROM l4_user WHERE strUserName = #{username}") 
+	User selecttest(@Param(value = "username") String username);
 }

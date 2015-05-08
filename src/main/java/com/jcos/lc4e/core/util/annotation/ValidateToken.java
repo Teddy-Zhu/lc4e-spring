@@ -11,6 +11,15 @@ import java.lang.annotation.Target;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AuthToken {
+public @interface ValidateToken {
 	
+	/**
+	 * request index
+	 * @return
+	 */
+	public int reqIndex() default 0;
+
+	public int resIndex() default 1;
+
+	public int modIndex() default 2;
 }

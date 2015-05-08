@@ -1,4 +1,4 @@
-package com.jcos.lc4e.core.service;
+package com.jcos.lc4e.core.database.service;
 
 import java.util.Set;
 
