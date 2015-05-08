@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysTopicStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysTopicStatus" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intTopicId" property="inttopicid" jdbcType="INTEGER" />
+    <result column="intStatusId" property="intstatusid" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intTopicId, intStatusId, dateCreateTime
+  </sql>
+</mapper>

@@ -5,11 +5,11 @@ import java.util.Date;
 public class SysComment {
     private Integer intcommentid;
 
-    private String intarticleid;
+    private String inttopicid;
 
     private String intcommenttitle;
 
-    private String intcommentcontent;
+    private String intcommentbody;
 
     private Integer intuserid;
 
@@ -29,12 +29,12 @@ public class SysComment {
         this.intcommentid = intcommentid;
     }
 
-    public String getIntarticleid() {
-        return intarticleid;
+    public String getInttopicid() {
+        return inttopicid;
     }
 
-    public void setIntarticleid(String intarticleid) {
-        this.intarticleid = intarticleid == null ? null : intarticleid.trim();
+    public void setInttopicid(String inttopicid) {
+        this.inttopicid = inttopicid == null ? null : inttopicid.trim();
     }
 
     public String getIntcommenttitle() {
@@ -45,12 +45,12 @@ public class SysComment {
         this.intcommenttitle = intcommenttitle == null ? null : intcommenttitle.trim();
     }
 
-    public String getIntcommentcontent() {
-        return intcommentcontent;
+    public String getIntcommentbody() {
+        return intcommentbody;
     }
 
-    public void setIntcommentcontent(String intcommentcontent) {
-        this.intcommentcontent = intcommentcontent == null ? null : intcommentcontent.trim();
+    public void setIntcommentbody(String intcommentbody) {
+        this.intcommentbody = intcommentbody == null ? null : intcommentbody.trim();
     }
 
     public Integer getIntuserid() {

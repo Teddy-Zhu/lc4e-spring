@@ -77,9 +77,4 @@ public class ViewController {
 		return new Message(true, "Change Success");
 	}
 	
-	@RequestMapping(value = "/testUser", method = RequestMethod.GET)
-	@ResponseBody
-	public Message testUser(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
-		return new Message(true,userDao.selecttest("teddy"));
-	}
 }

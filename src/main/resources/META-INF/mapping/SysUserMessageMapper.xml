@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysUserMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysUserMessage" >
+    <id column="intMessageId" property="intmessageid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="intDestUserId" property="intdestuserid" jdbcType="INTEGER" />
+    <result column="intRead" property="intread" jdbcType="INTEGER" />
+    <result column="strMessageTitle" property="strmessagetitle" jdbcType="VARCHAR" />
+    <result column="strMessageBody" property="strmessagebody" jdbcType="VARCHAR" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+    <result column="dateModifiedTime" property="datemodifiedtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intMessageId, intUserId, intDestUserId, intRead, strMessageTitle, strMessageBody, 
+    dateCreateTime, dateModifiedTime
+  </sql>
+</mapper>

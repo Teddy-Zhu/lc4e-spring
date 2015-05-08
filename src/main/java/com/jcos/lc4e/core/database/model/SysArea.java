@@ -19,9 +19,9 @@ public class SysArea {
 
     private Integer isshow;
 
-    private Date datecreatetime;
-
     private Integer intuserid;
+
+    private Date datecreatetime;
 
     public Integer getIntareaid() {
         return intareaid;
@@ -87,19 +87,19 @@ public class SysArea {
         this.isshow = isshow;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
-    }
-
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
-    }
-
     public Integer getIntuserid() {
         return intuserid;
     }
 
     public void setIntuserid(Integer intuserid) {
         this.intuserid = intuserid;
+    }
+
+    public Date getDatecreatetime() {
+        return datecreatetime;
+    }
+
+    public void setDatecreatetime(Date datecreatetime) {
+        this.datecreatetime = datecreatetime;
     }
 }

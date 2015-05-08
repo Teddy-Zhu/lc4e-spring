@@ -29,8 +29,7 @@ public class DefaultExceptionHandler {
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(NativeWebRequest request, AuthorizationException e) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", e.getMessage());
-		mv.setViewName("unauthorized");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 
@@ -38,7 +37,7 @@ public class DefaultExceptionHandler {
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(NativeWebRequest request, Exception e) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", "");
+		mv.addObject("exception", e.getMessage());
 		mv.setViewName("unauthorized");
 		return mv;
 	}

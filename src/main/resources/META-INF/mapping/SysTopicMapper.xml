@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysTopicMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysTopic" >
+    <id column="intTopicId" property="inttopicid" jdbcType="INTEGER" />
+    <result column="intAreaId" property="intareaid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="strTopicTitle" property="strtopictitle" jdbcType="VARCHAR" />
+    <result column="strTopicBody" property="strtopicbody" jdbcType="VARCHAR" />
+    <result column="isHide" property="ishide" jdbcType="INTEGER" />
+    <result column="isDeleted" property="isdeleted" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+    <result column="dateModified" property="datemodified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intTopicId, intAreaId, intUserId, strTopicTitle, strTopicBody, isHide, isDeleted, 
+    dateCreateTime, dateModified
+  </sql>
+</mapper>

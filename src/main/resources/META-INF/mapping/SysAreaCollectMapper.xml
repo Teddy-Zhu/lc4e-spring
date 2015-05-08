@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jcos.lc4e.core.database.dao.SysAreaCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysAreaCollect" >
+    <id column="intId" property="intid" jdbcType="INTEGER" />
+    <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
+    <result column="intCollectedAreaId" property="intcollectedareaid" jdbcType="INTEGER" />
+    <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intId, intUserId, intCollectedAreaId, dateCreateTime
+  </sql>
+</mapper>
