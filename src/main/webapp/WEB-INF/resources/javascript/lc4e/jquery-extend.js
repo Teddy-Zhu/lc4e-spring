@@ -907,10 +907,10 @@
 			},
 			onBefore : function($thedom) {
 			}
-		}, $that = $(this), count = 0;
+		}, $that = $(this), count = 0, flag = false;
 
 		function animate() {
-			var $thedom = $($that[count]), animateClass = new Array();
+			var $thedom = $($that[count]), animateClass = new Array(), InCount = count;
 			animateClass.push('animated-');
 			animateClass.push(options.speed);
 			animateClass.push(" ");
@@ -926,11 +926,11 @@
 				} else {
 					$thedom.hide();
 				}
-				if (count == $that.length - 1) {
+				if (InCount == $that.length - 1) {
 					options.onFinish($that);
 				}
 			});
-			count++;
+			count += 1;
 		}
 
 		function animateIndex() {
@@ -1255,7 +1255,7 @@
 			},
 			onBefore : function($thedom) {
 			}
-		}, tmpajax, dtd = $.Deferred(), count = 0, thisDom = this;
+		}, tmpajax, dtd = $.Deferred(), thisDom = this;
 		options = $.extend(defaults, options);
 
 		if (options.needToken) {
@@ -1278,8 +1278,7 @@
 			dtd.done(function(templateHtml) {
 				var itemArray = templateHtml.match(/{#(.*?)#}/g), dataLength = data.length;
 				thisDom.each(function() {
-					var $that = $(this), last = false;
-					count = 0;
+					var $that = $(this), count = 0;
 					if (options.empty) {
 						$that.empty()
 					}
@@ -1290,10 +1289,10 @@
 					}
 
 					function animate() {
-						var domHtml = templateHtml;
+						var domHtml = templateHtml, InCount = count;
 						for (var i = 0, len = itemArray.length; i < len; i++) {
 							var item = itemArray[i], itemlen = item.length;
-							domHtml = domHtml.replace(new RegExp(item, 'g'), $.Lc4eGetter(data[count], $.trim(item.substring(2, itemlen - 2))));
+							domHtml = domHtml.replace(new RegExp(item, 'g'), $.Lc4eGetter(data[InCount], $.trim(item.substring(2, itemlen - 2))));
 						}
 						var $thedom = $(domHtml), animateClass = new Array();
 						animateClass.push('animated-');
@@ -1306,17 +1305,15 @@
 						$thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 							$thedom.removeClass(animateClass)
 							options.onComplete($thedom);
-							if (last) {
+							if (InCount == dataLength - 1) {
 								options.onFinish($that);
 							}
 						});
-						count++;
+
+						count += 1;
 					}
 					if (options.enableAnimate) {
 						for (var i = 0, len = dataLength; i < len; i++) {
-							if (i == len - 1) {
-								last = true;
-							}
 							setTimeout(animateIndex(), options.interval * i);
 						}
 					} else {

@@ -81,8 +81,8 @@ public class MemberController {
 		Date now = new Date();
 		List<Article> list = new ArrayList<Article>();
 		for (int i = 0; i < size; i++) {
-			list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(5)], users[new Random().nextInt(5)], new Random().nextInt(100), dateFormat.format(
-					randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(5)]));
+			list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
+					dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
 		}
 		return list;
 	}

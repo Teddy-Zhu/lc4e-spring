@@ -26,7 +26,6 @@ public class RelativeDateFormat {
 	private ParserMessage msg;
 
 	public String format(Date date, Locale locale, Date now) {
-		logger.debug(date.toString());
 		long delta = now.getTime() - date.getTime();
 		if (delta < 1L * ONE_MINUTE) {
 			long seconds = toSeconds(delta);
