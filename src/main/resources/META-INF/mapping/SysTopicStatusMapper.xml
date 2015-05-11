@@ -7,7 +7,4 @@
     <result column="intStatusId" property="intstatusid" jdbcType="INTEGER" />
     <result column="dateCreateTime" property="datecreatetime" jdbcType="DATE" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intTopicId, intStatusId, dateCreateTime
-  </sql>
 </mapper>

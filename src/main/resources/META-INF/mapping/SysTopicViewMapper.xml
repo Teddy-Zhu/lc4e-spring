@@ -6,7 +6,4 @@
     <result column="intTopicId" property="inttopicid" jdbcType="INTEGER" />
     <result column="intViewCount" property="intviewcount" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intTopicId, intViewCount
-  </sql>
 </mapper>

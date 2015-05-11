@@ -8,7 +8,4 @@
     <result column="strStatusDesription" property="strstatusdesription" jdbcType="VARCHAR" />
     <result column="strStatusIcon" property="strstatusicon" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intStatusId, strStatusAbbr, strStatusName, strStatusDesription, strStatusIcon
-  </sql>
 </mapper>

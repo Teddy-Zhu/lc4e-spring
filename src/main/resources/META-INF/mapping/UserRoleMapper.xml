@@ -7,7 +7,4 @@
     <result column="intRoleId" property="introleid" jdbcType="INTEGER" />
     <result column="dateCreated" property="datecreated" jdbcType="DATE" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intUserId, intRoleId, dateCreated
-  </sql>
 </mapper>

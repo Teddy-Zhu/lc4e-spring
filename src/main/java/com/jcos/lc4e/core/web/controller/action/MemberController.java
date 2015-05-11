@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ import com.jcos.lc4e.core.entity.Popup;
 import com.jcos.lc4e.core.util.annotation.ValidateField;
 import com.jcos.lc4e.core.util.annotation.ValidateGroup;
 import com.jcos.lc4e.core.util.credentials.PassDisposer;
+import com.jcos.lc4e.core.util.timeformat.RelativeDateFormat;
 
 @Controller
 @RequestMapping(value = "/Member")
@@ -37,6 +39,8 @@ public class MemberController {
 	private UserService userService;
 	@Autowired
 	private PassDisposer passDisposer;
+	@Autowired
+	private RelativeDateFormat dateFormat;
 
 	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)
 	@ResponseBody
@@ -71,34 +75,33 @@ public class MemberController {
 	@RequestMapping(value = "/GetArticles", method = RequestMethod.POST)
 	@ResponseBody
 	@ValidateGroup(fields = { @ValidateField(index = 0, NotNull = false, defaultInt = 1, minLen = 4, maxLen = 15), @ValidateField(index = 1, NotNull = false, defaultInt = 10, minLen = 6) })
-	public List<Article> getTestArticle(Integer page, Integer size, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public List<Article> getTestArticle(Integer page, Integer size, HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
 		String[] cate = new String[] { "Java", "Obj-C", "C", "C++", "IOS", "Android" };
 		String[] users = new String[] { "Admin", "Test", "Myas", "Liakx", "Google", "vsss" };
-
+		Date now = new Date();
 		List<Article> list = new ArrayList<Article>();
 		for (int i = 0; i < size; i++) {
-			list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(5)], users[new Random().nextInt(5)], new Random().nextInt(100), formatdata(randomDate(
-					"2015-03-07 11:00:00", "2015-05-07 12:12:12")), users[new Random().nextInt(5)]));
+			list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(5)], users[new Random().nextInt(5)], new Random().nextInt(100), dateFormat.format(
+					randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(5)]));
 		}
 		return list;
 	}
 
-	private static String formatdata(Date date) {
-		Date now = new Date();
-		long l = now.getTime() - date.getTime();
-		long day = l / (24 * 60 * 60 * 1000);
-		long hour = (l / (60 * 60 * 1000) - day * 24);
-		long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
-		long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-		StringBuffer sb = new StringBuffer();
-		if (day > 0)
-			return sb.append(day).append("天前").toString();
-		if (hour > 0)
-			return sb.append(hour).append("小时前").toString();
-		if (min > 0)
-			return sb.append(min).append("分前").toString();
-		else
-			return sb.append(s).append("秒 前").toString();
+	private static Date randomDate(String beginDate, Date endDate) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date start = format.parse(beginDate);
+			Date end = endDate;
+			if (start.getTime() >= end.getTime()) {
+				return null;
+			}
+			long date = random(start.getTime(), end.getTime());
+
+			return new Date(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	private static Date randomDate(String beginDate, String endDate) {

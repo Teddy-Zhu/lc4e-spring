@@ -7,7 +7,4 @@
     <result column="intCityId" property="intcityid" jdbcType="INTEGER" />
     <result column="intAreaId" property="intareaid" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intLocationId, intProvinceId, intCityId, intAreaId
-  </sql>
 </mapper>

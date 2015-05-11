@@ -13,8 +13,4 @@
     <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intAreaId, intParentAreaId, strAreaAbbr, strAreaName, strAreaDescription, strAreaCss, 
-    strAreaIcon, isShow, intUserId, dateCreateTime
-  </sql>
 </mapper>

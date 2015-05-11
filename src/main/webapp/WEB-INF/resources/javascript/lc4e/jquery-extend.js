@@ -8,8 +8,8 @@
  */
 
 (function($) {
-	
-	//pjax
+
+	// pjax
 	function fnPjax(selector, container, options) {
 		var context = this;
 		return this.on('click.pjax', selector, function(event) {
@@ -1276,9 +1276,9 @@
 			dataType : 'json'
 		}).done(function(data) {
 			dtd.done(function(templateHtml) {
-				var itemArray = templateHtml.match(/{#(.*?)#}/g);
+				var itemArray = templateHtml.match(/{#(.*?)#}/g), dataLength = data.length;
 				thisDom.each(function() {
-					var $that = $(this);
+					var $that = $(this), last = false;
 					count = 0;
 					if (options.empty) {
 						$that.empty()
@@ -1306,18 +1306,21 @@
 						$thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
 							$thedom.removeClass(animateClass)
 							options.onComplete($thedom);
-							if (count == data.length - 1) {
+							if (last) {
 								options.onFinish($that);
 							}
 						});
 						count++;
 					}
 					if (options.enableAnimate) {
-						for (var i = 0, len = data.length; i < len; i++) {
+						for (var i = 0, len = dataLength; i < len; i++) {
+							if (i == len - 1) {
+								last = true;
+							}
 							setTimeout(animateIndex(), options.interval * i);
 						}
 					} else {
-						for (var i = 0, len = data.length; i < len; i++) {
+						for (var i = 0, len = dataLength; i < len; i++) {
 							var domHtml = templateHtml;
 							for (var i = 0, len = itemArray.length; i < len; i++) {
 								var item = itemArray[i], itemlen = item.length;

@@ -7,7 +7,4 @@
     <result column="intBlockedTopicId" property="intblockedtopicid" jdbcType="INTEGER" />
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intUserId, intBlockedTopicId, dateCreateTime
-  </sql>
 </mapper>

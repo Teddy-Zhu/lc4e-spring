@@ -8,8 +8,4 @@
     <result column="strPermissionDescription" property="strpermissiondescription" jdbcType="VARCHAR" />
     <result column="intAvaliable" property="intavaliable" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intPermissionId, strPermissionAbbr, strPermissionName, strPermissionDescription, 
-    intAvaliable
-  </sql>
 </mapper>

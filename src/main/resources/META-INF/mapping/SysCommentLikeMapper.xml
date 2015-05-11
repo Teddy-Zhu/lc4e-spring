@@ -7,7 +7,4 @@
     <result column="intUserId" property="intuserid" jdbcType="INTEGER" />
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intCommentId, intUserId, dateCreateTime
-  </sql>
 </mapper>

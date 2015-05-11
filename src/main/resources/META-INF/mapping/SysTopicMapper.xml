@@ -12,8 +12,4 @@
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
     <result column="dateModified" property="datemodified" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intTopicId, intAreaId, intUserId, strTopicTitle, strTopicBody, isHide, isDeleted, 
-    dateCreateTime, dateModified
-  </sql>
 </mapper>

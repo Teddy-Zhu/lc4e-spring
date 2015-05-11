@@ -6,7 +6,4 @@
     <result column="strLogNameAbbr" property="strlognameabbr" jdbcType="VARCHAR" />
     <result column="strLogName" property="strlogname" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intLogNameId, strLogNameAbbr, strLogName
-  </sql>
 </mapper>

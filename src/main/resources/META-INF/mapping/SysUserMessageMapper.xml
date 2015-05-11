@@ -11,8 +11,4 @@
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
     <result column="dateModifiedTime" property="datemodifiedtime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intMessageId, intUserId, intDestUserId, intRead, strMessageTitle, strMessageBody, 
-    dateCreateTime, dateModifiedTime
-  </sql>
 </mapper>

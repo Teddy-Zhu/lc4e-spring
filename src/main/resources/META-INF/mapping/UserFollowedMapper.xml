@@ -7,7 +7,4 @@
     <result column="intFollowedUserId" property="intfolloweduserid" jdbcType="INTEGER" />
     <result column="dateCreateTime" property="datecreatetime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intUserId, intFollowedUserId, dateCreateTime
-  </sql>
 </mapper>

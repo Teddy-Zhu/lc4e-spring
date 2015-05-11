@@ -7,7 +7,4 @@
     <result column="douBalance" property="doubalance" jdbcType="DECIMAL" />
     <result column="dateModifiedTime" property="datemodifiedtime" jdbcType="DATE" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    intId, intUserId, douBalance, dateModifiedTime
-  </sql>
 </mapper>
