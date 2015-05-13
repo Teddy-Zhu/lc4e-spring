@@ -224,7 +224,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="plugins/moment/moment.min.js"></script>
 	<script src="plugins/require.js/2.1.17/require.min.js" data-main="js/index"></script>
 	
 </body>

@@ -16,14 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.jcos.lc4e.core.database.model.User;
 import com.jcos.lc4e.core.database.service.UserService;
 
-/**
- * <p>
- * User: Zhang Kaitao
- * <p>
- * Date: 14-1-28
- * <p>
- * Version: 1.0
- */
+
 public class UserRealm extends AuthorizingRealm {
 
 	@Autowired

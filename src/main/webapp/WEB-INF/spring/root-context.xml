@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
@@ -11,12 +10,16 @@ http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context-4.1.xsd
 ">
+
+	<context:component-scan base-package="com.jcos.lc4e.core" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:property-placeholder location="classpath:META-INF/application.properties" />
 
-	<context:component-scan base-package="com.jcos.lc4e">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
 
 	<aop:aspectj-autoproxy expose-proxy="true" />
 	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -92,7 +95,7 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* com.jcos.lc4e.core.database.service.Impl..*Impl.*(..))" />
+		<aop:pointcut id="transactionPointcut" expression="execution(* com.jcos.lc4e.core..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
 	</aop:config>
 
@@ -102,8 +105,7 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
 		<property name="patterns">
 			<list>
-				<value>com.jcos.lc4e.core.database.service.*</value>
-				<value>com.jcos.lc4e.core.web.service.*</value>
+				<value>com.jcos.lc4e.core.*</value>
 			</list>
 		</property>
 	</bean>
@@ -116,17 +118,14 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		<property name="cacheManager" ref="ehcacheManager" />
 	</bean>
 
-	<!--ehcache -->
 	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation" value="classpath:ehcache.xml" />
 	</bean>
 
-	<!-- 缓存管理器 -->
 	<bean id="cacheManager" class="com.jcos.lc4e.core.util.cache.SpringCacheManagerWrapper">
 		<property name="cacheManager" ref="springCacheManager" />
 	</bean>
 
-	<!-- 凭证匹配器 -->
 	<bean id="credentialsMatcher" class="com.jcos.lc4e.core.util.credentials.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="cacheManager" />
 		<property name="hashAlgorithmName" value="md5" />
@@ -134,16 +133,13 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		<property name="storedCredentialsHexEncoded" value="true" />
 	</bean>
 
-	<!-- Realm实现 -->
 	<bean id="userRealm" class="com.jcos.lc4e.core.util.realm.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="false" />
 	</bean>
 
-	<!-- 会话ID生成器 -->
 	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
 
-	<!-- 会话Cookie模板 -->
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<constructor-arg value="lc4e" />
 		<property name="httpOnly" value="true" />
@@ -156,26 +152,21 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		<property name="maxAge" value="2592000" /><!-- 30天 -->
 	</bean>
 
-	<!-- rememberMe管理器 -->
 	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-		<!-- rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度（128 256 512 位） -->
 		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
 		<property name="cookie" ref="rememberMeCookie" />
 	</bean>
 
-	<!-- 会话DAO -->
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
 		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
 		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
 	</bean>
 
-	<!-- 会话验证调度器 -->
 	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">
 		<property name="sessionValidationInterval" value="1800000" />
 		<property name="sessionManager" ref="sessionManager" />
 	</bean>
 
-	<!-- 会话管理器 -->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<property name="globalSessionTimeout" value="1800000" />
 		<property name="deleteInvalidSessions" value="true" />
@@ -184,10 +175,9 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		<property name="sessionDAO" ref="sessionDAO" />
 		<property name="sessionIdCookieEnabled" value="true" />
 		<property name="sessionIdCookie" ref="sessionIdCookie" />
-		<property name="sessionIdCookie.name" value="lc4e"/>
+		<property name="sessionIdCookie.name" value="lc4e" />
 	</bean>
 
-	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userRealm" />
 		<property name="sessionManager" ref="sessionManager" />
@@ -195,18 +185,15 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 		<property name="rememberMeManager" ref="rememberMeManager" />
 	</bean>
 
-	<!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
 	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
 		<property name="arguments" ref="securityManager" />
 	</bean>
 
-	<!-- Shiro的Web过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
-
-	<!-- Shiro生命周期处理器 -->
+	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
 	<!-- L18N -->
@@ -228,4 +215,5 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
 		<property name="defaultLocale" value="${locale.defaultLocale}" />
 	</bean>
+
 </beans>

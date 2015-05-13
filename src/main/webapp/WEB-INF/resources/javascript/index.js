@@ -26,7 +26,7 @@ require.config({
 		"se-transition" : "/plugins/semantic-ui/1.12.0/components/transition.min",
 		"se-video" : "/plugins/semantic-ui/1.12.0/components/video.min",
 		"se-visibility" : "/plugins/semantic-ui/1.12.0/components/visibility.min",
-		"moment" : "/plugins/moment/moment.min"
+		"moment" : "/plugins/moment/moment"
 	},
 	shim : {
 		'lc4e' : [ 'jquery', 'semantic' ],

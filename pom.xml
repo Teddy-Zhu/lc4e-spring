@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jcos</groupId>
 	<artifactId>lc4e</artifactId>
-	<name>lc4e</name>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>lc4e</name>
+	<url>http://maven.apache.org</url>
 	<properties>
-		<java-version>1.7</java-version>
+		<java-version>1.8</java-version>
 		<org.springframework.version>4.1.6.RELEASE</org.springframework.version>
 		<org.aspectj.version>1.8.5</org.aspectj.version>
 		<shiro.version>1.2.3</shiro.version>
@@ -20,6 +20,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<!-- shiro -->
 		<dependency>
@@ -174,18 +175,24 @@
 			<artifactId>poi</artifactId>
 			<version>3.12-beta1</version>
 		</dependency>
-
 	</dependencies>
 	<build>
+		<finalName>lc4e</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.3</version>
 				<configuration>
 					<target>${java-version}</target>
 					<source>${java-version}</source>
 					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<version>3.1</version>
 				</configuration>
 			</plugin>
 		</plugins>
