@@ -64,7 +64,6 @@ require([ 'jquery', 'moment', 'lc4e', 'semantic' ], function($, moment) {
 			transition : "scale",
 			on : 'click'
 		});
-
 		$('#searchSite').on('focus', function() {
 			$(this).addClass('expended');
 		}).on('blur', function() {
