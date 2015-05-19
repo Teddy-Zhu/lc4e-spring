@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="item" style="display: none">
 	<div class="ui fluid tiny image hidden-mb">
 		<div class="ui teal ribbon label">User</div>

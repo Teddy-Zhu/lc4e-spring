@@ -40,7 +40,7 @@ public class ViewController {
 	
 	@RequestMapping(value = "/articleTemplate", method = RequestMethod.GET)
 	public String articleTemplate(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "articleTemplate";
+		return "template/articleIndex";
 	}
 
 	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class ViewController {
 	public String tophostsTest(HttpServletRequest request, HttpServletResponse response, Model model) {
 		return "topHotTest";
 	}
-
+	
 	@ValidateToken
 	@RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
 	public String test(HttpServletRequest request, HttpServletResponse response, Model model) {

@@ -1,3 +1,4 @@
+
 package com.jcos.lc4e.core.entity;
 
 public class Article {
