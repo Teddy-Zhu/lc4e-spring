@@ -88,7 +88,7 @@ public class UIDataAaspectHandle {
                 try {
                     method = clazz.getDeclaredMethod(functions[i]);
                     Object obj = method.invoke(uiData,objs);
-                    model.addAttribute(varNames[i], JSONObject.toJSONString(obj));
+                    model.addAttribute(varNames[i], obj);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;

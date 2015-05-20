@@ -8,26 +8,7 @@
         </div>
         <div class="left menu">
             <img class="logo ui image item hidden-mb" src="images/logo.png">
-            <a class="item linked"> <i class="home icon"></i> Home</a>
-            <a class="item linked"> <i class="mail icon"></i> Messages</a>
-            <a class="item linked"> <i class="user icon"></i> Friends</a>
-
-            <div class="ui dropdown link item">
-                <i class="font icon"></i><span class="text">Language</span><i class="dropdown icon"></i>
-
-                <div class="menu">
-                    <a class="item">C/C++</a> <a class="item">Java</a> <a class="item">JavaScript</a>
-
-                    <div class="ui link item">
-                        <span class="text">Script</span><i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item">Python</div>
-                            <div class="divider"></div>
-                            <div class="item">ruby</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <c:import url="common/menudropdown.jsp"></c:import>
         </div>
         <div class="right menu">
             <div class="item">

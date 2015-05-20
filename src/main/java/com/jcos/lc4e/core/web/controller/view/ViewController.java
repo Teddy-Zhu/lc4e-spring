@@ -30,12 +30,11 @@ public class ViewController {
     @Autowired
     private ParserMessage msg;
 
-    @Autowired
-    private UIData uiData;
 
     @Autowired
     private LocaleResolver localeResolver;
 
+    @SetUIData(funcName = {"getMenuTree"}, varName = {"menulist"})
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "index";

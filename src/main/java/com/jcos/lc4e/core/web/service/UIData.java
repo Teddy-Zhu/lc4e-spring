@@ -1,11 +1,13 @@
 package com.jcos.lc4e.core.web.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jcos.lc4e.core.database.model.SysMenu;
 import com.jcos.lc4e.core.database.service.MenuService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,15 +20,16 @@ public class UIData {
     @Autowired
     private MenuService menuService;
 
-    public SysMenu getMenuTree(){
+    public List<SysMenu> getMenuTree(){
         List<SysMenu> allMenus = menuService.getSysMenus();
         SysMenu menuTree = new SysMenu();
         if(allMenus==null || allMenus.isEmpty()){
-            return menuTree;
+            return new ArrayList<SysMenu>();
         }
         menuTree = allMenus.get(0);
         getMenu(allMenus,menuTree);
-        return menuTree;
+
+        return menuTree.getChildMenus();
     }
 
     private void getMenu(List<SysMenu> allMenus,SysMenu curMenu){
