@@ -24,10 +24,6 @@ public class SysMenuSqlProvider {
             VALUES("intParentMenuId", "#{intparentmenuid,jdbcType=INTEGER}");
         }
         
-        if (record.getIntmenulocation() != null) {
-            VALUES("intMenuLocation", "#{intmenulocation,jdbcType=INTEGER}");
-        }
-        
         if (record.getIntmenuorderid() != null) {
             VALUES("intMenuOrderId", "#{intmenuorderid,jdbcType=INTEGER}");
         }
@@ -57,10 +53,6 @@ public class SysMenuSqlProvider {
         
         if (record.getIntparentmenuid() != null) {
             SET("intParentMenuId = #{intparentmenuid,jdbcType=INTEGER}");
-        }
-        
-        if (record.getIntmenulocation() != null) {
-            SET("intMenuLocation = #{intmenulocation,jdbcType=INTEGER}");
         }
         
         if (record.getIntmenuorderid() != null) {

@@ -1,10 +1,12 @@
 package com.jcos.lc4e.core.web.controller.view;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.jcos.lc4e.core.database.dao.UserMapper;
+import com.jcos.lc4e.core.database.service.UserService;
+import com.jcos.lc4e.core.entity.Message;
+import com.jcos.lc4e.core.util.annotation.SetUIData;
+import com.jcos.lc4e.core.util.annotation.ValidateToken;
+import com.jcos.lc4e.core.util.l18n.ParserMessage;
+import com.jcos.lc4e.core.web.service.UIData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,68 +15,76 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
 
-import com.jcos.lc4e.core.database.dao.UserMapper;
-import com.jcos.lc4e.core.database.service.UserService;
-import com.jcos.lc4e.core.entity.Message;
-import com.jcos.lc4e.core.util.annotation.ValidateToken;
-import com.jcos.lc4e.core.util.l18n.ParserMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 @Controller
 public class ViewController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private UserMapper userDao;
-	@Autowired
-	private ParserMessage msg;
+    @Autowired
+    private UserMapper userDao;
+    @Autowired
+    private ParserMessage msg;
 
-	@Autowired
-	private LocaleResolver localeResolver;
+    @Autowired
+    private UIData uiData;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "index";
-	}
-	
-	@RequestMapping(value = "/articleTemplate", method = RequestMethod.GET)
-	public String articleTemplate(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "template/articleIndex";
-	}
+    @Autowired
+    private LocaleResolver localeResolver;
 
-	@RequestMapping(value = "/SignUp", method = RequestMethod.GET)
-	public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "SignUp";
-	}
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "index";
+    }
 
-	@RequestMapping(value = "/Articles", method = RequestMethod.GET)
-	public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "articletest";
-	}
+    @RequestMapping(value = "/articleTemplate", method = RequestMethod.GET)
+    public String articleTemplate(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "template/articleIndex";
+    }
 
-	@RequestMapping(value = "/TopHots", method = RequestMethod.GET)
-	public String tophostsTest(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "topHotTest";
-	}
-	
-	@ValidateToken
-	@RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
-	public String test(HttpServletRequest request, HttpServletResponse response, Model model) {
-		return "topHotTest";
-	}
+    @RequestMapping(value = "/SignUp", method = RequestMethod.GET)
+    public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "SignUp";
+    }
 
-	@RequestMapping(value = "/View", method = RequestMethod.GET)
-	public String View(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
-		model.addAttribute("exception", msg.L18N("test", locale));
-		return "unauthorized";
-	}
+    @RequestMapping(value = "/Articles", method = RequestMethod.GET)
+    public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "articletest";
+    }
 
-	@RequestMapping(value = "/ChangeLocale", method = RequestMethod.GET)
-	@ResponseBody
-	public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
-		localeResolver.setLocale(request, response, Locale.CHINA);
-		return new Message(true, "Change Success");
-	}
-	
+    @RequestMapping(value = "/TopHots", method = RequestMethod.GET)
+    public String tophostsTest(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "topHotTest";
+    }
+
+    @ValidateToken
+    @RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
+    public String test(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "topHotTest";
+    }
+
+    @RequestMapping(value = "/View", method = RequestMethod.GET)
+    public String View(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+        model.addAttribute("exception", msg.L18N("test", locale));
+        return "unauthorized";
+    }
+
+    @RequestMapping(value = "/ChangeLocale", method = RequestMethod.GET)
+    @ResponseBody
+    public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+        localeResolver.setLocale(request, response, Locale.CHINA);
+        return new Message(true, "Change Success");
+    }
+
+
+    @RequestMapping(value = "/GetMenus", method = RequestMethod.GET)
+    @SetUIData(funcName = {"getMenuTree"}, varName = {"Message"})
+    public String getMenus(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "System/Message";
+    }
+
 }

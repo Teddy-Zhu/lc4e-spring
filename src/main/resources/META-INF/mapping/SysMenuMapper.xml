@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysMenu" >
     <id column="intMenuId" property="intmenuid" jdbcType="INTEGER" />
     <result column="intParentMenuId" property="intparentmenuid" jdbcType="INTEGER" />
-    <result column="intMenuLocation" property="intmenulocation" jdbcType="INTEGER" />
     <result column="intMenuOrderId" property="intmenuorderid" jdbcType="INTEGER" />
     <result column="strMenuPath" property="strmenupath" jdbcType="VARCHAR" />
     <result column="strMenuName" property="strmenuname" jdbcType="VARCHAR" />

@@ -19,7 +19,7 @@
 	<!-- Heard Menu End -->
 	<!-- Content Start -->
 	<div id="content">
-		<div id="mainContent" class="ui page  grid">
+		<div id="mainContent" class="ui page grid centered">
 			<div id="leftContent" class="ten wide column">
 				<div id="announcement">
 					<div class="item">
@@ -52,10 +52,16 @@
 				</div>
 
 			</div>
-			<div id="rightContent" class="six wide column">
+			<div id="rightContent" class="four wide column">
 				<div id="todayHot" class="ui sticky segment">
 					<h4 class="ui horizontal header divider">
 						<i class="bar chart icon"></i> Today HotSpot
+					</h4>
+					<div class="ui divided items"></div>
+				</div>
+				<div id="yesterdayHot" class="ui sticky segment">
+					<h4 class="ui horizontal header divider">
+						<i class="bar chart icon"></i> Yesterday HotSpot
 					</h4>
 					<div class="ui divided items"></div>
 				</div>

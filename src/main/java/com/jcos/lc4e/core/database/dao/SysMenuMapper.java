@@ -1,17 +1,9 @@
 package com.jcos.lc4e.core.database.dao;
 
 import com.jcos.lc4e.core.database.model.SysMenu;
+import org.apache.ibatis.annotations.*;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
-import org.apache.ibatis.type.JdbcType;
+import java.util.List;
 
 public interface SysMenuMapper {
     @Delete({
@@ -22,13 +14,13 @@ public interface SysMenuMapper {
 
     @Insert({
         "insert into l4_sys_menu (intMenuId, intParentMenuId, ",
-        "intMenuLocation, intMenuOrderId, ",
-        "strMenuPath, strMenuName, ",
-        "strMenuCss, strMenuIcon)",
+        "intMenuOrderId, strMenuPath, ",
+        "strMenuName, strMenuCss, ",
+        "strMenuIcon)",
         "values (#{intmenuid,jdbcType=INTEGER}, #{intparentmenuid,jdbcType=INTEGER}, ",
-        "#{intmenulocation,jdbcType=INTEGER}, #{intmenuorderid,jdbcType=INTEGER}, ",
-        "#{strmenupath,jdbcType=VARCHAR}, #{strmenuname,jdbcType=VARCHAR}, ",
-        "#{strmenucss,jdbcType=VARCHAR}, #{strmenuicon,jdbcType=VARCHAR})"
+        "#{intmenuorderid,jdbcType=INTEGER}, #{strmenupath,jdbcType=VARCHAR}, ",
+        "#{strmenuname,jdbcType=VARCHAR}, #{strmenucss,jdbcType=VARCHAR}, ",
+        "#{strmenuicon,jdbcType=VARCHAR})"
     })
     int insert(SysMenu record);
 
@@ -37,8 +29,8 @@ public interface SysMenuMapper {
 
     @Select({
         "select",
-        "intMenuId, intParentMenuId, intMenuLocation, intMenuOrderId, strMenuPath, strMenuName, ",
-        "strMenuCss, strMenuIcon",
+        "intMenuId, intParentMenuId, intMenuOrderId, strMenuPath, strMenuName, strMenuCss, ",
+        "strMenuIcon",
         "from l4_sys_menu",
         "where intMenuId = #{intmenuid,jdbcType=INTEGER}"
     })
@@ -51,7 +43,6 @@ public interface SysMenuMapper {
     @Update({
         "update l4_sys_menu",
         "set intParentMenuId = #{intparentmenuid,jdbcType=INTEGER},",
-          "intMenuLocation = #{intmenulocation,jdbcType=INTEGER},",
           "intMenuOrderId = #{intmenuorderid,jdbcType=INTEGER},",
           "strMenuPath = #{strmenupath,jdbcType=VARCHAR},",
           "strMenuName = #{strmenuname,jdbcType=VARCHAR},",
@@ -60,4 +51,10 @@ public interface SysMenuMapper {
         "where intMenuId = #{intmenuid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(SysMenu record);
+
+    @Select({"select","intMenuId, intParentMenuId, intMenuOrderId, strMenuPath, strMenuName, strMenuCss,strMenuIcon",
+        "from l4_sys_menu","ORDER BY intParentMenuId asc,intMenuOrderId asc"
+    })
+    @ResultMap("BaseResultMap")
+    List<SysMenu> selectAllMenus();
 }

@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class ValidateAspectHandle {
 			if (flag) {
 				return joinPoint.proceed();
 			} else {
-				return new Message("Parameter validation error");
+				return returnHandle(method,args,an.modIndex(),"Parameter validation error");
 			}
 		}
 	}
@@ -79,18 +80,23 @@ public class ValidateAspectHandle {
 			if (flag) {
 				return joinPoint.proceed();
 			} else {
-				if (method.getReturnType().getName().equals("java.lang.String")) {
-					Model model = (Model) args[an.modIndex()];
-					model.addAttribute("Message", JSONObject.toJSONString(new Message("Token Auth Error")));
-					return "System/Message";
-				} else {
-					return new Message("Token Auth Error");
-				}
+				return returnHandle(method,args,an.modIndex(),"Token Auth Error");
 			}
 		}
 	}
 
-	public boolean validateToken(ValidateToken vt, Object[] args) {
+
+	private Object returnHandle(Method method,Object[] args,Integer modelIndex,String failed){
+		if (method.getReturnType().getName().equals("java.lang.String")) {
+			Model model = (Model) args[modelIndex];
+			model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
+			return "System/Message";
+		} else {
+			return new Message(failed);
+		}
+	}
+
+	private boolean validateToken(ValidateToken vt, Object[] args) {
 
 		HttpServletRequest request = (HttpServletRequest) args[vt.reqIndex()];
 
@@ -150,7 +156,7 @@ public class ValidateAspectHandle {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	public boolean validateField(ValidateField[] valiedatefiles, Object[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	private boolean validateField(ValidateField[] valiedatefiles, Object[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		for (ValidateField validateField : valiedatefiles) {
 			Object arg = null;
 			if ("".equals(validateField.fieldName())) {
@@ -206,7 +212,7 @@ public class ValidateAspectHandle {
 		return true;
 	}
 
-	public Object getFieldByObjectAndFileName(Object targetObj, String fileName) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	private Object getFieldByObjectAndFileName(Object targetObj, String fileName) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		String tmp[] = fileName.split("\\.");
 		Object arg = targetObj;
 		for (int i = 0; i < tmp.length; i++) {
@@ -219,14 +225,14 @@ public class ValidateAspectHandle {
 	/**
 	 * get field get function
 	 */
-	public String getGetterNameByFieldName(String fieldName) {
+	private String getGetterNameByFieldName(String fieldName) {
 		return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
 	}
 
 	/**
 	 * according annotation class to get annotation
 	 */
-	public Annotation getAnnotationByMethod(Method method, Class annoClass) {
+	private Annotation getAnnotationByMethod(Method method, Class annoClass) {
 		Annotation all[] = method.getAnnotations();
 		for (Annotation annotation : all) {
 			if (annotation.annotationType() == annoClass) {
@@ -239,7 +245,7 @@ public class ValidateAspectHandle {
 	/**
 	 * according method and class to get method
 	 */
-	public Method getMethodByClassAndName(Class c, String methodName) {
+	private Method getMethodByClassAndName(Class c, String methodName) {
 		Method[] methods = c.getDeclaredMethods();
 		for (Method method : methods) {
 			if (method.getName().equals(methodName)) {

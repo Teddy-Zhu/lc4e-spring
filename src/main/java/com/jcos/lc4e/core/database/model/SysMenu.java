@@ -1,11 +1,12 @@
 package com.jcos.lc4e.core.database.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SysMenu {
     private Integer intmenuid;
 
     private Integer intparentmenuid;
-
-    private Integer intmenulocation;
 
     private Integer intmenuorderid;
 
@@ -16,6 +17,38 @@ public class SysMenu {
     private String strmenucss;
 
     private String strmenuicon;
+
+    List<SysMenu> childMenus;
+
+    public SysMenu() {
+        this.childMenus = new ArrayList<SysMenu>();
+        this.strmenuicon = "";
+        this.strmenuname = "";
+        this.strmenucss = "basic";
+        this.strmenupath = "";
+        this.intmenuorderid = 0;
+        this.intparentmenuid = 1;
+        this.intmenuid = 0;
+    }
+
+    public SysMenu(List<SysMenu> childMenus, String strmenuicon, String strmenuname, String strmenucss, String strmenupath, Integer intmenuorderid, Integer intparentmenuid, Integer intmenuid) {
+        this.childMenus = childMenus;
+        this.strmenuicon = strmenuicon;
+        this.strmenuname = strmenuname;
+        this.strmenucss = strmenucss;
+        this.strmenupath = strmenupath;
+        this.intmenuorderid = intmenuorderid;
+        this.intparentmenuid = intparentmenuid;
+        this.intmenuid = intmenuid;
+    }
+
+    public List<SysMenu> getChildMenus() {
+        return childMenus;
+    }
+
+    public void setChildMenus(List<SysMenu> childMenus) {
+        this.childMenus = childMenus;
+    }
 
     public Integer getIntmenuid() {
         return intmenuid;
@@ -31,14 +64,6 @@ public class SysMenu {
 
     public void setIntparentmenuid(Integer intparentmenuid) {
         this.intparentmenuid = intparentmenuid;
-    }
-
-    public Integer getIntmenulocation() {
-        return intmenulocation;
-    }
-
-    public void setIntmenulocation(Integer intmenulocation) {
-        this.intmenulocation = intmenulocation;
     }
 
     public Integer getIntmenuorderid() {
