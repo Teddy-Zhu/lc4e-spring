@@ -3,10 +3,10 @@ package com.jcos.lc4e.core.web.controller.view;
 import com.jcos.lc4e.core.database.dao.UserMapper;
 import com.jcos.lc4e.core.database.service.UserService;
 import com.jcos.lc4e.core.entity.Message;
-import com.jcos.lc4e.core.util.annotation.SetUIData;
+import com.jcos.lc4e.core.util.annotation.UIDataField;
+import com.jcos.lc4e.core.util.annotation.UIDataGroup;
 import com.jcos.lc4e.core.util.annotation.ValidateToken;
 import com.jcos.lc4e.core.util.l18n.ParserMessage;
-import com.jcos.lc4e.core.web.service.UIData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +25,7 @@ public class ViewController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserMapper userDao;
+
     @Autowired
     private ParserMessage msg;
 
@@ -34,7 +33,7 @@ public class ViewController {
     @Autowired
     private LocaleResolver localeResolver;
 
-    @SetUIData(funcName = {"getMenuTree"}, varName = {"menulist"})
+    @UIDataGroup(fields = {@UIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "index";
@@ -81,7 +80,7 @@ public class ViewController {
 
 
     @RequestMapping(value = "/GetMenus", method = RequestMethod.GET)
-    @SetUIData(funcName = {"getMenuTree"}, varName = {"Message"})
+    @UIDataGroup(fields = {@UIDataField(functionName = "getMenuTree", attributeName = "Message", key = "menus")})
     public String getMenus(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "System/Message";
     }

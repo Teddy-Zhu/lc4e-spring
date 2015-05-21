@@ -3,8 +3,11 @@ package com.jcos.lc4e.core.web.service;
 import com.alibaba.fastjson.JSONObject;
 import com.jcos.lc4e.core.database.model.SysMenu;
 import com.jcos.lc4e.core.database.service.MenuService;
+import com.jcos.lc4e.core.util.cache.CacheHandler;
+import com.jcos.lc4e.core.util.cache.SpringCacheManagerWrapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +23,9 @@ public class UIData {
     @Autowired
     private MenuService menuService;
 
+
     public List<SysMenu> getMenuTree(){
+
         List<SysMenu> allMenus = menuService.getSysMenus();
         SysMenu menuTree = new SysMenu();
         if(allMenus==null || allMenus.isEmpty()){
@@ -28,7 +33,7 @@ public class UIData {
         }
         menuTree = allMenus.get(0);
         getMenu(allMenus,menuTree);
-
+        LOGGER.info("get Menus List Successfully");
         return menuTree.getChildMenus();
     }
 

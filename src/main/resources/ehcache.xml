@@ -40,4 +40,16 @@
            statistics="true">
     </cache>
 
+    <!-- default cache data -->
+    <defaultCache
+            maxElementsInMemory="2000"
+            eternal="false"
+            timeToIdleSeconds="604800"
+            timeToLiveSeconds="0"
+            overflowToDisk="true"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+
 </ehcache>

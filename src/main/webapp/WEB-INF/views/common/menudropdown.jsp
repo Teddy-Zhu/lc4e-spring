@@ -15,7 +15,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <a class="item linked"><c:if test="${not empty curMenu.strmenuicon}"><i
+            <a class="item linked" href="${curMenu.strmenupath}"><c:if test="${not empty curMenu.strmenuicon}"><i
                     class="${curMenu.strmenuicon} icon"></i></c:if>${curMenu.strmenuname}</a>
         </c:otherwise></c:choose>
 </c:forEach>

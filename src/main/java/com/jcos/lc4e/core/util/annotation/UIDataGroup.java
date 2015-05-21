@@ -6,16 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by teddy on 2015/5/20.
+ * Created by teddy on 2015/5/21.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface SetUIData {
-    public String[] funcName() default {};
+public @interface UIDataGroup {
 
-    public String[] varName() default {};
-
-    public int[] useVarIndex() default {};
+    public UIDataField[] fields();
 
     public int reqIndex() default 0;
 

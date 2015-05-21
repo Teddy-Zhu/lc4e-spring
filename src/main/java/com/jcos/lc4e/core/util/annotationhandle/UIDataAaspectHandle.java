@@ -2,7 +2,9 @@ package com.jcos.lc4e.core.util.annotationhandle;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jcos.lc4e.core.entity.Message;
-import com.jcos.lc4e.core.util.annotation.SetUIData;
+import com.jcos.lc4e.core.util.annotation.UIDataField;
+import com.jcos.lc4e.core.util.annotation.UIDataGroup;
+import com.jcos.lc4e.core.util.cache.CacheHandler;
 import com.jcos.lc4e.core.web.service.UIData;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -26,12 +28,14 @@ public class UIDataAaspectHandle {
 
     @Autowired
     private UIData uiData;
+    @Autowired
+    private CacheHandler cacheHandler;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.jcos.lc4e.core.util.annotation.SetUIData)")
+    @Around("@annotation(com.jcos.lc4e.core.util.annotation.UIDataGroup)")
     public Object setUIDataForAn(ProceedingJoinPoint joinPoint) throws Throwable {
         boolean flag = false;
-        SetUIData an = null;
+        UIDataGroup an = null;
         Object[] args = null;
         Method method = null;
         Object target = null;
@@ -41,7 +45,7 @@ public class UIDataAaspectHandle {
             target = joinPoint.getTarget();
             method = getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (SetUIData) getAnnotationByMethod(method, SetUIData.class);
+            an = (UIDataGroup) getAnnotationByMethod(method, UIDataGroup.class);
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
@@ -49,12 +53,12 @@ public class UIDataAaspectHandle {
             if (flag) {
                 return joinPoint.proceed();
             } else {
-                return returnHandle(method,args,an.modIndex(),"Set UI Data Failed");
+                return returnHandle(method, args, an.modIndex(), "Set UI Data Failed");
             }
         }
     }
 
-    private Object returnHandle(Method method,Object[] args,Integer modelIndex,String failed){
+    private Object returnHandle(Method method, Object[] args, Integer modelIndex, String failed) {
         if (method.getReturnType().getName().equals("java.lang.String")) {
             Model model = (Model) args[modelIndex];
             model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
@@ -64,40 +68,50 @@ public class UIDataAaspectHandle {
         }
     }
 
-    private boolean setValueByFunctionName(SetUIData setUIData, Object[] args) {
-        Model model = (Model) args[setUIData.modIndex()];
+    private boolean setValueByFunctionName(UIDataGroup setUIDataGroup, Object[] args) {
+        UIDataField[] uiDataFields = setUIDataGroup.fields();
+        Model model = (Model) args[setUIDataGroup.modIndex()];
         Class clazz = uiData.getClass();
 
-        String[] functions = setUIData.funcName();
-        String[] varNames = setUIData.varName();
-        int[] useVars = setUIData.useVarIndex();
-        Object[] objs = new Object[]{};
-        if (useVars.length != 0) {
-            objs = new Object[useVars.length];
-            for (int i = 0,len=useVars.length; i <len ; i++) {
-                objs[i] =  args[useVars[i]];
+        for (int i = 0, len = uiDataFields.length; i < len; i++) {
+            UIDataField curField = uiDataFields[i];
+            String functionName = curField.functionName();
+            String attributeName = curField.attributeName();
+            int[] useVars = curField.useVarIndex();
+            Object[] objs = null;
+            Object obj = null;
+            if (functionName.isEmpty() || attributeName.isEmpty()) {
+                return false;
             }
-        }
-
-        if (functions.length != varNames.length) {
-            return false;
-        }
-        if (functions.length != 0) {
-            for (int i = 0, len = functions.length; i < len; i++) {
-                Method method = null;
-                try {
-                    method = clazz.getDeclaredMethod(functions[i]);
-                    Object obj = method.invoke(uiData,objs);
-                    model.addAttribute(varNames[i], obj);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
+            if (useVars.length != 0) {
+                objs = new Object[useVars.length];
+                for (int j = 0, lenj = useVars.length; j < lenj; j++) {
+                    objs[j] = args[useVars[j]];
+                }
+            } else if (curField.useCache()) {
+                obj = cacheHandler.getCache(curField.cacheName(), curField.key());
+                if (obj != null) {
+                    model.addAttribute(attributeName, obj);
+                    continue;
                 }
             }
-            return true;
-        } else {
-            return true;
+            Method method = null;
+            try {
+                method = clazz.getDeclaredMethod(functionName);
+                obj = method.invoke(uiData, objs);
+                if (obj != null) {
+                    cacheHandler.setCache(curField.cacheName(), curField.key(), obj);
+                    model.addAttribute(attributeName, obj);
+                } else {
+                    return false;
+                }
+            } catch (Exception e) {
+                e.getCause();
+                e.printStackTrace();
+                return false;
+            }
         }
+        return true;
     }
 
     /**
