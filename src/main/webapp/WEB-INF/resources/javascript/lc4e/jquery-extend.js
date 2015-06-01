@@ -9,38 +9,30 @@
 
 (function ($) {
 
+    var Lc4eToDate = {
+        unix2human: function (unixtime) {
+            var dateObj = new Date(unixtime);
+            var UnixTimeToDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + Lc4eToDate.p(dateObj.getHours()) + ':' + Lc4eToDate.p(dateObj.getMinutes()) + ':' + Lc4eToDate.p(dateObj.getSeconds());
+            return UnixTimeToDate;
+        },
+        p: function (s) {
+            return s < 10 ? '0' + s : s;
+        }
+    }
+
     //ajax && browser state
     var Lc4ePJAX = {
-        support: {
-            pjax: window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/),
-            storage: !!window.localStorage
+        support: function () {
+            return window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/)
         },
     }
-    $.fn.Lc4ePJAX = function (options) {
-
-        if (!Lc4ePJAX.support()) {
-            throw  new Error("Your Browser is too old.")
-        }
-
-        Lc4ePJAX.options = options;
-
-        var data = {pjax: true};
-        data = $.extend(true, data, options.data);
-        options.data = data;
-        options.beforeSend = function (xhr) {
-            xhr.setRequestHeader("P-AJAX", true);
-            Lc4ePJAX.options.beforeSend(xhr);
-        };
-        options.success = function (data) {
-            var state = ({url: options.url, title: options.title});
-
-            window.history.pushState(state, newTitle, uri);
-            Lc4ePJAX.options.success(data);
-        };
-    }
+    $(window).on('popstate', function (e) {
+        if (e.title)
+            document.title = e.title;
+    })
 
     /* animate scroll */
-    // defines various easing effects
+// defines various easing effects
     $.easing['jswing'] = $.easing['swing'];
     $.extend($.easing, {
         def: 'easeOutQuad',
@@ -253,7 +245,7 @@
         }, opts.scrollSpeed);
     };
 
-    // default options
+// default options
     $.fn.animatescroll.defaults = {
         easing: "swing",
         scrollSpeed: 800,
@@ -377,7 +369,7 @@
                 }
             }
         })
-    }
+    };
     $.fn.Lc4eModal = function (options) {
         var defaults = {
             Id: null,
@@ -754,17 +746,7 @@
             return $("body").Lc4eModal(options);
         },
         Lc4eToDate: function (unixTime) {
-            function unix2human(unixtime) {
-                var dateObj = new Date(unixtime);
-                var UnixTimeToDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + p(dateObj.getHours()) + ':' + p(dateObj.getMinutes()) + ':' + p(dateObj.getSeconds());
-                return UnixTimeToDate;
-            }
-
-            function p(s) {
-                return s < 10 ? '0' + s : s;
-            }
-
-            return unix2human(unixTime);
+            return Lc4eToDate.unix2human(unixTime);
         },
         Lc4eProgress: function (option, data) {
             return $("body").Lc4eProgress(option, data);
@@ -775,5 +757,42 @@
                 };
             return requestAnimation(callback);
         },
+        Lc4ePJAX: function (options) {
+            options.title = document.title;
+            if (!Lc4ePJAX.support()) {
+                throw  new Error("Your Browser is too old.")
+            }
+            var loptions = new Object();
+            for (var attr in options) {
+                loptions[attr] = options[attr];
+            }
+
+            var data = {pjax: true};
+            data = $.extend(true, data, options.data);
+            options.data = data;
+            options.beforeSend = function (xhr) {
+                xhr.setRequestHeader("P-AJAX", true);
+                if (typeof loptions.beforeSend === "fucntion") {
+                    loptions.beforeSend(xhr);
+                }
+            };
+            options.success = function (data) {
+                var state = ({url: options.url, title: options.title});
+                var title = '';
+
+                title = data["data"] ? (data["data"]["title"] ? data["data"]["title"] : options.title ) : options.title;
+                window.history.pushState(state, title, options.url);
+                if (typeof loptions.success === "fucntion") {
+                    options.success(data);
+                }
+            };
+
+            if (options.needToken) {
+                $.Lc4eAjax(options);
+            } else {
+                $.ajax(options);
+            }
+        }
     });
-})(jQuery);
+})
+(jQuery);

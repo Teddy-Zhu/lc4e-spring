@@ -18,7 +18,6 @@ import java.util.List;
  */
 @Service
 public class UIData {
-
     private static final Logger LOGGER = Logger.getLogger(UIData.class);
     @Autowired
     private MenuService menuService;
@@ -33,7 +32,6 @@ public class UIData {
         }
         menuTree = allMenus.get(0);
         getMenu(allMenus,menuTree);
-        LOGGER.info("get Menus List Successfully");
         return menuTree.getChildMenus();
     }
 
