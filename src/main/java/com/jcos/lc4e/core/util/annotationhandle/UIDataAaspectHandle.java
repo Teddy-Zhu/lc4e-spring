@@ -82,7 +82,7 @@ public class UIDataAaspectHandle {
             Object obj = null;
             if (functionName.isEmpty() || attributeName.isEmpty()) {
                 return false;
-            } else if (functionName.indexOf("get") != -1) {
+            } else if (functionName.indexOf("get") == -1) {
                 functionName = "get" + functionName;
             }
             if (useVars.length != 0) {
