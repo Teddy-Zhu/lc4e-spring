@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jcos.lc4e.core.database.dao.SysCommentMapper" >
-  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysComment" >
+<mapper namespace="com.teddy.lc4e.core.database.dao.SysCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.teddy.lc4e.core.database.model.SysComment" >
     <id column="intCommentId" property="intcommentid" jdbcType="INTEGER" />
     <result column="intTopicId" property="inttopicid" jdbcType="VARCHAR" />
     <result column="intCommentTitle" property="intcommenttitle" jdbcType="VARCHAR" />

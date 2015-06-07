@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jcos.lc4e.core.database.dao.UserMapper">
-	<resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.User">
+<mapper namespace="com.teddy.lc4e.core.database.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.teddy.lc4e.core.database.model.User">
 		<id column="intUserId" property="intuserid" jdbcType="INTEGER" />
 		<result column="strUserName" property="strusername" jdbcType="VARCHAR" />
 		<result column="strUserMail" property="strusermail" jdbcType="VARCHAR" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.jcos.lc4e.core.database.dao.SysUserLocationsMapper" >
-  <resultMap id="BaseResultMap" type="com.jcos.lc4e.core.database.model.SysUserLocations" >
+<mapper namespace="com.teddy.lc4e.core.database.dao.SysUserLocationsMapper" >
+  <resultMap id="BaseResultMap" type="com.teddy.lc4e.core.database.model.SysUserLocations" >
     <id column="intLocationId" property="intlocationid" jdbcType="INTEGER" />
     <result column="intProvinceId" property="intprovinceid" jdbcType="INTEGER" />
     <result column="intCityId" property="intcityid" jdbcType="INTEGER" />

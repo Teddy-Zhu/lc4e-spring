@@ -47,7 +47,7 @@
             timeToIdleSeconds="604800"
             timeToLiveSeconds="0"
             overflowToDisk="true"
-            diskPersistent="false"
+            diskPersistent="true"
             diskExpiryThreadIntervalSeconds="120"
             memoryStoreEvictionPolicy="LRU"
             />
