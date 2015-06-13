@@ -33,6 +33,7 @@
 
     <cache name="shiro-activeSessionCache"
            maxEntriesLocalHeap="2000"
+           maxEntriesLocalDisk="2000"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"
@@ -43,6 +44,8 @@
     <!-- default cache data -->
     <defaultCache
             maxElementsInMemory="2000"
+            maxEntriesLocalHeap="2000"
+            maxEntriesLocalDisk="2000"
             eternal="false"
             timeToIdleSeconds="604800"
             timeToLiveSeconds="0"

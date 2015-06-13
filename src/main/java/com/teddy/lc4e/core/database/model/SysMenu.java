@@ -6,11 +6,15 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Document
-public class SysMenu {
+public class SysMenu implements Serializable {
+
+    @Transient
+    private static final long serialVersionUID = 20160614074832L;
 
     @Id
     private ObjectId id;
