@@ -26,13 +26,14 @@ public class UIData {
             return new ArrayList<SysMenu>();
         }
         menuTree = allMenus.get(0);
+        allMenus.remove(0);
         getMenu(allMenus,menuTree);
         return menuTree.getChildMenus();
     }
 
     private void getMenu(List<SysMenu> allMenus,SysMenu curMenu){
         for (int i = 0,len=allMenus.size(); i <len ;) {
-            if (allMenus.get(i).getIntparentmenuid() == curMenu.getId()){
+            if (allMenus.get(i).getIntParentMenuId().toString().equals(curMenu.getId().toString())){
                 curMenu.getChildMenus().add(allMenus.get(i));
                 allMenus.remove(i);
                 len--;

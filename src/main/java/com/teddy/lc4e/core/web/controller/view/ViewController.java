@@ -89,7 +89,7 @@ public class ViewController {
     @RequestMapping(value = "/ClearCache", method = RequestMethod.GET)
     @ValidateGroup(fields = {@ValidateField(index = 3, NotNull = true), @ValidateField(index = 4, NotNull = true)})
     @ResponseBody
-    public Message getMenus(HttpServletRequest request, HttpServletResponse response, Model model, String cacheName, String key) {
+    public Message getMenus2(HttpServletRequest request, HttpServletResponse response, Model model, String cacheName, String key) {
         if (webCacheManager.clearCacheByKey(cacheName, key))
             return new Message(true, "clear success");
         else

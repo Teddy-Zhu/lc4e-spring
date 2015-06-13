@@ -11,10 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by teddy on 2015/6/12.
- */
-
+@Service
 public class UserService {
 
 

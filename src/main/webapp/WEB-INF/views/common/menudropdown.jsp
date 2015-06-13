@@ -5,8 +5,8 @@
     <c:choose>
         <c:when test="${fn:length(curMenu.childMenus) > 0}">
             <div class="ui dropdown link item">
-                <c:if test="${not empty curMenu.strmenuicon}"><i class="${curMenu.strmenuicon} icon"></i></c:if><span
-                    class="text">${curMenu.strmenuname}</span><i class="dropdown icon"></i>
+                <c:if test="${not empty curMenu.strMenuIcon}"><i class="${curMenu.strMenuIcon} icon"></i></c:if><span
+                    class="text">${curMenu.strMenuName}</span><i class="dropdown icon"></i>
 
                 <div class="menu">
                     <c:set var="menulist" value="${curMenu.childMenus}" scope="request"/>
@@ -15,7 +15,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <a class="item linked" href="${curMenu.strmenupath}"><c:if test="${not empty curMenu.strmenuicon}"><i
-                    class="${curMenu.strmenuicon} icon"></i></c:if>${curMenu.strmenuname}</a>
+            <a class="item linked" href="${curMenu.strMenuPath}"><c:if test="${not empty curMenu.strMenuIcon}"><i
+                    class="${curMenu.strMenuIcon} icon"></i></c:if>${curMenu.strMenuName}</a>
         </c:otherwise></c:choose>
 </c:forEach>
