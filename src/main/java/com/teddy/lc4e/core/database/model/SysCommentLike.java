@@ -1,6 +1,5 @@
 package com.teddy.lc4e.core.database.model;
 
-import com.sun.javafx.beans.IDProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;

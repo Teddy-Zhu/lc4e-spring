@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.web.controller.view;
 
+import com.teddy.lc4e.core.database.service.MenuService;
 import com.teddy.lc4e.core.database.service.UserService;
 import com.teddy.lc4e.core.entity.Message;
 import com.teddy.lc4e.core.util.annotation.*;
@@ -23,7 +24,8 @@ public class ViewController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    private MenuService menuService;
     @Autowired
     private ParserMessage msg;
 
@@ -94,6 +96,15 @@ public class ViewController {
             return new Message(true, "clear success");
         else
             return new Message(false, "clear failed");
+    }
+
+    @RequestMapping(value = "/InitDB", method = RequestMethod.GET)
+    @ResponseBody
+    public Message initaldb(HttpServletRequest request, HttpServletResponse response, Model model) {
+        if(menuService.initdb()){
+            return new Message(true,"success");
+        }
+        return new Message("failed");
     }
 
 }
