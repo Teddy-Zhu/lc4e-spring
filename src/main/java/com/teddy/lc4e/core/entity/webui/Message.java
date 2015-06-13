@@ -1,4 +1,4 @@
-package com.teddy.lc4e.core.entity;
+package com.teddy.lc4e.core.entity.webui;
 
 public class Message {
 

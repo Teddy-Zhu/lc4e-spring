@@ -10,8 +10,8 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.teddy.lc4e.core.entity.Article;
-import com.teddy.lc4e.core.entity.Popup;
+import com.teddy.lc4e.core.entity.webui.Article;
+import com.teddy.lc4e.core.entity.webui.Popup;
 import com.teddy.lc4e.core.util.timeformat.RelativeDateFormat;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.database.service.UserService;
-import com.teddy.lc4e.core.entity.Message;
+import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.ValidateField;
 import com.teddy.lc4e.core.util.annotation.ValidateGroup;
 import com.teddy.lc4e.core.util.credentials.PassDisposer;

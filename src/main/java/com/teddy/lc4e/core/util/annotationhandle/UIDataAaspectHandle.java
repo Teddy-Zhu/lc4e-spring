@@ -1,7 +1,7 @@
 package com.teddy.lc4e.core.util.annotationhandle;
 
 import com.alibaba.fastjson.JSONObject;
-import com.teddy.lc4e.core.entity.Message;
+import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.UIDataField;
 import com.teddy.lc4e.core.util.annotation.UIDataGroup;
 import com.teddy.lc4e.core.util.cache.CacheHandler;

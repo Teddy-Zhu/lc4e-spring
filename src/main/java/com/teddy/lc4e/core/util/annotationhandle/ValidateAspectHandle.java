@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import com.alibaba.fastjson.JSONObject;
-import com.teddy.lc4e.core.entity.Message;
+import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.ValidateField;
 import com.teddy.lc4e.core.util.annotation.ValidateGroup;
 import com.teddy.lc4e.core.util.annotation.ValidateToken;

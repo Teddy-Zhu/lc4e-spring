@@ -2,7 +2,7 @@ package com.teddy.lc4e.core.web.controller.view;
 
 import com.teddy.lc4e.core.database.service.MenuService;
 import com.teddy.lc4e.core.database.service.UserService;
-import com.teddy.lc4e.core.entity.Message;
+import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.*;
 import com.teddy.lc4e.core.util.l18n.ParserMessage;
 import com.teddy.lc4e.core.web.service.WebCacheManager;
