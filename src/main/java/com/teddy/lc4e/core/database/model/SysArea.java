@@ -1,12 +1,19 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysArea {
+
+    @Id
     private Integer intareaid;
-
     private Integer intparentareaid;
-
+    @Indexed(unique = true)
     private String strareaabbr;
 
     private String strareaname;
@@ -22,6 +29,20 @@ public class SysArea {
     private Integer intuserid;
 
     private Date datecreatetime;
+
+    @PersistenceConstructor
+    public SysArea(Integer intareaid, Integer intparentareaid, String strareaabbr, String strareaname, String strareadescription, String strareacss, String strareaicon, Integer isshow, Integer intuserid, Date datecreatetime) {
+        this.intareaid = intareaid;
+        this.intparentareaid = intparentareaid;
+        this.strareaabbr = strareaabbr;
+        this.strareaname = strareaname;
+        this.strareadescription = strareadescription;
+        this.strareacss = strareacss;
+        this.strareaicon = strareaicon;
+        this.isshow = isshow;
+        this.intuserid = intuserid;
+        this.datecreatetime = datecreatetime;
+    }
 
     public Integer getIntareaid() {
         return intareaid;

@@ -1,87 +1,107 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User {
-	private Integer intuserid;
+    @Id
+    private ObjectId id;
+    @Indexed(unique = true)
+    private String userName;
+    @Indexed(unique = true)
+    private String userMail;
+    @Indexed(unique = true)
+    private String userNick;
 
-	private String strusername;
+    private String userPass;
 
-	private String strusermail;
+    private String userPassSalt;
 
-	private String strusernick;
+    private boolean locked;
 
-	private String struserpass;
+    public User() {
+    }
 
-	private String struserpasssalt;
+    public User(String userName, String userPass) {
+        super();
+        this.id = null;
+        this.userName = userName;
+        this.userMail = "";
+        this.userNick = "";
+        this.userPass = userPass;
+        this.userPassSalt = "";
+        this.locked = false;
+    }
 
-	private Integer intlocked;
+    @PersistenceConstructor
 
-	public User() {
-	}
+    public User(ObjectId id, String userName, String userMail, String userNick, String userPass, String userPassSalt, boolean locked) {
+        this.id = id;
+        this.userName = userName;
+        this.userMail = userMail;
+        this.userNick = userNick;
+        this.userPass = userPass;
+        this.userPassSalt = userPassSalt;
+        this.locked = locked;
+    }
 
-	public User(String strusername, String struserpass) {
-		super();
-		this.intuserid = null;
-		this.strusername = strusername;
-		this.strusermail = "";
-		this.strusernick = "";
-		this.struserpass = struserpass;
-		this.struserpasssalt = "";
-		this.intlocked = 0;
-	}
+    public ObjectId getId() {
+        return id;
+    }
 
-	public Integer getIntuserid() {
-		return intuserid;
-	}
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
-	public void setIntuserid(Integer intuserid) {
-		this.intuserid = intuserid;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getStrusername() {
-		return strusername;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setStrusername(String strusername) {
-		this.strusername = strusername == null ? null : strusername.trim();
-	}
+    public String getUserMail() {
+        return userMail;
+    }
 
-	public String getStrusermail() {
-		return strusermail;
-	}
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
 
-	public void setStrusermail(String strusermail) {
-		this.strusermail = strusermail == null ? null : strusermail.trim();
-	}
+    public String getUserNick() {
+        return userNick;
+    }
 
-	public String getStrusernick() {
-		return strusernick;
-	}
+    public void setUserNick(String userNick) {
+        this.userNick = userNick;
+    }
 
-	public void setStrusernick(String strusernick) {
-		this.strusernick = strusernick == null ? null : strusernick.trim();
-	}
+    public String getUserPass() {
+        return userPass;
+    }
 
-	public String getStruserpass() {
-		return struserpass;
-	}
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
 
-	public void setStruserpass(String struserpass) {
-		this.struserpass = struserpass == null ? null : struserpass.trim();
-	}
+    public String getUserPassSalt() {
+        return userPassSalt;
+    }
 
-	public String getStruserpasssalt() {
-		return struserpasssalt;
-	}
+    public void setUserPassSalt(String userPassSalt) {
+        this.userPassSalt = userPassSalt;
+    }
 
-	public void setStruserpasssalt(String struserpasssalt) {
-		this.struserpasssalt = struserpasssalt == null ? null : struserpasssalt.trim();
-	}
+    public boolean isLocked() {
+        return locked;
+    }
 
-	public Integer getIntlocked() {
-		return intlocked;
-	}
-
-	public void setIntlocked(Integer intlocked) {
-		this.intlocked = intlocked;
-	}
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 }

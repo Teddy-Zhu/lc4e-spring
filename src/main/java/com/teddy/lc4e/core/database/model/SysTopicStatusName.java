@@ -1,8 +1,16 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class SysTopicStatusName {
+    @Id
     private Integer intstatusid;
 
+    @Indexed(unique = true)
     private String strstatusabbr;
 
     private String strstatusname;
@@ -10,6 +18,15 @@ public class SysTopicStatusName {
     private String strstatusdesription;
 
     private String strstatusicon;
+
+    @PersistenceConstructor
+    public SysTopicStatusName(Integer intstatusid, String strstatusabbr, String strstatusname, String strstatusdesription, String strstatusicon) {
+        this.intstatusid = intstatusid;
+        this.strstatusabbr = strstatusabbr;
+        this.strstatusname = strstatusname;
+        this.strstatusdesription = strstatusdesription;
+        this.strstatusicon = strstatusicon;
+    }
 
     public Integer getIntstatusid() {
         return intstatusid;

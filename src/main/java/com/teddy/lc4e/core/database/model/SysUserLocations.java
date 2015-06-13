@@ -1,6 +1,12 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class SysUserLocations {
+    @Id
     private Integer intlocationid;
 
     private Integer intprovinceid;
@@ -8,6 +14,14 @@ public class SysUserLocations {
     private Integer intcityid;
 
     private Integer intareaid;
+
+    @PersistenceConstructor
+    public SysUserLocations(Integer intlocationid, Integer intprovinceid, Integer intcityid, Integer intareaid) {
+        this.intlocationid = intlocationid;
+        this.intprovinceid = intprovinceid;
+        this.intcityid = intcityid;
+        this.intareaid = intareaid;
+    }
 
     public Integer getIntlocationid() {
         return intlocationid;

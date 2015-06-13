@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysUserMessage {
+    @Id
     private Integer intmessageid;
 
     private Integer intuserid;
@@ -18,6 +24,18 @@ public class SysUserMessage {
     private Date datecreatetime;
 
     private Date datemodifiedtime;
+
+    @PersistenceConstructor
+    public SysUserMessage(Integer intmessageid, Integer intuserid, Integer intdestuserid, Integer intread, String strmessagetitle, String strmessagebody, Date datecreatetime, Date datemodifiedtime) {
+        this.intmessageid = intmessageid;
+        this.intuserid = intuserid;
+        this.intdestuserid = intdestuserid;
+        this.intread = intread;
+        this.strmessagetitle = strmessagetitle;
+        this.strmessagebody = strmessagebody;
+        this.datecreatetime = datecreatetime;
+        this.datemodifiedtime = datemodifiedtime;
+    }
 
     public Integer getIntmessageid() {
         return intmessageid;

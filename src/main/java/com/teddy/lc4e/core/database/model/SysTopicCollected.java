@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysTopicCollected {
+    @Id
     private Integer intid;
 
     private Integer intuserid;
@@ -10,6 +16,14 @@ public class SysTopicCollected {
     private Integer intcollectedtopicid;
 
     private Date datecreatetime;
+
+    @PersistenceConstructor
+    public SysTopicCollected(Integer intid, Integer intuserid, Integer intcollectedtopicid, Date datecreatetime) {
+        this.intid = intid;
+        this.intuserid = intuserid;
+        this.intcollectedtopicid = intcollectedtopicid;
+        this.datecreatetime = datecreatetime;
+    }
 
     public Integer getIntid() {
         return intid;

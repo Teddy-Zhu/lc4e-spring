@@ -1,12 +1,19 @@
 package com.teddy.lc4e.core.database.model;
 
-import java.util.ArrayList;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.List;
 
+@Document
 public class SysMenu {
-    private Integer intmenuid;
 
-    private Integer intparentmenuid;
+    @Id
+    private ObjectId id;
+
+    private ObjectId intparentmenuid;
 
     private Integer intmenuorderid;
 
@@ -21,48 +28,34 @@ public class SysMenu {
     List<SysMenu> childMenus;
 
     public SysMenu() {
-        this.childMenus = new ArrayList<SysMenu>();
-        this.strmenuicon = "";
-        this.strmenuname = "";
-        this.strmenucss = "basic";
-        this.strmenupath = "";
-        this.intmenuorderid = 0;
-        this.intparentmenuid = 1;
-        this.intmenuid = 0;
     }
 
-    public SysMenu(List<SysMenu> childMenus, String strmenuicon, String strmenuname, String strmenucss, String strmenupath, Integer intmenuorderid, Integer intparentmenuid, Integer intmenuid) {
-        this.childMenus = childMenus;
-        this.strmenuicon = strmenuicon;
+    @PersistenceConstructor
+
+    public SysMenu(ObjectId id, ObjectId intparentmenuid, Integer intmenuorderid, String strmenupath, String strmenuname, String strmenucss, String strmenuicon, List<SysMenu> childMenus) {
+        this.id = id;
+        this.intparentmenuid = intparentmenuid;
+        this.intmenuorderid = intmenuorderid;
+        this.strmenupath = strmenupath;
         this.strmenuname = strmenuname;
         this.strmenucss = strmenucss;
-        this.strmenupath = strmenupath;
-        this.intmenuorderid = intmenuorderid;
-        this.intparentmenuid = intparentmenuid;
-        this.intmenuid = intmenuid;
-    }
-
-    public List<SysMenu> getChildMenus() {
-        return childMenus;
-    }
-
-    public void setChildMenus(List<SysMenu> childMenus) {
+        this.strmenuicon = strmenuicon;
         this.childMenus = childMenus;
     }
 
-    public Integer getIntmenuid() {
-        return intmenuid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntmenuid(Integer intmenuid) {
-        this.intmenuid = intmenuid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntparentmenuid() {
+    public ObjectId getIntparentmenuid() {
         return intparentmenuid;
     }
 
-    public void setIntparentmenuid(Integer intparentmenuid) {
+    public void setIntparentmenuid(ObjectId intparentmenuid) {
         this.intparentmenuid = intparentmenuid;
     }
 
@@ -79,7 +72,7 @@ public class SysMenu {
     }
 
     public void setStrmenupath(String strmenupath) {
-        this.strmenupath = strmenupath == null ? null : strmenupath.trim();
+        this.strmenupath = strmenupath;
     }
 
     public String getStrmenuname() {
@@ -87,7 +80,7 @@ public class SysMenu {
     }
 
     public void setStrmenuname(String strmenuname) {
-        this.strmenuname = strmenuname == null ? null : strmenuname.trim();
+        this.strmenuname = strmenuname;
     }
 
     public String getStrmenucss() {
@@ -95,7 +88,7 @@ public class SysMenu {
     }
 
     public void setStrmenucss(String strmenucss) {
-        this.strmenucss = strmenucss == null ? null : strmenucss.trim();
+        this.strmenucss = strmenucss;
     }
 
     public String getStrmenuicon() {
@@ -103,6 +96,14 @@ public class SysMenu {
     }
 
     public void setStrmenuicon(String strmenuicon) {
-        this.strmenuicon = strmenuicon == null ? null : strmenuicon.trim();
+        this.strmenuicon = strmenuicon;
+    }
+
+    public List<SysMenu> getChildMenus() {
+        return childMenus;
+    }
+
+    public void setChildMenus(List<SysMenu> childMenus) {
+        this.childMenus = childMenus;
     }
 }

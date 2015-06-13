@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysTopicBlocked {
+    @Id
     private Integer intid;
 
     private Integer intuserid;
@@ -10,6 +16,14 @@ public class SysTopicBlocked {
     private Integer intblockedtopicid;
 
     private Date datecreatetime;
+
+    @PersistenceConstructor
+    public SysTopicBlocked(Integer intid, Integer intuserid, Integer intblockedtopicid, Date datecreatetime) {
+        this.intid = intid;
+        this.intuserid = intuserid;
+        this.intblockedtopicid = intblockedtopicid;
+        this.datecreatetime = datecreatetime;
+    }
 
     public Integer getIntid() {
         return intid;

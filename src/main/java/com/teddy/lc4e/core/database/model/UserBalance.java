@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class UserBalance {
+    @Id
     private Integer intid;
 
     private Integer intuserid;
@@ -10,6 +16,14 @@ public class UserBalance {
     private Long doubalance;
 
     private Date datemodifiedtime;
+
+    @PersistenceConstructor
+    public UserBalance(Integer intid, Integer intuserid, Long doubalance, Date datemodifiedtime) {
+        this.intid = intid;
+        this.intuserid = intuserid;
+        this.doubalance = doubalance;
+        this.datemodifiedtime = datemodifiedtime;
+    }
 
     public Integer getIntid() {
         return intid;

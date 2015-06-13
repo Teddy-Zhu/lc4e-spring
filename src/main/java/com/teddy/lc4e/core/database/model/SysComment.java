@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysComment {
+    @Id
     private Integer intcommentid;
 
     private String inttopicid;
@@ -20,6 +26,19 @@ public class SysComment {
     private Date datecreatetime;
 
     private Date datemodifiedtime;
+
+    @PersistenceConstructor
+    public SysComment(Integer intcommentid, String inttopicid, String intcommenttitle, String intcommentbody, Integer intuserid, Integer ishide, Integer isdeleted, Date datecreatetime, Date datemodifiedtime) {
+        this.intcommentid = intcommentid;
+        this.inttopicid = inttopicid;
+        this.intcommenttitle = intcommenttitle;
+        this.intcommentbody = intcommentbody;
+        this.intuserid = intuserid;
+        this.ishide = ishide;
+        this.isdeleted = isdeleted;
+        this.datecreatetime = datecreatetime;
+        this.datemodifiedtime = datemodifiedtime;
+    }
 
     public Integer getIntcommentid() {
         return intcommentid;

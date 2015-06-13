@@ -18,7 +18,6 @@ public class UIData {
     @Autowired
     private MenuService menuService;
 
-
     public List<SysMenu> getMenuTree(){
 
         List<SysMenu> allMenus = menuService.getSysMenus();
@@ -33,7 +32,7 @@ public class UIData {
 
     private void getMenu(List<SysMenu> allMenus,SysMenu curMenu){
         for (int i = 0,len=allMenus.size(); i <len ;) {
-            if (allMenus.get(i).getIntparentmenuid() == curMenu.getIntmenuid()){
+            if (allMenus.get(i).getIntparentmenuid() == curMenu.getId()){
                 curMenu.getChildMenus().add(allMenus.get(i));
                 allMenus.remove(i);
                 len--;

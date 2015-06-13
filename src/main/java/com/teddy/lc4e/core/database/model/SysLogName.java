@@ -1,11 +1,25 @@
 package com.teddy.lc4e.core.database.model;
 
-public class SysLogName {
-    private Integer intlognameid;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+public class SysLogName {
+    @Id
+    private Integer intlognameid;
+    @Indexed(unique = true)
     private String strlognameabbr;
 
     private String strlogname;
+
+    @PersistenceConstructor
+    public SysLogName(Integer intlognameid, String strlognameabbr, String strlogname) {
+        this.intlognameid = intlognameid;
+        this.strlognameabbr = strlognameabbr;
+        this.strlogname = strlogname;
+    }
 
     public Integer getIntlognameid() {
         return intlognameid;

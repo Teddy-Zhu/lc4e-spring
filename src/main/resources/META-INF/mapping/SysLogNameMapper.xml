@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.teddy.lc4e.core.database.dao.SysLogNameMapper" >
-  <resultMap id="BaseResultMap" type="com.teddy.lc4e.core.database.model.SysLogName" >
-    <id column="intLogNameId" property="intlognameid" jdbcType="INTEGER" />
-    <result column="strLogNameAbbr" property="strlognameabbr" jdbcType="VARCHAR" />
-    <result column="strLogName" property="strlogname" jdbcType="VARCHAR" />
-  </resultMap>
-</mapper>

@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysTopic {
+    @Id
     private Integer inttopicid;
 
     private Integer intareaid;
@@ -20,6 +26,19 @@ public class SysTopic {
     private Date datecreatetime;
 
     private Date datemodified;
+
+    @PersistenceConstructor
+    public SysTopic(Integer inttopicid, Integer intareaid, Integer intuserid, String strtopictitle, String strtopicbody, Integer ishide, Integer isdeleted, Date datecreatetime, Date datemodified) {
+        this.inttopicid = inttopicid;
+        this.intareaid = intareaid;
+        this.intuserid = intuserid;
+        this.strtopictitle = strtopictitle;
+        this.strtopicbody = strtopicbody;
+        this.ishide = ishide;
+        this.isdeleted = isdeleted;
+        this.datecreatetime = datecreatetime;
+        this.datemodified = datemodified;
+    }
 
     public Integer getInttopicid() {
         return inttopicid;

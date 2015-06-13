@@ -1,12 +1,20 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class UserBasicInfo {
+    @Id
     private Integer intid;
 
     private Integer intuserid;
 
+    @Indexed(unique = true)
     private String strphonenumber;
 
     private String strsign;
@@ -20,6 +28,19 @@ public class UserBasicInfo {
     private Date datecreate;
 
     private Date datemodified;
+
+    @PersistenceConstructor
+    public UserBasicInfo(Integer intid, Integer intuserid, String strphonenumber, String strsign, String stravatar, Integer intlocationid, Date datebirthday, Date datecreate, Date datemodified) {
+        this.intid = intid;
+        this.intuserid = intuserid;
+        this.strphonenumber = strphonenumber;
+        this.strsign = strsign;
+        this.stravatar = stravatar;
+        this.intlocationid = intlocationid;
+        this.datebirthday = datebirthday;
+        this.datecreate = datecreate;
+        this.datemodified = datemodified;
+    }
 
     public Integer getIntid() {
         return intid;

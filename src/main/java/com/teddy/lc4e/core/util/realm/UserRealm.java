@@ -15,10 +15,11 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 
 public class UserRealm extends AuthorizingRealm {
 
-	@Autowired
 	private UserService userService;
 
 	@Override
@@ -26,8 +27,9 @@ public class UserRealm extends AuthorizingRealm {
 		String username = (String) principals.getPrimaryPrincipal();
 
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+		Set<String> roles = userService.findRoles(username);
 		authorizationInfo.setRoles(userService.findRoles(username));
-		authorizationInfo.setStringPermissions(userService.findPermissions(username));
+		authorizationInfo.setStringPermissions(userService.findPermissions(roles));
 
 		return authorizationInfo;
 	}
@@ -43,11 +45,11 @@ public class UserRealm extends AuthorizingRealm {
 			throw new UnknownAccountException();
 		}
 
-		if (Boolean.TRUE.equals(user.getIntlocked())) {
+		if (Boolean.TRUE.equals(user.isLocked())) {
 			throw new LockedAccountException();
 		}
 
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getStrusername(), user.getStruserpass(), ByteSource.Util.bytes(user.getStruserpasssalt()), getName());
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getUserPass(), ByteSource.Util.bytes(user.getUserPassSalt()), getName());
 		return authenticationInfo;
 	}
 
@@ -77,6 +79,10 @@ public class UserRealm extends AuthorizingRealm {
 	public void clearAllCache() {
 		clearAllCachedAuthenticationInfo();
 		clearAllCachedAuthorizationInfo();
+	}
+
+	public void setService(UserService userService){
+		this.userService = userService;
 	}
 
 }

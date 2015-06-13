@@ -1,53 +1,84 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class SysPermission {
-    private Integer intpermissionid;
+    @Id
+    private ObjectId id;
+    @Indexed(unique = true)
+    private String permissionAbbr;
 
-    private String strpermissionabbr;
+    private String permissionName;
 
-    private String strpermissionname;
+    private String permissionDescription;
 
-    private String strpermissiondescription;
+    private boolean avaliable;
 
-    private Integer intavaliable;
-
-    public Integer getIntpermissionid() {
-        return intpermissionid;
+    public SysPermission() {
     }
 
-    public void setIntpermissionid(Integer intpermissionid) {
-        this.intpermissionid = intpermissionid;
+    @PersistenceConstructor
+    public SysPermission(ObjectId id, String permissionAbbr, String permissionName, String permissionDescription, boolean avaliable) {
+        this.id = id;
+        this.permissionAbbr = permissionAbbr;
+        this.permissionName = permissionName;
+        this.permissionDescription = permissionDescription;
+        this.avaliable = avaliable;
     }
 
-    public String getStrpermissionabbr() {
-        return strpermissionabbr;
+    @Override
+    public String toString() {
+        return "SysPermission{" +
+                "id=" + id +
+                ", permissionAbbr='" + permissionAbbr + '\'' +
+                ", permissionName='" + permissionName + '\'' +
+                ", permissionDescription='" + permissionDescription + '\'' +
+                ", avaliable=" + avaliable +
+                '}';
     }
 
-    public void setStrpermissionabbr(String strpermissionabbr) {
-        this.strpermissionabbr = strpermissionabbr == null ? null : strpermissionabbr.trim();
+    public ObjectId getId() {
+        return id;
     }
 
-    public String getStrpermissionname() {
-        return strpermissionname;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public void setStrpermissionname(String strpermissionname) {
-        this.strpermissionname = strpermissionname == null ? null : strpermissionname.trim();
+    public String getPermissionAbbr() {
+        return permissionAbbr;
     }
 
-    public String getStrpermissiondescription() {
-        return strpermissiondescription;
+    public void setPermissionAbbr(String permissionAbbr) {
+        this.permissionAbbr = permissionAbbr;
     }
 
-    public void setStrpermissiondescription(String strpermissiondescription) {
-        this.strpermissiondescription = strpermissiondescription == null ? null : strpermissiondescription.trim();
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public Integer getIntavaliable() {
-        return intavaliable;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
-    public void setIntavaliable(Integer intavaliable) {
-        this.intavaliable = intavaliable;
+    public String getPermissionDescription() {
+        return permissionDescription;
+    }
+
+    public void setPermissionDescription(String permissionDescription) {
+        this.permissionDescription = permissionDescription;
+    }
+
+    public boolean isAvaliable() {
+        return avaliable;
+    }
+
+    public void setAvaliable(boolean avaliable) {
+        this.avaliable = avaliable;
     }
 }

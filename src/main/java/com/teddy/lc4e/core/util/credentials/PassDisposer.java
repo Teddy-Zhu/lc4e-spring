@@ -29,10 +29,10 @@ public class PassDisposer {
 
 	public void encryptPassword(User user) {
 
-		user.setStruserpasssalt(randomNumberGenerator.nextBytes().toHex());
+		user.setUserPassSalt(randomNumberGenerator.nextBytes().toHex());
 
-		String newPassword = new SimpleHash(algorithmName, user.getStruserpass(), ByteSource.Util.bytes(user.getStruserpasssalt()), hashIterations).toHex();
+		String newPassword = new SimpleHash(algorithmName, user.getUserPass(), ByteSource.Util.bytes(user.getUserPassSalt()), hashIterations).toHex();
 
-		user.setStruserpass(newPassword);
+		user.setUserPass(newPassword);
 	}
 }

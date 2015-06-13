@@ -1,8 +1,14 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Date;
 
+@Document
 public class SysTopicLike {
+    @Id
     private Integer intid;
 
     private Integer inttopicid;
@@ -10,6 +16,14 @@ public class SysTopicLike {
     private Integer intuserid;
 
     private Date datecreate;
+
+    @PersistenceConstructor
+    public SysTopicLike(Integer intid, Integer inttopicid, Integer intuserid, Date datecreate) {
+        this.intid = intid;
+        this.inttopicid = inttopicid;
+        this.intuserid = intuserid;
+        this.datecreate = datecreate;
+    }
 
     public Integer getIntid() {
         return intid;
