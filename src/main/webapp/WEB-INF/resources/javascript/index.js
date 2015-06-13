@@ -185,13 +185,17 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 interval: 80,
             })
         })
+        var timer;
 
         $('#GTTop').on('click', function (e) {
             e.preventDefault();
-            $('html').animatescroll({
-                scrollSpeed: 1000,
-                easing: 'easeOutBounce'
-            });
+            clearTimeout(timer);
+            setTimeout(function () {
+                $('html').animatescroll({
+                    scrollSpeed: 1000,
+                    easing: 'easeOutBounce'
+                });
+            }, 700)
         })
 
         $('#prePage,#nextPage').on('click', function () {
