@@ -14,7 +14,7 @@ import java.util.List;
 public class SysMenu implements Serializable {
 
     @Transient
-    private static final long serialVersionUID = 20160614074832L;
+    private static final long serialVersionUID = 201606140748327L;
 
     @Id
     private ObjectId id;
@@ -111,5 +111,9 @@ public class SysMenu implements Serializable {
 
     public void setChildMenus(List<SysMenu> childMenus) {
         this.childMenus = childMenus;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

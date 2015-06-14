@@ -2,9 +2,10 @@ package com.teddy.lc4e.core.util.annotationhandle;
 
 import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.entity.webui.Message;
-import com.teddy.lc4e.core.util.annotation.UIDataField;
-import com.teddy.lc4e.core.util.annotation.UIDataGroup;
+import com.teddy.lc4e.core.util.annotation.SetUIDataField;
+import com.teddy.lc4e.core.util.annotation.SetUIDataGroup;
 import com.teddy.lc4e.core.util.cache.CacheHandler;
+import com.teddy.lc4e.core.util.commonfuncion.ReflectTool;
 import com.teddy.lc4e.core.web.service.UIData;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -23,7 +24,7 @@ import java.lang.reflect.Method;
 
 @Component
 @Aspect
-public class UIDataAaspectHandle {
+public class UIDataAspectHandle {
 
 
     @Autowired
@@ -32,10 +33,10 @@ public class UIDataAaspectHandle {
     private CacheHandler cacheHandler;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.core.util.annotation.UIDataGroup)")
+    @Around("@annotation(com.teddy.lc4e.core.util.annotation.SetUIDataGroup)")
     public Object setUIDataForAn(ProceedingJoinPoint joinPoint) throws Throwable {
         boolean flag = false;
-        UIDataGroup an = null;
+        SetUIDataGroup an = null;
         Object[] args = null;
         Method method = null;
         Object target = null;
@@ -43,9 +44,9 @@ public class UIDataAaspectHandle {
         try {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
-            method = getMethodByClassAndName(target.getClass(), methodName);
+            method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (UIDataGroup) getAnnotationByMethod(method, UIDataGroup.class);
+            an = (SetUIDataGroup)ReflectTool.getAnnotationByMethod(method, SetUIDataGroup.class);
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
@@ -68,13 +69,13 @@ public class UIDataAaspectHandle {
         }
     }
 
-    private boolean setValueByFunctionName(UIDataGroup setUIDataGroup, Object[] args) {
-        UIDataField[] uiDataFields = setUIDataGroup.fields();
+    private boolean setValueByFunctionName(SetUIDataGroup setUIDataGroup, Object[] args) {
+        SetUIDataField[] uiDataFields = setUIDataGroup.fields();
         Model model = (Model) args[setUIDataGroup.modIndex()];
         Class clazz = uiData.getClass();
 
         for (int i = 0, len = uiDataFields.length; i < len; i++) {
-            UIDataField curField = uiDataFields[i];
+            SetUIDataField curField = uiDataFields[i];
             String functionName = curField.functionName();
             String attributeName = curField.attributeName();
             int[] useVars = curField.useVarIndex();
@@ -116,29 +117,4 @@ public class UIDataAaspectHandle {
         return true;
     }
 
-    /**
-     * according annotation class to get annotation
-     */
-    private Annotation getAnnotationByMethod(Method method, Class annoClass) {
-        Annotation all[] = method.getAnnotations();
-        for (Annotation annotation : all) {
-            if (annotation.annotationType() == annoClass) {
-                return annotation;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * according method and class to get method
-     */
-    private Method getMethodByClassAndName(Class c, String methodName) {
-        Method[] methods = c.getDeclaredMethods();
-        for (Method method : methods) {
-            if (method.getName().equals(methodName)) {
-                return method;
-            }
-        }
-        return null;
-    }
 }

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface UIDataField {
+public @interface SetUIDataField {
 
     public  boolean useCache() default true; //if use Vars  ,the useCache will be aborted
 

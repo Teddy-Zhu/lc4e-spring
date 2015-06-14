@@ -5,9 +5,11 @@
 
 >#### Using Java(`JDK8`),JSP(`HTML5`,`RequireJs`,`Jquery`,`CSS3`,`Semantic UI`,`animatescroll`,`Animate`)
 
+----------
+# [Demo](http://le4e.coding.io) #
 
 ----------
-
+> View [http://le4e.coding.io/InitDB](http://le4e.coding.io/InitDB) to initial database 
 
 #Important Update#
 

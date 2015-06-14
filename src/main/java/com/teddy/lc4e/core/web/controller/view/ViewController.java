@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.web.controller.view;
 
+import com.teddy.lc4e.core.database.service.InitDataBaseService;
 import com.teddy.lc4e.core.database.service.MenuService;
 import com.teddy.lc4e.core.database.service.UserService;
 import com.teddy.lc4e.core.entity.webui.Message;
@@ -30,13 +31,17 @@ public class ViewController {
     private ParserMessage msg;
 
     @Autowired
+    private InitDataBaseService initDataBaseService;
+
+    @Autowired
     private WebCacheManager webCacheManager;
 
     @Autowired
     private LocaleResolver localeResolver;
 
-    @UIDataGroup(fields = {@UIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
+    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @SetComVar(comVar = {"SiteName"})
     public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "index";
     }
@@ -82,7 +87,7 @@ public class ViewController {
 
 
     @RequestMapping(value = "/GetMenus", method = RequestMethod.GET)
-    @UIDataGroup(fields = {@UIDataField(functionName = "getMenuTree", attributeName = "Message", key = " ")})
+    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "Message", key = " ")})
     public String getMenus(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "System/Message";
     }
@@ -92,7 +97,7 @@ public class ViewController {
     @ValidateGroup(fields = {@ValidateField(index = 3, NotNull = true), @ValidateField(index = 4, NotNull = true)})
     @ResponseBody
     public Message getMenus2(HttpServletRequest request, HttpServletResponse response, Model model, String cacheName, String key) {
-        if (webCacheManager.clearCacheByKey(cacheName, key))
+        if (webCacheManager.clearCacheByCacheNameAndKey(cacheName, key))
             return new Message(true, "clear success");
         else
             return new Message(false, "clear failed");
@@ -101,8 +106,8 @@ public class ViewController {
     @RequestMapping(value = "/InitDB", method = RequestMethod.GET)
     @ResponseBody
     public Message initaldb(HttpServletRequest request, HttpServletResponse response, Model model) {
-        if(menuService.initdb()){
-            return new Message(true,"success");
+        if (initDataBaseService.initdb()) {
+            return new Message(true, "success");
         }
         return new Message("failed");
     }

@@ -1,0 +1,18 @@
+package com.teddy.lc4e.core.database.repository;
+
+import com.teddy.lc4e.core.database.model.SysComVar;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Created by teddy on 2015/6/14.
+ */
+public interface CommonConfigRepository extends MongoRepository<SysComVar, ObjectId> {
+
+    SysComVar findByStrComConfigName(String comConfigName);
+
+    List<SysComVar> findByStrComConfigNameIn(String[] comConfigNames);
+}

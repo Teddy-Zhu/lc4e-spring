@@ -14,7 +14,12 @@ public class WebCacheManager {
     private CacheHandler cacheHandler;
 
 
-    public boolean clearCacheByKey(String cacheName, Object key) {
+    public boolean clearCacheByCacheNameAndKey(String cacheName, Object key) {
         return cacheHandler.remove(cacheName, key);
     }
+
+    public boolean clearCacheByCacheName(String cacheName){
+        return  cacheHandler.clear(cacheName);
+    }
+
 }
