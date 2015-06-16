@@ -9,30 +9,13 @@
 
 (function ($) {
 
-    var Lc4eToDate = {
-        unix2human: function (unixtime) {
-            var dateObj = new Date(unixtime);
-            var UnixTimeToDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + Lc4eToDate.p(dateObj.getHours()) + ':' + Lc4eToDate.p(dateObj.getMinutes()) + ':' + Lc4eToDate.p(dateObj.getSeconds());
-            return UnixTimeToDate;
-        },
-        p: function (s) {
-            return s < 10 ? '0' + s : s;
-        }
-    }
-
-    //ajax && browser state
-    var Lc4ePJAX = {
-        support: function () {
-            return window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/)
-        },
-    }
     $(window).on('popstate', function (e) {
         if (e.title)
             document.title = e.title;
-    })
+    });
 
     /* animate scroll */
-	// defines various easing effects
+    // defines various easing effects
     $.easing['jswing'] = $.easing['swing'];
     $.extend($.easing, {
         def: 'easeOutQuad',
@@ -236,16 +219,12 @@
         }
 
         setTimeout(function () {
-
-            // make sure the callback is a function
             if (typeof opts.onScrollEnd == 'function') {
-                // brings the scope to the callback
                 opts.onScrollEnd.call(this);
             }
         }, opts.scrollSpeed);
     };
 
-// default options
     $.fn.animatescroll.defaults = {
         easing: "swing",
         scrollSpeed: 800,
@@ -266,10 +245,10 @@
             },
             onBefore: function ($thedom) {
             }
-        }, $that = $(this), count = 0, flag = false;
+        }, $that = $(this), count = 0;
 
         function animate() {
-            var $thedom = $($that[count]), animateClass = new Array(), InCount = count;
+            var $thedom = $($that[count]), animateClass = [], InCount = count;
             animateClass.push('animated-');
             animateClass.push(options.speed);
             animateClass.push(" ");
@@ -278,7 +257,7 @@
             options.onBefore();
             $thedom.show();
             $thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                $thedom.removeClass(animateClass)
+                $thedom.removeClass(animateClass);
                 options.onComplete($thedom);
                 if (options.show) {
                     $thedom.show();
@@ -303,12 +282,12 @@
             setTimeout(animateIndex(), options.interval * i);
         }
         return $that;
-    }
+    };
     $.fn.Lc4eDimmer = function (options, data) {
         var defaults = {
                 type: 'loader', // loader or dimmer
                 color: 'black',
-                content: "Loading",
+                content: "Loading"
             }, loaderDefaults = {
                 size: 'small', // small mini medium large
                 direction: "" // indeterminate
@@ -329,10 +308,11 @@
                         } else {
                             options = options = $.extend(defaults, data);
                             if (options.type == "dimmer") {
-                                html = template.replace(/{Content}/, options.content).replace(/{Color}/, options.color == "black" ? "" : "inverted");
+                                html = template.replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Color}', 'g'), options.color == "black" ? "" : "inverted");
                             } else {
                                 options = $.extend(loaderDefaults, options);
-                                html = template.replace(/{Content}/, Loadertemplate).replace(/{Content}/, options.content).replace(/{Color}/, options.color == "black" ? "" : "inverted").replace(/{Direction}/, options.direction).replace(/{Size}/, options.size);
+                                html = template.replace(new RegExp('{Content}', 'g'), Loadertemplate).replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Color}', 'g'),
+                                    options.color == "black" ? "" : "inverted").replace(new RegExp('{Direction}', 'g'), options.direction).replace(new RegExp('{Size}', 'g'), options.size);
                             }
                             $that.append(html);
                         }
@@ -346,7 +326,7 @@
                 }
                 case "show":
                 {
-                    $that.find('.ui.dimmer').addClass('active')
+                    $that.find('.ui.dimmer').addClass('active');
                     break;
                 }
                 case "remove":
@@ -358,10 +338,10 @@
                 {
                     options = $.extend(defaults, options);
                     if (options.type == "dimmer") {
-                        html = template.replace(/{Content}/, options.content).replace(/{Color}/, options.color == "black" ? "" : "inverted");
+                        html = template.replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Color}', 'g'), options.color == "black" ? "" : "inverted");
                     } else {
                         options = $.extend(loaderDefaults, options);
-                        html = template.replace(/{Content}/, Loadertemplate).replace(/{Content}/, options.content).replace(/{Color}/, options.color == "black" ? "" : "inverted").replace(/{Direction}/, options.direction).replace(/{Size}/, options.size);
+                        html = template.replace(new RegExp('{Content}', 'g'), Loadertemplate).replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Color}', 'g'), options.color == "black" ? "" : "inverted").replace(new RegExp('{Direction}', 'g'), options.direction).replace(new RegExp('{Size}', 'g'), options.size);
                     }
                     $that.find('.ui.dimmer').remove();
                     $that.append(html);
@@ -389,7 +369,7 @@
             queue: false,
             easing: "easeOutExpo",
             selector: {
-                close: '.close',
+                close: '.close'
             },
             dimmerSettings: {
                 closable: false,
@@ -412,7 +392,7 @@
             },
             OtherButtons: [],
             OtherButtonsClass: [],
-            OtherButtonsClick: [],
+            OtherButtonsClick: []
         }, basciDefaults = {
             IconClass: 'warning circle',
             bottonNames: ['<i class="Remove icon"></i>No', '<i class="checkmark icon"></i>Yes'],
@@ -420,8 +400,10 @@
         }, standardDefaults = {
             bottonNames: ['Close'],
             buttonClass: ['basic close']
-        }, basicModalHtml = '<div id="{ModalId}" class="ui basic {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content"><div class="image"><i class="{IconClass} icon"></i></div><div class="description">{Content}</div></div><div class="actions"><div class="{ButtonNumber} fluid ui inverted buttons">{Buttons}</div></div></div></div>', buttonHtml = '<div {ButtonId} class="ui {ButtonClass} button">{ButtonName}</div>', standardModalHtml = '<div id="{ModalId}" class="ui standard {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content">{Content}</div><div class="actions">{Buttons}</div></div>', NumberEng = [
-            'one', 'two', 'three', 'four', 'five', 'six'], $operate;
+        },
+            basicModalHtml = '<div id="{ModalId}" class="ui basic {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content"><div class="image"><i class="{IconClass} icon"></i></div><div class="description">{Content}</div></div><div class="actions"><div class="{ButtonNumber} fluid ui inverted buttons">{Buttons}</div></div></div></div>',
+            buttonHtml = '<div {ButtonId} class="ui {ButtonClass} button">{ButtonName}</div>', standardModalHtml = '<div id="{ModalId}" class="ui standard {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content">{Content}</div><div class="actions">{Buttons}</div></div>',
+            NumberEng = ['one', 'two', 'three', 'four', 'five', 'six'], $operate;
         options = $.extend(defaults, options);
 
         this.each(function () {
@@ -431,7 +413,7 @@
                 {
                     options = $.extend(basciDefaults, options);
                     html = basicModalHtml;
-                    html = html.replace(/{IconClass}/, options.IconClass).replace(/{ButtonNumber}/, NumberEng[options.bottonNames.length - 1]);
+                    html = html.replace(new RegExp('{IconClass}', 'g'), options.IconClass).replace(new RegExp('{ButtonNumber}', 'g'), NumberEng[options.bottonNames.length - 1]);
                     break;
                 }
                 case "standard":
@@ -443,17 +425,17 @@
                 default:
                 {
                     return false;
-                    break;
                 }
             }
             for (var i = 0, len = options.bottonNames.length; i < len; i++) {
-                buttonsHtml += buttonHtml.replace(/{ButtonId}/, "").replace(/{ButtonClass}/, options.buttonClass[i]).replace(/{ButtonName}/, options.bottonNames[i]);
+                buttonsHtml += buttonHtml.replace(new RegExp('{ButtonId}', 'g'), "").replace(new RegExp('{ButtonClass}','g'), options.buttonClass[i]).replace(new RegExp('{ButtonName}', 'g'), options.bottonNames[i]);
             }
             for (var i = 0, len = options.OtherButtons.length; i < len; i++) {
-                buttonsHtml += buttonHtml.replace(/{ButtonId}/, 'id="' + modalId + '-button-' + i + '"').replace(/{ButtonClass}/, options.OtherButtonsClass[i]).replace(/{ButtonName}/, options.OtherButtons[i]);
+                buttonsHtml += buttonHtml.replace(new RegExp('{ButtonId}', 'g'), 'id="' + modalId + '-button-' + i + '"').replace(new RegExp('{ButtonClass}', 'g'), options.OtherButtonsClass[i]).replace(new RegExp('{ButtonName}', 'g'), options.OtherButtons[i]);
             }
-            html = html.replace(/{Mutiple}/, options.allowMultiple ? "coupled" : "").replace(/{CloseIcon}/, options.closeIcon ? '<i class="close icon"></i>' : "").replace(/{Size}/, options.size).replace(/{ModalId}/, modalId).replace(/{Title}/, options.title).replace(/{Content}/, options.content)
-                .replace(/{Buttons}/, buttonsHtml);
+            html = html.replace(new RegExp('{Mutiple}','g'), options.allowMultiple ? "coupled" : "").replace(new RegExp('{CloseIcon}', 'g'), options.closeIcon ? '<i class="close icon"></i>' : "").replace(new RegExp('{Size}', 'g'), options.size).
+                replace(new RegExp('{ModalId}','g'),modalId).replace(new RegExp('{Title}', 'g'), options.title).
+                replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Buttons}'), buttonsHtml);
 
             $obj.append(html);
             $modalObj = $("#" + modalId); // get modal
@@ -469,14 +451,14 @@
                 options.onAfterHide();
                 $modalObj.remove();
                 $('.ui.dimmer.modals.page').remove();
-            }
+            };
             $modalObj.modal(options);
             $modalObj.modal('show');
             $operate = $modalObj;
             return false;
         });
         return $operate;
-    }
+    };
 
     $.fn.Lc4eProgress = function (option, data) {
         var defaults = {
@@ -507,7 +489,8 @@
             }
         }, attachDefaults = {
             location: "bottom"
-        }, standardtemplate = '<div id="lc4eProgress"><div class="ui mini progress {Indicating} {Color}" id="lc4eProgressBar"><div class="bar"></div></div>{Loading}</div>', attachedBar = '<div {Id} class="ui attached progress {Color} {Indicating} {Location}"><div class="bar"></div></div>', $operate;
+        }, standardtemplate = '<div id="lc4eProgress"><div class="ui mini progress {Indicating} {Color}" id="lc4eProgressBar"><div class="bar"></div></div>{Loading}</div>',
+            attachedBar = '<div {Id} class="ui attached progress {Color} {Indicating} {Location}"><div class="bar"></div></div>', $operate;
 
         var options, $that = $(this), html = "", template = "", progressId = "", $progressBar;
         switch (option) {
@@ -571,9 +554,9 @@
                     }
                     $that.find('.ui.attached.progress').remove();
                     progressId = 'AttachedBar-' + $.Lc4eRandom();
-                    template = attachedBar.replace(/{Location}/, options.location).replace(/{Id}/, 'id="' + progressId + '"');
+                    template = attachedBar.replace(new RegExp('{Location}', 'g'), options.location).replace(new RegExp('{Id}', 'g'), 'id="' + progressId + '"');
                 } else {
-                    template = standardtemplate.replace(/{Loading}/, options.showLoading ? '<div class="spinner"><div class="ui mini active loader"></div></div>' : "");
+                    template = standardtemplate.replace(new RegExp('{Loading}', 'g'), options.showLoading ? '<div class="spinner"><div class="ui mini active loader"></div></div>' : "");
                     progressId = "lc4eProgressBar";
                     if ($('#' + progressId).data('interval') != undefined) {
                         clearInterval($('#' + progressId).data('interval'));
@@ -581,7 +564,7 @@
                     $('#lc4eProgress').remove();
                 }
 
-                html = template.replace(/{Color}/, options.indicating ? "" : options.color).replace(/{Indicating}/, options.indicating ? "indicating" : "");
+                html = template.replace(new RegExp('{Color}', 'g'), options.indicating ? "" : options.color).replace(new RegExp('{Indicating}', 'g'), options.indicating ? "indicating" : "");
                 if (options.type == "attached" && options.location == "top") {
                     $that.prepend(html);
                 } else {
@@ -598,7 +581,7 @@
                     } else {
                         $progressBar.remove();
                     }
-                }
+                };
                 $progressBar.progress(options);
                 clearInterval($progressBar.data('interval'));
                 if (options.autoUpdate) {
@@ -621,36 +604,59 @@
             empty: true,
             enableAnimate: true,
             needToken: false,
+            usePjax: true,
+            cacheDom: '',
             speed: "normal",
             animation: "slideInDown",
             interval: 100,
-            onComplete: function ($thedom) {
+            onSingleFinish: function ($thedom) {
             },
             onFinish: function ($that) {
             },
+            onSingleBefore: function ($thedom) {
+            },
             onBefore: function ($thedom) {
             }
-        }, tmpajax, dtd = $.Deferred(), thisDom = this;
-        options = $.extend(defaults, options);
+        }, tmpajax, dtd = $.Deferred(), thisDom = this, $cacheDom;
+        options = $.extend(true, defaults, options);
 
-        if (options.needToken) {
-            tmpajax = $.Lc4eAjax;
+        $cacheDom = $('#' + options.cacheDom);
+        if (options.usePjax) {
+            tmpajax = $.Lc4ePJAX;
         } else {
-            tmpajax = $.ajax;
+            tmpajax = $.Lc4eAjax;
         }
-        tmpajax({
-            url: options.templateUrl,
-            type: 'get'
-        }).done(function (data) {
-            dtd.resolve(data);
-        })
+        var getTemplateAjax = function () {
+            $.Lc4eAjax({
+                url: options.templateUrl,
+                type: 'get',
+                needToken: options.needToken
+            }).done(function (data) {
+                dtd.resolve(data);
+            })
+        };
+        if ($cacheDom.length != 0 && $cacheDom.length == 1) {
+            var html = $cacheDom.data(options.templateUrl);
+            if (html != undefined && html != null) {
+                dtd.resolve(html);
+            } else {
+                getTemplateAjax.call();
+            }
+        } else {
+            getTemplateAjax.call();
+        }
+
         tmpajax({
             url: options.url,
-            type: 'post',
+            type: 'get',
             data: options.data,
-            dataType: 'json'
+            dataType: 'json',
+            needToken: options.needToken
         }).done(function (data) {
             dtd.done(function (templateHtml) {
+                getTemplateAjax = null;
+                tmpajax = null;
+                options.onBefore();
                 var itemArray = templateHtml.match(/{#(.*?)#}/g), dataLength = data.length;
                 thisDom.each(function () {
                     var $that = $(this), count = 0;
@@ -669,17 +675,17 @@
                             var item = itemArray[i], itemlen = item.length;
                             domHtml = domHtml.replace(new RegExp(item, 'g'), $.Lc4eGetter(data[InCount], $.trim(item.substring(2, itemlen - 2))));
                         }
-                        var $thedom = $(domHtml), animateClass = new Array();
+                        var $thedom = $(domHtml), animateClass = [];
                         animateClass.push('animated-');
                         animateClass.push(options.speed);
                         animateClass.push(" ");
                         animateClass.push(options.animation);
                         animateClass = animateClass.join("");
-                        options.onBefore();
+                        options.onSingleBefore();
                         $that.append($thedom);
                         $thedom.addClass(animateClass).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                            $thedom.removeClass(animateClass)
-                            options.onComplete($thedom);
+                            $thedom.removeClass(animateClass);
+                            options.onSingleFinish($thedom);
                             if (InCount == dataLength - 1) {
                                 options.onFinish($that);
                             }
@@ -703,6 +709,11 @@
                         }
                     }
                 })
+            }).always(function(){
+                getTemplateAjax = null;
+                tmpajax = null;
+                thisDom = null;
+                $cacheDom = null;
             })
         })
 
@@ -723,15 +734,19 @@
             return obj;
         },
         Lc4eAjax: function (data) {
-
-            data.beforeSend = function (xhr) {
-                var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
-                xhr.setRequestHeader(tk, l + t + l);
-                if (typeof data.bfSend == "function") {
-                    data.bfSend.call();
+            var loptions = {};
+            if (data.hasOwnProperty("beforeSend")) {
+                loptions["beforeSend"] = data["beforeSend"];
+            }
+            if (data.needToken) {
+                data.beforeSend = function (xhr) {
+                    var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
+                    xhr.setRequestHeader(tk, l + t + l);
+                    if (typeof loptions.beforeSend === "function") {
+                        loptions.beforeSend(xhr);
+                    }
                 }
             }
-
             return $.ajax(data);
         },
         Lc4eRandom: function () {
@@ -746,7 +761,7 @@
             return $("body").Lc4eModal(options);
         },
         Lc4eToDate: function (unixTime) {
-            return Lc4eToDate.unix2human(unixTime);
+            return $.lc4e.Lc4eToDate.unix2human(unixTime);
         },
         Lc4eProgress: function (option, data) {
             return $("body").Lc4eProgress(option, data);
@@ -759,10 +774,10 @@
         },
         Lc4ePJAX: function (options) {
             options.title = document.title;
-            if (!Lc4ePJAX.support()) {
+            if (!$.lc4e.Lc4ePJAX.support()) {
                 throw  new Error("Your Browser is too old.")
             }
-            var loptions = new Object();
+            var loptions = new [];
             for (var attr in options) {
                 loptions[attr] = options[attr];
             }
@@ -783,16 +798,34 @@
                 title = data["data"] ? (data["data"]["title"] ? data["data"]["title"] : options.title ) : options.title;
                 window.history.pushState(state, title, options.url);
                 if (typeof loptions.success === "fucntion") {
-                    options.success(data);
+                    loptions.success(data);
                 }
             };
-
-            if (options.needToken) {
-                $.Lc4eAjax(options);
-            } else {
-                $.ajax(options);
-            }
+            return $.Lc4eAjax(options);
         }
     });
+
+    $.lc4e = $.lc4e || {};
+
+    $.extend($.lc4e, {
+        version: '1.0',
+        Lc4eToDate: {
+            unix2human: function (unixtime) {
+                var dateObj = new Date(unixtime);
+                var UnixTimeToDate = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate() + ' ' + $.lc4e.Lc4eToDate.p(dateObj.getHours()) + ':' + $.lc4e.Lc4eToDate.p(dateObj.getMinutes()) + ':' + $.lc4e.Lc4eToDate.p(dateObj.getSeconds());
+                return UnixTimeToDate;
+            },
+            p: function (s) {
+                return s < 10 ? '0' + s : s;
+            }
+        },
+        Lc4ePJAX: {
+            support: function () {
+                return window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/)
+            },
+        },
+    })
+
+
 })
 (jQuery);

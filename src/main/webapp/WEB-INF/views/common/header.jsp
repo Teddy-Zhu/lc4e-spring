@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="left menu">
-            <img class="logo ui image item hidden-mb" src="images/logo.png">
+            <img class="logo ui image item hidden-mb" src="/images/logo.png">
             <c:import url="common/menudropdown.jsp"></c:import>
         </div>
         <div class="right menu">

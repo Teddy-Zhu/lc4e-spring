@@ -22,4 +22,8 @@ public class WebCacheManager {
         return  cacheHandler.clear(cacheName);
     }
 
+    public boolean setCacheByCacheName(String cacheName,Object key,Object value){
+        return cacheHandler.setCache(cacheName,key,value);
+    }
+
 }

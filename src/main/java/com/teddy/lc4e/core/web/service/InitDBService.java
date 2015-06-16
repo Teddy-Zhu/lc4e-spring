@@ -1,10 +1,10 @@
-package com.teddy.lc4e.core.database.service;
+package com.teddy.lc4e.core.web.service;
 
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.model.SysMenu;
 import com.teddy.lc4e.core.database.repository.CommonConfigRepository;
 import com.teddy.lc4e.core.database.repository.MenuRepository;
-import com.teddy.lc4e.core.web.service.WebCacheManager;
+import com.teddy.lc4e.core.util.cache.CacheHandler;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by teddy on 2015/6/14.
  */
 @Service
-public class InitDataBaseService {
+public class InitDBService {
 
     @Autowired
     private MenuRepository menuRepository;
@@ -23,7 +23,7 @@ public class InitDataBaseService {
     private CommonConfigRepository commonConfigRepository;
 
     @Autowired
-    private WebCacheManager webCacheManager;
+    private CacheHandler cacheHandler;
 
 
     public boolean initdb() {
@@ -44,14 +44,19 @@ public class InitDataBaseService {
         menuRepository.insert(new SysMenu(new ObjectId("557bc921aa0a9e955c54a70d"), new ObjectId("557bc921aa0a9e955c54a709"), 2, "/", "Python2", "basic", ""));
         menuRepository.insert(new SysMenu(new ObjectId("557bc921aa0a9e955c54a70e"), new ObjectId("557bc921aa0a9e955c54a70d"), 3, "/", "testtitle", "basic", ""));
         //clear cache
-        webCacheManager.clearCacheByCacheNameAndKey("data", "menus");
+        cacheHandler.remove("data", "menus");
 
 
         //init Config
         commonConfigRepository.deleteAll();
-        commonConfigRepository.insert(new SysComVar(null,"SiteName","Light Community",new Date()));
+        commonConfigRepository.insert(new SysComVar(null, "SiteName", "Light Community", new Date()));
+        commonConfigRepository.insert(new SysComVar(null, "IndexPageSize", "20", new Date()));
+        commonConfigRepository.insert(new SysComVar(null, "UseCache", "true", new Date()));
+
         //clear cache
-        webCacheManager.clearCacheByCacheName("comVar");
+        cacheHandler.clear("comVar");
+        //use cache true
+        cacheHandler.setCache("comVar", "UseCache", true);
 
         return true;
     }

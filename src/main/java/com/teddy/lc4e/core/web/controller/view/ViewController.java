@@ -1,15 +1,21 @@
 package com.teddy.lc4e.core.web.controller.view;
 
-import com.teddy.lc4e.core.database.service.InitDataBaseService;
+import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.database.service.MenuService;
 import com.teddy.lc4e.core.database.service.UserService;
+import com.teddy.lc4e.core.entity.webui.Article;
 import com.teddy.lc4e.core.entity.webui.Message;
+import com.teddy.lc4e.core.entity.webui.Popup;
 import com.teddy.lc4e.core.util.annotation.*;
 import com.teddy.lc4e.core.util.l18n.ParserMessage;
+import com.teddy.lc4e.core.util.timeformat.RelativeDateFormat;
+import com.teddy.lc4e.core.web.service.ComVariableData;
+import com.teddy.lc4e.core.web.service.InitDBService;
 import com.teddy.lc4e.core.web.service.WebCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +23,8 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class ViewController {
@@ -31,7 +38,7 @@ public class ViewController {
     private ParserMessage msg;
 
     @Autowired
-    private InitDataBaseService initDataBaseService;
+    private InitDBService initDataBaseService;
 
     @Autowired
     private WebCacheManager webCacheManager;
@@ -39,10 +46,39 @@ public class ViewController {
     @Autowired
     private LocaleResolver localeResolver;
 
+    @Autowired
+    private ComVariableData comVariableData;
+    @Autowired
+    private RelativeDateFormat dateFormat;
+
+    @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1), @ValidateField(index = 4)})
     @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/Page/{page}"}, method = RequestMethod.GET)
     @SetComVar(comVar = {"SiteName"})
-    public String home(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, boolean pjax, Locale locale) {
+        if (pjax) {
+            Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize", 1);
+            String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
+            String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
+            Date now = new Date();
+            List<Article> list = new ArrayList<Article>();
+            for (int i = 0; i < size; i++) {
+                list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
+                        dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
+            }
+            model.addAttribute("Message", JSONObject.toJSONString(list));
+            return "System/Message";
+        } else {
+            model.addAttribute("page", page);
+            return "index";
+        }
+    }
+
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
+    @SetComVar(comVar = {"SiteName"})
+    public String homeIndex(HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("page", 1);
         return "index";
     }
 
@@ -80,7 +116,7 @@ public class ViewController {
 
     @RequestMapping(value = "/ChangeLocale", method = RequestMethod.GET)
     @ResponseBody
-    public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
+    public Message ChangeLocale(HttpServletRequest request, HttpServletResponse response, Model model) {
         localeResolver.setLocale(request, response, Locale.CHINA);
         return new Message(true, "Change Success");
     }
@@ -110,6 +146,48 @@ public class ViewController {
             return new Message(true, "success");
         }
         return new Message("failed");
+    }
+
+    private static Date randomDate(String beginDate, Date endDate) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start = format.parse(beginDate);
+            Date end = endDate;
+            if (start.getTime() >= end.getTime()) {
+                return null;
+            }
+            long date = random(start.getTime(), end.getTime());
+
+            return new Date(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Date randomDate(String beginDate, String endDate) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start = format.parse(beginDate);
+            Date end = format.parse(endDate);
+            if (start.getTime() >= end.getTime()) {
+                return null;
+            }
+            long date = random(start.getTime(), end.getTime());
+
+            return new Date(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static long random(long begin, long end) {
+        long rtnn = begin + (long) (Math.random() * (end - begin));
+        if (rtnn == begin || rtnn == end) {
+            return random(begin, end);
+        }
+        return rtnn;
     }
 
 }

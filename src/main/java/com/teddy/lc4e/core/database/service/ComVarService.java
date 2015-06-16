@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 /**
  * Created by teddy on 2015/6/14.
  */
@@ -20,7 +23,12 @@ public class ComVarService {
     private CommonConfigRepository commonConfigRepository;
 
     public String getValueByComVarByName(String name){
-        return commonConfigRepository.findByStrComConfigName(name).getStrComConfigValue();
+        SysComVar sysComVar =commonConfigRepository.findByStrComConfigName(name);
+        if (sysComVar == null){
+            return "";
+        }else{
+            return sysComVar.getStrComConfigValue();
+        }
     }
 
     public String getValueById(String id){
@@ -30,4 +38,5 @@ public class ComVarService {
     public List<SysComVar> getValuesByIds(String[] ids){
         return commonConfigRepository.findByStrComConfigNameIn(ids);
     }
+
 }

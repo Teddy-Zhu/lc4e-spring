@@ -19,23 +19,24 @@ public class SysComment {
 
     private Integer intuserid;
 
-    private Integer ishide;
-
-    private Integer isdeleted;
+    private Integer status;
 
     private Date datecreatetime;
 
     private Date datemodifiedtime;
 
+    public SysComment() {
+    }
+
     @PersistenceConstructor
-    public SysComment(Integer intcommentid, String inttopicid, String intcommenttitle, String intcommentbody, Integer intuserid, Integer ishide, Integer isdeleted, Date datecreatetime, Date datemodifiedtime) {
+
+    public SysComment(Integer intcommentid, String inttopicid, String intcommenttitle, String intcommentbody, Integer intuserid, Integer status, Date datecreatetime, Date datemodifiedtime) {
         this.intcommentid = intcommentid;
         this.inttopicid = inttopicid;
         this.intcommenttitle = intcommenttitle;
         this.intcommentbody = intcommentbody;
         this.intuserid = intuserid;
-        this.ishide = ishide;
-        this.isdeleted = isdeleted;
+        this.status = status;
         this.datecreatetime = datecreatetime;
         this.datemodifiedtime = datemodifiedtime;
     }
@@ -53,7 +54,7 @@ public class SysComment {
     }
 
     public void setInttopicid(String inttopicid) {
-        this.inttopicid = inttopicid == null ? null : inttopicid.trim();
+        this.inttopicid = inttopicid;
     }
 
     public String getIntcommenttitle() {
@@ -61,7 +62,7 @@ public class SysComment {
     }
 
     public void setIntcommenttitle(String intcommenttitle) {
-        this.intcommenttitle = intcommenttitle == null ? null : intcommenttitle.trim();
+        this.intcommenttitle = intcommenttitle;
     }
 
     public String getIntcommentbody() {
@@ -69,7 +70,7 @@ public class SysComment {
     }
 
     public void setIntcommentbody(String intcommentbody) {
-        this.intcommentbody = intcommentbody == null ? null : intcommentbody.trim();
+        this.intcommentbody = intcommentbody;
     }
 
     public Integer getIntuserid() {
@@ -80,20 +81,12 @@ public class SysComment {
         this.intuserid = intuserid;
     }
 
-    public Integer getIshide() {
-        return ishide;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIshide(Integer ishide) {
-        this.ishide = ishide;
-    }
-
-    public Integer getIsdeleted() {
-        return isdeleted;
-    }
-
-    public void setIsdeleted(Integer isdeleted) {
-        this.isdeleted = isdeleted;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getDatecreatetime() {

@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div id="articlelist" class="ui nobox segment">
+            <div id="articlelist" class="ui nobox segment" page="${page}">
                 <div class="ui divided items"></div>
             </div>
             <div id="articlebottons" class="ui segment">
@@ -152,7 +152,7 @@
         </div>
     </div>
 </div>
-<script src="plugins/require.js/2.1.17/require.min.js" data-main="js/index"></script>
+<script src="/plugins/require.js/2.1.17/require.min.js" data-main="/js/index"></script>
 
 </body>
 </html>

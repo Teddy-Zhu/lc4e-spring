@@ -19,23 +19,24 @@ public class SysTopic {
 
     private String strtopicbody;
 
-    private Integer ishide;
-
-    private Integer isdeleted;
+    private Integer status;
 
     private Date datecreatetime;
 
     private Date datemodified;
 
+    public SysTopic() {
+    }
+
     @PersistenceConstructor
-    public SysTopic(Integer inttopicid, Integer intareaid, Integer intuserid, String strtopictitle, String strtopicbody, Integer ishide, Integer isdeleted, Date datecreatetime, Date datemodified) {
+
+    public SysTopic(Integer inttopicid, Integer intareaid, Integer intuserid, String strtopictitle, String strtopicbody, Integer status, Date datecreatetime, Date datemodified) {
         this.inttopicid = inttopicid;
         this.intareaid = intareaid;
         this.intuserid = intuserid;
         this.strtopictitle = strtopictitle;
         this.strtopicbody = strtopicbody;
-        this.ishide = ishide;
-        this.isdeleted = isdeleted;
+        this.status = status;
         this.datecreatetime = datecreatetime;
         this.datemodified = datemodified;
     }
@@ -69,7 +70,7 @@ public class SysTopic {
     }
 
     public void setStrtopictitle(String strtopictitle) {
-        this.strtopictitle = strtopictitle == null ? null : strtopictitle.trim();
+        this.strtopictitle = strtopictitle;
     }
 
     public String getStrtopicbody() {
@@ -77,23 +78,15 @@ public class SysTopic {
     }
 
     public void setStrtopicbody(String strtopicbody) {
-        this.strtopicbody = strtopicbody == null ? null : strtopicbody.trim();
+        this.strtopicbody = strtopicbody;
     }
 
-    public Integer getIshide() {
-        return ishide;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIshide(Integer ishide) {
-        this.ishide = ishide;
-    }
-
-    public Integer getIsdeleted() {
-        return isdeleted;
-    }
-
-    public void setIsdeleted(Integer isdeleted) {
-        this.isdeleted = isdeleted;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getDatecreatetime() {

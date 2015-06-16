@@ -145,33 +145,26 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
             $('#announce').shape('flip down');
         }, 3000));
 
-        getArticles = function () {
-            $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
-                url: 'Member/GetArticles',
-                templateUrl: 'articleTemplate',
-                data: {
-                    size: 20
-                },
-                animation: 'fadeInUpArt',
-                speed: 'fast',
-                interval: 100,
-                onFinish: function ($that) {
-                    $that.find('.ui.fluid.image img').popup();
-                },
-            })
-            /*
-             * $.get('Articles').done(function(data) {
-             * $('#articlelist>.ui.divided.items').html(data);
-             * $('#articlelist>.ui.divided.items>.item').Lc4eAnimate({ animation :
-             * 'fadeInUpArt', speed : 'fast', interval : 100, onComplete :
-             * function($that) {
-             * $that.find('.content>.extra>.ui.dropdown.button').dropdown();
-             * $that.find('.ui.fluid.image img').popup(); }, }) })
-             */
-        };
-        getArticles.call();
 
-        $.get('TopHots').done(function (data) {
+        var page = parseInt($("#articlelist").attr("page"));
+        $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
+            url: '/Page/' + $("#articlelist").attr("page"),
+            templateUrl: '/articleTemplate',
+            animation: 'fadeInUpArt',
+            speed: 'fast',
+            usePjax: page == 1 ? false : true,
+            data: {
+                pjax: true
+            },
+            interval: 100,
+            onFinish: function ($that) {
+                $that.find('.ui.fluid.image img').popup();
+                $("#articlelist").attr("page", page);
+            },
+        })
+
+
+        $.get('/TopHots').done(function (data) {
             $('#todayHot>.ui.divided.items').append(data);
             $('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
                 animation: 'fadeInRightArt',
@@ -199,7 +192,21 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
         })
 
         $('#prePage,#nextPage').on('click', function () {
-            getArticles.call();
+            var page = parseInt($("#articlelist").attr("page")) + 1;
+            $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
+                url: '/Page/' + page,
+                templateUrl: '/articleTemplate',
+                animation: 'fadeInUpArt',
+                speed: 'fast',
+                interval: 100,
+                onBefore: function () {
+                    $("#articlelist").attr("page", page);
+                },
+                onFinish: function ($that) {
+
+                    $that.find('.ui.fluid.image img').popup();
+                },
+            })
         })
     })
 });

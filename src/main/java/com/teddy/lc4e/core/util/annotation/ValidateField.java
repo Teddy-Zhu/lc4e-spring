@@ -17,6 +17,9 @@ public @interface ValidateField {
 
 	public String defaultString() default "";
 
+	public boolean defaultBoolean() default false;
+
+	public double defaultDouble() default 0.0;
 	/**
 	 * validate field in parameter[index]
 	 */
