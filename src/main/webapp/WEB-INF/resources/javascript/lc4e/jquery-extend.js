@@ -9,11 +9,6 @@
 
 (function ($) {
 
-    $(window).on('popstate', function (e) {
-        if (e.title)
-            document.title = e.title;
-    });
-
     /* animate scroll */
     // defines various easing effects
     $.easing['jswing'] = $.easing['swing'];
@@ -352,55 +347,55 @@
     };
     $.fn.Lc4eModal = function (options) {
         var defaults = {
-            Id: null,
-            title: "Message",
-            content: "This is a Lc4e Test Modal",
-            closable: true, // enable esc or click dim page to close
-            // modal
-            useCSS: true,
-            closeIcon: true,
-            transition: "scale", // extend transition
-            duration: 400,// animation
-            type: "basic", // basic standard
-            size: "small", // fullscreen ,small,large,long
-            allowMultiple: false, // multiple modal
-            offset: 2,
-            context: 'body',
-            queue: false,
-            easing: "easeOutExpo",
-            selector: {
-                close: '.close'
-            },
-            dimmerSettings: {
-                closable: false,
-                useCSS: true
-            },
-            onDeny: function () {
-            },
-            onApprove: function () {
-            },
-            onShow: function () {
-            },
-            onVisible: function () {
+                Id: null,
+                title: "Message",
+                content: "This is a Lc4e Test Modal",
+                closable: true, // enable esc or click dim page to close
+                // modal
+                useCSS: true,
+                closeIcon: true,
+                transition: "scale", // extend transition
+                duration: 400,// animation
+                type: "basic", // basic standard
+                size: "small", // fullscreen ,small,large,long
+                allowMultiple: false, // multiple modal
+                offset: 2,
+                context: 'body',
+                queue: false,
+                easing: "easeOutExpo",
+                selector: {
+                    close: '.close'
+                },
+                dimmerSettings: {
+                    closable: false,
+                    useCSS: true
+                },
+                onDeny: function () {
+                },
+                onApprove: function () {
+                },
+                onShow: function () {
+                },
+                onVisible: function () {
 
+                },
+                onHide: function () {
+                },
+                onAfterHide: function () {
+                },
+                onHidden: function () {
+                },
+                OtherButtons: [],
+                OtherButtonsClass: [],
+                OtherButtonsClick: []
+            }, basciDefaults = {
+                IconClass: 'warning circle',
+                bottonNames: ['<i class="Remove icon"></i>No', '<i class="checkmark icon"></i>Yes'],
+                buttonClass: ["deny close red basic inverted", "approve close green basic inverted"]
+            }, standardDefaults = {
+                bottonNames: ['Close'],
+                buttonClass: ['basic close']
             },
-            onHide: function () {
-            },
-            onAfterHide: function () {
-            },
-            onHidden: function () {
-            },
-            OtherButtons: [],
-            OtherButtonsClass: [],
-            OtherButtonsClick: []
-        }, basciDefaults = {
-            IconClass: 'warning circle',
-            bottonNames: ['<i class="Remove icon"></i>No', '<i class="checkmark icon"></i>Yes'],
-            buttonClass: ["deny close red basic inverted", "approve close green basic inverted"]
-        }, standardDefaults = {
-            bottonNames: ['Close'],
-            buttonClass: ['basic close']
-        },
             basicModalHtml = '<div id="{ModalId}" class="ui basic {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content"><div class="image"><i class="{IconClass} icon"></i></div><div class="description">{Content}</div></div><div class="actions"><div class="{ButtonNumber} fluid ui inverted buttons">{Buttons}</div></div></div></div>',
             buttonHtml = '<div {ButtonId} class="ui {ButtonClass} button">{ButtonName}</div>', standardModalHtml = '<div id="{ModalId}" class="ui standard {Mutiple} {Size} modal">{CloseIcon}<div class="header">{Title}</div><div class="content">{Content}</div><div class="actions">{Buttons}</div></div>',
             NumberEng = ['one', 'two', 'three', 'four', 'five', 'six'], $operate;
@@ -428,13 +423,13 @@
                 }
             }
             for (var i = 0, len = options.bottonNames.length; i < len; i++) {
-                buttonsHtml += buttonHtml.replace(new RegExp('{ButtonId}', 'g'), "").replace(new RegExp('{ButtonClass}','g'), options.buttonClass[i]).replace(new RegExp('{ButtonName}', 'g'), options.bottonNames[i]);
+                buttonsHtml += buttonHtml.replace(new RegExp('{ButtonId}', 'g'), "").replace(new RegExp('{ButtonClass}', 'g'), options.buttonClass[i]).replace(new RegExp('{ButtonName}', 'g'), options.bottonNames[i]);
             }
             for (var i = 0, len = options.OtherButtons.length; i < len; i++) {
                 buttonsHtml += buttonHtml.replace(new RegExp('{ButtonId}', 'g'), 'id="' + modalId + '-button-' + i + '"').replace(new RegExp('{ButtonClass}', 'g'), options.OtherButtonsClass[i]).replace(new RegExp('{ButtonName}', 'g'), options.OtherButtons[i]);
             }
-            html = html.replace(new RegExp('{Mutiple}','g'), options.allowMultiple ? "coupled" : "").replace(new RegExp('{CloseIcon}', 'g'), options.closeIcon ? '<i class="close icon"></i>' : "").replace(new RegExp('{Size}', 'g'), options.size).
-                replace(new RegExp('{ModalId}','g'),modalId).replace(new RegExp('{Title}', 'g'), options.title).
+            html = html.replace(new RegExp('{Mutiple}', 'g'), options.allowMultiple ? "coupled" : "").replace(new RegExp('{CloseIcon}', 'g'), options.closeIcon ? '<i class="close icon"></i>' : "").replace(new RegExp('{Size}', 'g'), options.size).
+                replace(new RegExp('{ModalId}', 'g'), modalId).replace(new RegExp('{Title}', 'g'), options.title).
                 replace(new RegExp('{Content}', 'g'), options.content).replace(new RegExp('{Buttons}'), buttonsHtml);
 
             $obj.append(html);
@@ -462,34 +457,34 @@
 
     $.fn.Lc4eProgress = function (option, data) {
         var defaults = {
-            type: "standard",
-            color: "blue",
-            autoSuccess: true,
-            showActivity: true,
-            limitValues: true,
-            label: "percent",
-            precision: 0.001,
-            indicating: true,
-            total: false,
-            value: false,
-            autoUpdateSpeed: 200,
-            autoUpdate: true,
-            showLoading: true,
-            onChange: function (percent, value, total) {
-            },
-            onComplete: function (total) {
-            },
-            onSuccess: function (total) {
-            },
-            onActive: function (value, total) {
-            },
-            onError: function (value, total) {
-            },
-            onWarning: function (value, total) {
-            }
-        }, attachDefaults = {
-            location: "bottom"
-        }, standardtemplate = '<div id="lc4eProgress"><div class="ui mini progress {Indicating} {Color}" id="lc4eProgressBar"><div class="bar"></div></div>{Loading}</div>',
+                type: "standard",
+                color: "blue",
+                autoSuccess: true,
+                showActivity: true,
+                limitValues: true,
+                label: "percent",
+                precision: 0.001,
+                indicating: true,
+                total: false,
+                value: false,
+                autoUpdateSpeed: 200,
+                autoUpdate: true,
+                showLoading: true,
+                onChange: function (percent, value, total) {
+                },
+                onComplete: function (total) {
+                },
+                onSuccess: function (total) {
+                },
+                onActive: function (value, total) {
+                },
+                onError: function (value, total) {
+                },
+                onWarning: function (value, total) {
+                }
+            }, attachDefaults = {
+                location: "bottom"
+            }, standardtemplate = '<div id="lc4eProgress"><div class="ui mini progress {Indicating} {Color}" id="lc4eProgressBar"><div class="bar"></div></div>{Loading}</div>',
             attachedBar = '<div {Id} class="ui attached progress {Color} {Indicating} {Location}"><div class="bar"></div></div>', $operate;
 
         var options, $that = $(this), html = "", template = "", progressId = "", $progressBar;
@@ -604,10 +599,14 @@
             empty: true,
             enableAnimate: true,
             needToken: false,
-            usePjax: true,
-            cacheDom: '',
+            Lc4eCache: {
+                use: false,
+                name: '',
+                dom: ''
+            },
             speed: "normal",
             animation: "slideInDown",
+            dataVal: '',
             interval: 100,
             onSingleFinish: function ($thedom) {
             },
@@ -617,15 +616,11 @@
             },
             onBefore: function ($thedom) {
             }
-        }, tmpajax, dtd = $.Deferred(), thisDom = this, $cacheDom;
+        }, dtd = $.Deferred(), thisDom = this, $cacheDom;
         options = $.extend(true, defaults, options);
 
-        $cacheDom = $('#' + options.cacheDom);
-        if (options.usePjax) {
-            tmpajax = $.Lc4ePJAX;
-        } else {
-            tmpajax = $.Lc4eAjax;
-        }
+        $cacheDom = $(options.cacheDom);
+
         var getTemplateAjax = function () {
             $.Lc4eAjax({
                 url: options.templateUrl,
@@ -633,11 +628,14 @@
                 needToken: options.needToken
             }).done(function (data) {
                 dtd.resolve(data);
+                if (options.Lc4eCache.use) {
+                    $cacheDom.data(options.Lc4eCache.name, data);
+                }
             })
         };
-        if ($cacheDom.length != 0 && $cacheDom.length == 1) {
-            var html = $cacheDom.data(options.templateUrl);
-            if (html != undefined && html != null) {
+        if (options.Lc4eCache.use) {
+            var html = $cacheDom.data(options.Lc4eCache.name);
+            if (html) {
                 dtd.resolve(html);
             } else {
                 getTemplateAjax.call();
@@ -646,16 +644,17 @@
             getTemplateAjax.call();
         }
 
-        tmpajax({
+        $.Lc4eAjax({
             url: options.url,
             type: 'get',
             data: options.data,
             dataType: 'json',
-            needToken: options.needToken
-        }).done(function (data) {
+            needToken: options.needToken,
+        }).success(function (data) {
+            if (options.dataVal) {
+                data = $.Lc4eGetter(data, options.dataVal);
+            }
             dtd.done(function (templateHtml) {
-                getTemplateAjax = null;
-                tmpajax = null;
                 options.onBefore();
                 var itemArray = templateHtml.match(/{#(.*?)#}/g), dataLength = data.length;
                 thisDom.each(function () {
@@ -709,16 +708,9 @@
                         }
                     }
                 })
-            }).always(function(){
-                getTemplateAjax = null;
-                tmpajax = null;
-                thisDom = null;
-                $cacheDom = null;
-            })
+            });
         })
-
         return $(this);
-
     };
     $.extend({
         Lc4eGetter: function (obj, path) {
@@ -726,13 +718,16 @@
                 return obj;
             var keys = path.split('.'), key, len = keys.length;
             for (var i = 0; i < len; i++) {
-                key = keys[i];
                 if (obj) {
-                    obj = obj[key];
+                    obj = obj[keys[i]];
                 }
             }
             return obj;
         },
+        Lc4eRandomColor: function () {
+            return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).slice(-6)
+        }
+        ,
         Lc4eAjax: function (data) {
             var loptions = {};
             if (data.hasOwnProperty("beforeSend")) {
@@ -747,6 +742,7 @@
                     }
                 }
             }
+
             return $.ajax(data);
         },
         Lc4eRandom: function () {
@@ -771,37 +767,6 @@
                     window.setTimeout(callback, 0);
                 };
             return requestAnimation(callback);
-        },
-        Lc4ePJAX: function (options) {
-            options.title = document.title;
-            if (!$.lc4e.Lc4ePJAX.support()) {
-                throw  new Error("Your Browser is too old.")
-            }
-            var loptions = new [];
-            for (var attr in options) {
-                loptions[attr] = options[attr];
-            }
-
-            var data = {pjax: true};
-            data = $.extend(true, data, options.data);
-            options.data = data;
-            options.beforeSend = function (xhr) {
-                xhr.setRequestHeader("P-AJAX", true);
-                if (typeof loptions.beforeSend === "fucntion") {
-                    loptions.beforeSend(xhr);
-                }
-            };
-            options.success = function (data) {
-                var state = ({url: options.url, title: options.title});
-                var title = '';
-
-                title = data["data"] ? (data["data"]["title"] ? data["data"]["title"] : options.title ) : options.title;
-                window.history.pushState(state, title, options.url);
-                if (typeof loptions.success === "fucntion") {
-                    loptions.success(data);
-                }
-            };
-            return $.Lc4eAjax(options);
         }
     });
 
@@ -821,11 +786,10 @@
         },
         Lc4ePJAX: {
             support: function () {
-                return window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/)
+                return window.history && window.history.pushState && window.history.replaceState && !navigator.userAgent.match(/(iPod|iPhone|iPad|WebApps\/.+CFNetwork)/) && window.localStorage
             },
         },
     })
-
 
 })
 (jQuery);

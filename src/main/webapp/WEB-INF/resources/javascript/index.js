@@ -92,7 +92,7 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
         $('#config-tool-cog').on('click', function () {
             $('#config-tool').toggleClass('closed');
         });
-
+        var timer;
         $('html').visibility({
             offset: -1,
             once: false,
@@ -152,9 +152,11 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
             templateUrl: '/articleTemplate',
             animation: 'fadeInUpArt',
             speed: 'fast',
-            usePjax: page == 1 ? false : true,
-            data: {
-                pjax: true
+            dataVal: 'data.list',
+            Lc4eCache: {
+                use: true,
+                name: 'articleTemplate',
+                dom: '#articlelist'
             },
             interval: 100,
             onFinish: function ($that) {
@@ -178,17 +180,13 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 interval: 80,
             })
         })
-        var timer;
 
         $('#GTTop').on('click', function (e) {
             e.preventDefault();
-            clearTimeout(timer);
-            setTimeout(function () {
-                $('html').animatescroll({
-                    scrollSpeed: 1000,
-                    easing: 'easeOutBounce'
-                });
-            }, 700)
+            $('html').animatescroll({
+                scrollSpeed: 1000,
+                easing: 'easeOutBounce'
+            });
         })
 
         $('#prePage,#nextPage').on('click', function () {
@@ -199,6 +197,12 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 animation: 'fadeInUpArt',
                 speed: 'fast',
                 interval: 100,
+                dataVal: 'data.list',
+                Lc4eCache: {
+                    use: true,
+                    name: 'articleTemplate',
+                    dom: '#articlelist'
+                },
                 onBefore: function () {
                     $("#articlelist").attr("page", page);
                 },

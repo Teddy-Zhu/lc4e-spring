@@ -30,21 +30,6 @@ body {
     margin-right: .5em;
 }
 
-#menu .left.menu > a.item, #menu > div.ui.dropdown {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-#menu .left.menu > a.item:hover, #menu .left.menu > div.ui.dropdown:hover {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-#menu .left.menu > div.ui.dropdown.active {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
 #menu .ui.animated.button .hidden.content .icon {
     margin-right: -.5em;
 }
@@ -84,6 +69,7 @@ body {
 
 #menu .left.menu .item:hover {
     color: teal;
+    background-color: #DADADA;
 }
 
 .linked {
@@ -106,7 +92,7 @@ body {
 
 #GTTop {
     position: fixed;
-    bottom: 15em;
+    bottom: 14%;
     z-index: 1000;
     right: 8%;
     display: none;
@@ -162,6 +148,7 @@ body {
 @media screen and ( max-width: 600px) {
     #GTTop {
         right: 2%;
+        bottom: 6%;
     }
 
     .hidden-mb {

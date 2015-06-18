@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.database.service.MenuService;
 import com.teddy.lc4e.core.database.service.UserService;
 import com.teddy.lc4e.core.entity.webui.Article;
+import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.entity.webui.Popup;
 import com.teddy.lc4e.core.util.annotation.*;
@@ -51,27 +52,21 @@ public class ViewController {
     @Autowired
     private RelativeDateFormat dateFormat;
 
-    @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1), @ValidateField(index = 4)})
+    @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1)})
     @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @RequestMapping(value = {"/Page/{page}"}, method = RequestMethod.GET)
-    @SetComVar(comVar = {"SiteName"})
-    public String home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, boolean pjax, Locale locale) {
-        if (pjax) {
-            Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize", 1);
-            String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
-            String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
-            Date now = new Date();
-            List<Article> list = new ArrayList<Article>();
-            for (int i = 0; i < size; i++) {
-                list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
-                        dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
-            }
-            model.addAttribute("Message", JSONObject.toJSONString(list));
-            return "System/Message";
-        } else {
-            model.addAttribute("page", page);
-            return "index";
+    @ResponseBody
+    public Message home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, Locale locale) {
+        Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize", 1);
+        String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
+        String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
+        Date now = new Date();
+        List<Article> list = new ArrayList<Article>();
+        for (int i = 0; i < size; i++) {
+            list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
+                    dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
         }
+        return new Message(true, new Data("list", list));
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)

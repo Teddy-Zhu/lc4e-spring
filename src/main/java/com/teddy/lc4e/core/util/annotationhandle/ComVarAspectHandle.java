@@ -37,8 +37,8 @@ public class ComVarAspectHandle {
         SetComVar an = null;
         Object[] args = null;
         Method method = null;
-        Object target = null;
-        String methodName = null;
+        Object target ;
+        String methodName;
         try {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
