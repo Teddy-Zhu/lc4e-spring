@@ -6,10 +6,15 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Created by teddy on 2015/6/20.
+ */
 @Document
-public class SysPermission {
+public class SysOperateType {
+
     @Id
     private ObjectId id;
+
     @Indexed(unique = true)
     private String abbr;
 
@@ -17,19 +22,12 @@ public class SysPermission {
 
     private String description;
 
-    private boolean available;
-
-    public SysPermission() {
-    }
-
     @PersistenceConstructor
-
-    public SysPermission(ObjectId id, String abbr, String name, String description, boolean available) {
+    public SysOperateType(ObjectId id, String abbr, String name, String description) {
         this.id = id;
         this.abbr = abbr;
         this.name = name;
         this.description = description;
-        this.available = available;
     }
 
     public ObjectId getId() {
@@ -62,13 +60,5 @@ public class SysPermission {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 }

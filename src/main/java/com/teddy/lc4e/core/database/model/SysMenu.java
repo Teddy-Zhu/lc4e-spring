@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Document
@@ -19,17 +20,21 @@ public class SysMenu implements Serializable {
     @Id
     private ObjectId id;
 
-    private ObjectId intParentMenuId;
+    private ObjectId parentId;
 
-    private Integer intMenuOrderId;
+    private Integer order;
 
-    private String strMenuPath;
+    private String path;
 
-    private String strMenuName;
+    private String name;
 
-    private String strMenuCss;
+    private String css;
 
-    private String strMenuIcon;
+    private String icon;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     @Transient
     List<SysMenu> childMenus = new ArrayList<SysMenu>();
@@ -37,16 +42,33 @@ public class SysMenu implements Serializable {
     public SysMenu() {
     }
 
+    public SysMenu(ObjectId id, ObjectId parentId, Integer order, String path, String name, String css, String icon, Date createTime) {
+        this.id = id;
+        this.parentId = parentId;
+        this.order = order;
+        this.path = path;
+        this.name = name;
+        this.css = css;
+        this.icon = icon;
+        this.createTime = createTime;
+    }
+
     @PersistenceConstructor
 
-    public SysMenu(ObjectId id, ObjectId intParentMenuId, Integer intMenuOrderId, String strMenuPath, String strMenuName, String strMenuCss, String strMenuIcon) {
+    public SysMenu(ObjectId id, ObjectId parentId, Integer order, String path, String name, String css, String icon, Date createTime, Date updateTime) {
         this.id = id;
-        this.intParentMenuId = intParentMenuId;
-        this.intMenuOrderId = intMenuOrderId;
-        this.strMenuPath = strMenuPath;
-        this.strMenuName = strMenuName;
-        this.strMenuCss = strMenuCss;
-        this.strMenuIcon = strMenuIcon;
+        this.parentId = parentId;
+        this.order = order;
+        this.path = path;
+        this.name = name;
+        this.css = css;
+        this.icon = icon;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public ObjectId getId() {
@@ -57,52 +79,68 @@ public class SysMenu implements Serializable {
         this.id = id;
     }
 
-    public ObjectId getIntParentMenuId() {
-        return intParentMenuId;
+    public ObjectId getParentId() {
+        return parentId;
     }
 
-    public void setIntParentMenuId(ObjectId intParentMenuId) {
-        this.intParentMenuId = intParentMenuId;
+    public void setParentId(ObjectId parentId) {
+        this.parentId = parentId;
     }
 
-    public Integer getIntMenuOrderId() {
-        return intMenuOrderId;
+    public Integer getOrder() {
+        return order;
     }
 
-    public void setIntMenuOrderId(Integer intMenuOrderId) {
-        this.intMenuOrderId = intMenuOrderId;
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
-    public String getStrMenuPath() {
-        return strMenuPath;
+    public String getPath() {
+        return path;
     }
 
-    public void setStrMenuPath(String strMenuPath) {
-        this.strMenuPath = strMenuPath;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public String getStrMenuName() {
-        return strMenuName;
+    public String getName() {
+        return name;
     }
 
-    public void setStrMenuName(String strMenuName) {
-        this.strMenuName = strMenuName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStrMenuCss() {
-        return strMenuCss;
+    public String getCss() {
+        return css;
     }
 
-    public void setStrMenuCss(String strMenuCss) {
-        this.strMenuCss = strMenuCss;
+    public void setCss(String css) {
+        this.css = css;
     }
 
-    public String getStrMenuIcon() {
-        return strMenuIcon;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setStrMenuIcon(String strMenuIcon) {
-        this.strMenuIcon = strMenuIcon;
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public List<SysMenu> getChildMenus() {
@@ -111,9 +149,5 @@ public class SysMenu implements Serializable {
 
     public void setChildMenus(List<SysMenu> childMenus) {
         this.childMenus = childMenus;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 }

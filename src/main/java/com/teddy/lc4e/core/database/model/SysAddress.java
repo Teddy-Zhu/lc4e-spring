@@ -7,32 +7,36 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
+/**
+ * Created by teddy on 2015/6/19.
+ */
 @Document
-public class UserBlocked {
+public class SysAddress {
+
     @Id
     private ObjectId id;
-
     @Indexed(unique = true)
-    private ObjectId user;
+    private String province;
 
-    private Set<ObjectId> blockedUsers;
+    private String city;
+
+    private String region;
+
+    private String street;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public UserBlocked() {
-    }
-
     @PersistenceConstructor
 
-    public UserBlocked(ObjectId id, ObjectId user, Set<ObjectId> blockedUsers, Date createTime, Date updateTime) {
+    public SysAddress(ObjectId id, String province, String city, String region, String street, Date createTime, Date updateTime) {
         this.id = id;
-        this.user = user;
-        this.blockedUsers = blockedUsers;
+        this.province = province;
+        this.city = city;
+        this.region = region;
+        this.street = street;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -45,20 +49,36 @@ public class UserBlocked {
         this.id = id;
     }
 
-    public ObjectId getUser() {
-        return user;
+    public String getProvince() {
+        return province;
     }
 
-    public void setUser(ObjectId user) {
-        this.user = user;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public Set<ObjectId> getBlockedUsers() {
-        return blockedUsers;
+    public String getCity() {
+        return city;
     }
 
-    public void setBlockedUsers(Set<ObjectId> blockedUsers) {
-        this.blockedUsers = blockedUsers;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public Date getCreateTime() {

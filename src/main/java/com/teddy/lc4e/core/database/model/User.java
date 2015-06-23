@@ -11,41 +11,40 @@ public class User {
     @Id
     private ObjectId id;
     @Indexed(unique = true)
-    private String userName;
+    private String name;
     @Indexed(unique = true)
-    private String userMail;
+    private String mail;
     @Indexed(unique = true)
-    private String userNick;
+    private String nick;
 
-    private String userPass;
+    private String password;
 
-    private String userPassSalt;
+    private String passSalt;
 
     private boolean locked;
 
     public User() {
     }
 
-    public User(String userName, String userPass) {
-        super();
+    public User (String name, String password) {
         this.id = null;
-        this.userName = userName;
-        this.userMail = "";
-        this.userNick = "";
-        this.userPass = userPass;
-        this.userPassSalt = "";
-        this.locked = false;
+        this.name = name;
+        this.mail = "";
+        this.nick = "";
+        this.password = password;
+        this.passSalt = "";
+        this.locked = true;
     }
 
     @PersistenceConstructor
 
-    public User(ObjectId id, String userName, String userMail, String userNick, String userPass, String userPassSalt, boolean locked) {
+    public User(ObjectId id, String name, String mail, String nick, String password, String passSalt, boolean locked) {
         this.id = id;
-        this.userName = userName;
-        this.userMail = userMail;
-        this.userNick = userNick;
-        this.userPass = userPass;
-        this.userPassSalt = userPassSalt;
+        this.name = name;
+        this.mail = mail;
+        this.nick = nick;
+        this.password = password;
+        this.passSalt = passSalt;
         this.locked = locked;
     }
 
@@ -57,44 +56,44 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserMail() {
-        return userMail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUserMail(String userMail) {
-        this.userMail = userMail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getUserNick() {
-        return userNick;
+    public String getNick() {
+        return nick;
     }
 
-    public void setUserNick(String userNick) {
-        this.userNick = userNick;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
-    public String getUserPass() {
-        return userPass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPass(String userPass) {
-        this.userPass = userPass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserPassSalt() {
-        return userPassSalt;
+    public String getPassSalt() {
+        return passSalt;
     }
 
-    public void setUserPassSalt(String userPassSalt) {
-        this.userPassSalt = userPassSalt;
+    public void setPassSalt(String passSalt) {
+        this.passSalt = passSalt;
     }
 
     public boolean isLocked() {

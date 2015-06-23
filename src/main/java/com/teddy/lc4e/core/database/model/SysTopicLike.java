@@ -1,59 +1,63 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Document
 public class SysTopicLike {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @Indexed(unique = true)
+    private ObjectId topic;
 
-    private Integer inttopicid;
+    private Set<ObjectId> likedUsers;
 
-    private Integer intuserid;
-
-    private Date datecreate;
+    private Date createTime;
 
     @PersistenceConstructor
-    public SysTopicLike(Integer intid, Integer inttopicid, Integer intuserid, Date datecreate) {
-        this.intid = intid;
-        this.inttopicid = inttopicid;
-        this.intuserid = intuserid;
-        this.datecreate = datecreate;
+
+    public SysTopicLike(ObjectId id, ObjectId topic, Set<ObjectId> likedUsers, Date createTime) {
+        this.id = id;
+        this.topic = topic;
+        this.likedUsers = likedUsers;
+        this.createTime = createTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getInttopicid() {
-        return inttopicid;
+    public ObjectId getTopic() {
+        return topic;
     }
 
-    public void setInttopicid(Integer inttopicid) {
-        this.inttopicid = inttopicid;
+    public void setTopic(ObjectId topic) {
+        this.topic = topic;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public Set<ObjectId> getLikedUsers() {
+        return likedUsers;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setLikedUsers(Set<ObjectId> likedUsers) {
+        this.likedUsers = likedUsers;
     }
 
-    public Date getDatecreate() {
-        return datecreate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreate(Date datecreate) {
-        this.datecreate = datecreate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

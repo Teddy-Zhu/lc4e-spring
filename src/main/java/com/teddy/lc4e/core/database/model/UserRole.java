@@ -21,28 +21,21 @@ public class UserRole {
     @DBRef
     private List<SysRole> sysRoles;
 
-    private Date datecreated;
+    private Date createTime;
+
+    private Date updateTime;
 
     public UserRole() {
     }
 
     @PersistenceConstructor
 
-    public UserRole(ObjectId id, User user, List<SysRole> sysRoles, Date datecreated) {
+    public UserRole(ObjectId id, User user, List<SysRole> sysRoles, Date createTime, Date updateTime) {
         this.id = id;
         this.user = user;
         this.sysRoles = sysRoles;
-        this.datecreated = datecreated;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", user=" + user +
-                ", sysRoles=" + sysRoles +
-                ", datecreated=" + datecreated +
-                '}';
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -69,11 +62,19 @@ public class UserRole {
         this.sysRoles = sysRoles;
     }
 
-    public Date getDatecreated() {
-        return datecreated;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreated(Date datecreated) {
-        this.datecreated = datecreated;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

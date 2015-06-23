@@ -1,8 +1,10 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -10,107 +12,104 @@ import java.util.Date;
 @Document
 public class UserBasicInfo {
     @Id
-    private Integer intid;
+    private ObjectId id;
 
-    private Integer intuserid;
-
+    @DBRef
     @Indexed(unique = true)
-    private String strphonenumber;
+    private User user;
+    @Indexed(unique = true)
+    private String phoneNumber;
 
-    private String strsign;
+    private String sign;
 
-    private String stravatar;
+    private String avatar;
 
-    private Integer intlocationid;
+    @DBRef
+    private SysAddress address;
 
-    private Date datebirthday;
+    private Date birth;
 
-    private Date datecreate;
+    private Date createTime;
 
-    private Date datemodified;
+    private Date updateTime;
+
+    public UserBasicInfo() {
+    }
 
     @PersistenceConstructor
-    public UserBasicInfo(Integer intid, Integer intuserid, String strphonenumber, String strsign, String stravatar, Integer intlocationid, Date datebirthday, Date datecreate, Date datemodified) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.strphonenumber = strphonenumber;
-        this.strsign = strsign;
-        this.stravatar = stravatar;
-        this.intlocationid = intlocationid;
-        this.datebirthday = datebirthday;
-        this.datecreate = datecreate;
-        this.datemodified = datemodified;
+
+    public UserBasicInfo(ObjectId id, String phoneNumber, String sign, String avatar, SysAddress address, Date birth, Date createTime, Date updateTime) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.sign = sign;
+        this.avatar = avatar;
+        this.address = address;
+        this.birth = birth;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getStrphonenumber() {
-        return strphonenumber;
+    public String getSign() {
+        return sign;
     }
 
-    public void setStrphonenumber(String strphonenumber) {
-        this.strphonenumber = strphonenumber == null ? null : strphonenumber.trim();
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 
-    public String getStrsign() {
-        return strsign;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setStrsign(String strsign) {
-        this.strsign = strsign == null ? null : strsign.trim();
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public String getStravatar() {
-        return stravatar;
+    public SysAddress getAddress() {
+        return address;
     }
 
-    public void setStravatar(String stravatar) {
-        this.stravatar = stravatar == null ? null : stravatar.trim();
+    public void setAddress(SysAddress address) {
+        this.address = address;
     }
 
-    public Integer getIntlocationid() {
-        return intlocationid;
+    public Date getBirth() {
+        return birth;
     }
 
-    public void setIntlocationid(Integer intlocationid) {
-        this.intlocationid = intlocationid;
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
-    public Date getDatebirthday() {
-        return datebirthday;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatebirthday(Date datebirthday) {
-        this.datebirthday = datebirthday;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getDatecreate() {
-        return datecreate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDatecreate(Date datecreate) {
-        this.datecreate = datecreate;
-    }
-
-    public Date getDatemodified() {
-        return datemodified;
-    }
-
-    public void setDatemodified(Date datemodified) {
-        this.datemodified = datemodified;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

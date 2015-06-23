@@ -1,59 +1,63 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class SysCommentLike {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @Indexed(unique = true)
+    private ObjectId comment;
 
-    private Integer intcommentid;
+    private List<ObjectId> likedUsers;
 
-    private Integer intuserid;
-
-    private Date datecreatetime;
+    private Date createTime;
 
     @PersistenceConstructor
-    public SysCommentLike(Integer intid, Integer intcommentid, Integer intuserid, Date datecreatetime) {
-        this.intid = intid;
-        this.intcommentid = intcommentid;
-        this.intuserid = intuserid;
-        this.datecreatetime = datecreatetime;
+
+    public SysCommentLike(ObjectId id, ObjectId comment, List<ObjectId> likedUsers, Date createTime) {
+        this.id = id;
+        this.comment = comment;
+        this.likedUsers = likedUsers;
+        this.createTime = createTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntcommentid() {
-        return intcommentid;
+    public ObjectId getComment() {
+        return comment;
     }
 
-    public void setIntcommentid(Integer intcommentid) {
-        this.intcommentid = intcommentid;
+    public void setComment(ObjectId comment) {
+        this.comment = comment;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public List<ObjectId> getLikedUsers() {
+        return likedUsers;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setLikedUsers(List<ObjectId> likedUsers) {
+        this.likedUsers = likedUsers;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -1,57 +1,76 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class SysAreaCollect {
-    private Integer intid;
+    @Id
+    private ObjectId id;
 
-    private Integer intuserid;
+    @Indexed(unique = true)
+    private ObjectId user;
 
-    private Integer intcollectedareaid;
+    private List<ObjectId> collectedAreas;
 
-    private Date datecreatetime;
+    private Date createTime;
+
+    private Date updateTime;
 
     @PersistenceConstructor
-    public SysAreaCollect(Integer intid, Integer intuserid, Integer intcollectedareaid, Date datecreatetime) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.intcollectedareaid = intcollectedareaid;
-        this.datecreatetime = datecreatetime;
+
+    public SysAreaCollect(ObjectId id, ObjectId user, List<ObjectId> collectedAreas, Date createTime, Date updateTime) {
+        this.id = id;
+        this.user = user;
+        this.collectedAreas = collectedAreas;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public ObjectId getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(ObjectId user) {
+        this.user = user;
     }
 
-    public Integer getIntcollectedareaid() {
-        return intcollectedareaid;
+    public List<ObjectId> getCollectedAreas() {
+        return collectedAreas;
     }
 
-    public void setIntcollectedareaid(Integer intcollectedareaid) {
-        this.intcollectedareaid = intcollectedareaid;
+    public void setCollectedAreas(List<ObjectId> collectedAreas) {
+        this.collectedAreas = collectedAreas;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

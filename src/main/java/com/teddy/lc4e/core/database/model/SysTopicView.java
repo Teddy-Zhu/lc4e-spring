@@ -1,46 +1,64 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+import java.util.Set;
 
 @Document
 public class SysTopicView {
     @Id
-    private Integer intid;
+    private ObjectId id;
 
-    private Integer inttopicid;
+    @Indexed(unique = true)
+    private ObjectId topic;
 
-    private Integer intviewcount;
+    private Set<ObjectId> viewedUsers;
+
+    private Integer otherCount;
 
     @PersistenceConstructor
-    public SysTopicView(Integer intid, Integer inttopicid, Integer intviewcount) {
-        this.intid = intid;
-        this.inttopicid = inttopicid;
-        this.intviewcount = intviewcount;
+
+    public SysTopicView(ObjectId id, ObjectId topic, Set<ObjectId> viewedUsers, Integer otherCount) {
+        this.id = id;
+        this.topic = topic;
+        this.viewedUsers = viewedUsers;
+        this.otherCount = otherCount;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getInttopicid() {
-        return inttopicid;
+    public ObjectId getTopic() {
+        return topic;
     }
 
-    public void setInttopicid(Integer inttopicid) {
-        this.inttopicid = inttopicid;
+    public void setTopic(ObjectId topic) {
+        this.topic = topic;
     }
 
-    public Integer getIntviewcount() {
-        return intviewcount;
+    public Set<ObjectId> getViewedUsers() {
+        return viewedUsers;
     }
 
-    public void setIntviewcount(Integer intviewcount) {
-        this.intviewcount = intviewcount;
+    public void setViewedUsers(Set<ObjectId> viewedUsers) {
+        this.viewedUsers = viewedUsers;
+    }
+
+    public Integer getOtherCount() {
+        return otherCount;
+    }
+
+    public void setOtherCount(Integer otherCount) {
+        this.otherCount = otherCount;
     }
 }

@@ -20,28 +20,21 @@ public class SysRolePermission {
     @DBRef
     private List<SysPermission> sysPermissions;
 
-    private Date datecreated;
+    private Date createTime;
+
+    private Date updateTime;
 
     public SysRolePermission() {
     }
 
     @PersistenceConstructor
 
-    public SysRolePermission(ObjectId id, SysRole sysRole, List<SysPermission> sysPermissions, Date datecreated) {
+    public SysRolePermission(ObjectId id, SysRole sysRole, List<SysPermission> sysPermissions, Date createTime, Date updateTime) {
         this.id = id;
         this.sysRole = sysRole;
         this.sysPermissions = sysPermissions;
-        this.datecreated = datecreated;
-    }
-
-    @Override
-    public String toString() {
-        return "SysRolePermission{" +
-                "id=" + id +
-                ", sysRole=" + sysRole +
-                ", sysPermissions=" + sysPermissions +
-                ", datecreated=" + datecreated +
-                '}';
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -68,11 +61,19 @@ public class SysRolePermission {
         this.sysPermissions = sysPermissions;
     }
 
-    public Date getDatecreated() {
-        return datecreated;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreated(Date datecreated) {
-        this.datecreated = datecreated;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

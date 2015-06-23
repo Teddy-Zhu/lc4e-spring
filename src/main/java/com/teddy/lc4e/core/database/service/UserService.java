@@ -25,12 +25,12 @@ public class UserService {
     private UserRepository userRepository;
 
     public Set<String> findRoles(String username) {
-        UserRole userRole = userRoleRepository.findByUserUserName(username);
+        UserRole userRole = userRoleRepository.findByUserName(username);
         Set<String> roles = new HashSet<String>();
         if (userRole != null && userRole.getSysRoles() != null) {
             List<SysRole> allRoles = userRole.getSysRoles();
             for (int i = 0, len = allRoles.size(); i < len; i++) {
-                roles.add(allRoles.get(i).getRoleAbbr());
+                roles.add(allRoles.get(i).getAbbr());
             }
         }
         return roles;
@@ -42,19 +42,19 @@ public class UserService {
     }
 
     public Set<String> findPermissions(Set<String> roles) {
-        SysRolePermission rolePermission = rolePermissionRepoistory.findBySysRoleRoleAbbrIn(roles);
+        SysRolePermission rolePermission = rolePermissionRepoistory.findBySysRoleAbbrIn(roles);
         Set<String> permissions = new HashSet<String>();
         if (rolePermission != null && rolePermission.getSysPermissions() != null) {
             List<SysPermission> allPermissions = rolePermission.getSysPermissions();
             for (int i = 0, len = allPermissions.size(); i < len; i++) {
-                permissions.add(allPermissions.get(i).getPermissionAbbr());
+                permissions.add(allPermissions.get(i).getAbbr());
             }
         }
         return permissions;
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUserName(username);
+        return userRepository.findByName(username);
     }
 
     public boolean createUser(User user) {

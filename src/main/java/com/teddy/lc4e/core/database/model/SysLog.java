@@ -1,7 +1,9 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -9,51 +11,76 @@ import java.util.Date;
 @Document
 public class SysLog {
     @Id
-    private Integer intid;
+    private ObjectId id;
 
-    private Integer intlognameid;
+    @DBRef
+    private SysOperateType type;
 
-    private Integer intuserid;
+    @DBRef
+    private User user;
 
-    private Date datecreatetime;
+    private String description;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     @PersistenceConstructor
-    public SysLog(Integer intid, Integer intlognameid, Integer intuserid, Date datecreatetime) {
-        this.intid = intid;
-        this.intlognameid = intlognameid;
-        this.intuserid = intuserid;
-        this.datecreatetime = datecreatetime;
+
+    public SysLog(ObjectId id, SysOperateType type, User user, String description, Date createTime, Date updateTime) {
+        this.id = id;
+        this.type = type;
+        this.user = user;
+        this.description = description;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntlognameid() {
-        return intlognameid;
+    public SysOperateType getType() {
+        return type;
     }
 
-    public void setIntlognameid(Integer intlognameid) {
-        this.intlognameid = intlognameid;
+    public void setType(SysOperateType type) {
+        this.type = type;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public User getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

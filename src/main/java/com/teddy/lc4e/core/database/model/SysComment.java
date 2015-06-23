@@ -1,7 +1,9 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -9,99 +11,101 @@ import java.util.Date;
 @Document
 public class SysComment {
     @Id
-    private Integer intcommentid;
+    private ObjectId id;
 
-    private String inttopicid;
+    private ObjectId topic;
 
-    private String intcommenttitle;
+    private String title;
 
-    private String intcommentbody;
+    private String body;
 
-    private Integer intuserid;
+    @DBRef
+    private UserBasicInfo user;
 
-    private Integer status;
+    @DBRef
+    private SysTACStatus status;
 
-    private Date datecreatetime;
+    private Date createTime;
 
-    private Date datemodifiedtime;
+    private Date updateTime;
 
     public SysComment() {
     }
 
     @PersistenceConstructor
 
-    public SysComment(Integer intcommentid, String inttopicid, String intcommenttitle, String intcommentbody, Integer intuserid, Integer status, Date datecreatetime, Date datemodifiedtime) {
-        this.intcommentid = intcommentid;
-        this.inttopicid = inttopicid;
-        this.intcommenttitle = intcommenttitle;
-        this.intcommentbody = intcommentbody;
-        this.intuserid = intuserid;
+    public SysComment(ObjectId id, ObjectId topic, String title, String body, UserBasicInfo user, SysTACStatus status, Date createTime, Date updateTime) {
+        this.id = id;
+        this.topic = topic;
+        this.title = title;
+        this.body = body;
+        this.user = user;
         this.status = status;
-        this.datecreatetime = datecreatetime;
-        this.datemodifiedtime = datemodifiedtime;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntcommentid() {
-        return intcommentid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntcommentid(Integer intcommentid) {
-        this.intcommentid = intcommentid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public String getInttopicid() {
-        return inttopicid;
+    public ObjectId getTopic() {
+        return topic;
     }
 
-    public void setInttopicid(String inttopicid) {
-        this.inttopicid = inttopicid;
+    public void setTopic(ObjectId topic) {
+        this.topic = topic;
     }
 
-    public String getIntcommenttitle() {
-        return intcommenttitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setIntcommenttitle(String intcommenttitle) {
-        this.intcommenttitle = intcommenttitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getIntcommentbody() {
-        return intcommentbody;
+    public String getBody() {
+        return body;
     }
 
-    public void setIntcommentbody(String intcommentbody) {
-        this.intcommentbody = intcommentbody;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public UserBasicInfo getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(UserBasicInfo user) {
+        this.user = user;
     }
 
-    public Integer getStatus() {
+    public SysTACStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(SysTACStatus status) {
         this.status = status;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getDatemodifiedtime() {
-        return datemodifiedtime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDatemodifiedtime(Date datemodifiedtime) {
-        this.datemodifiedtime = datemodifiedtime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

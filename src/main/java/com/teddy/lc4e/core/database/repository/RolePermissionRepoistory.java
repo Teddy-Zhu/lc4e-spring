@@ -11,5 +11,5 @@ import java.util.Set;
  */
 public interface RolePermissionRepoistory extends MongoRepository<SysRolePermission, ObjectId> {
 
-    SysRolePermission findBySysRoleRoleAbbrIn(Set<String> roles);
+    SysRolePermission findBySysRoleAbbrIn(Set<String> roles);
 }

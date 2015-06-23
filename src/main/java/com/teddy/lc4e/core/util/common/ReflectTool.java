@@ -1,4 +1,4 @@
-package com.teddy.lc4e.core.util.commonfuncion;
+package com.teddy.lc4e.core.util.common;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

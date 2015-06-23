@@ -1,59 +1,63 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Document
 public class SysTopicCollected {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @Indexed(unique = true)
+    private ObjectId user;
 
-    private Integer intuserid;
+    private Set<ObjectId> collectedTopics;
 
-    private Integer intcollectedtopicid;
-
-    private Date datecreatetime;
+    private Date createTime;
 
     @PersistenceConstructor
-    public SysTopicCollected(Integer intid, Integer intuserid, Integer intcollectedtopicid, Date datecreatetime) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.intcollectedtopicid = intcollectedtopicid;
-        this.datecreatetime = datecreatetime;
+
+    public SysTopicCollected(ObjectId id, ObjectId user, Set<ObjectId> collectedTopics, Date createTime) {
+        this.id = id;
+        this.user = user;
+        this.collectedTopics = collectedTopics;
+        this.createTime = createTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public ObjectId getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(ObjectId user) {
+        this.user = user;
     }
 
-    public Integer getIntcollectedtopicid() {
-        return intcollectedtopicid;
+    public Set<ObjectId> getCollectedTopics() {
+        return collectedTopics;
     }
 
-    public void setIntcollectedtopicid(Integer intcollectedtopicid) {
-        this.intcollectedtopicid = intcollectedtopicid;
+    public void setCollectedTopics(Set<ObjectId> collectedTopics) {
+        this.collectedTopics = collectedTopics;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

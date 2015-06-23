@@ -1,7 +1,10 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -9,51 +12,46 @@ import java.util.Date;
 @Document
 public class UserBalance {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @DBRef
+    @Indexed(unique = true)
+    private User user;
 
-    private Integer intuserid;
+    private Long balances;
 
-    private Long doubalance;
+    private Date updateTime;
 
-    private Date datemodifiedtime;
+    public UserBalance() {
+    }
 
     @PersistenceConstructor
-    public UserBalance(Integer intid, Integer intuserid, Long doubalance, Date datemodifiedtime) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.doubalance = doubalance;
-        this.datemodifiedtime = datemodifiedtime;
+    public UserBalance(ObjectId id, Long balances, Date updateTime) {
+        this.id = id;
+        this.balances = balances;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public Long getBalances() {
+        return balances;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setBalances(Long balances) {
+        this.balances = balances;
     }
 
-    public Long getDoubalance() {
-        return doubalance;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDoubalance(Long doubalance) {
-        this.doubalance = doubalance;
-    }
-
-    public Date getDatemodifiedtime() {
-        return datemodifiedtime;
-    }
-
-    public void setDatemodifiedtime(Date datemodifiedtime) {
-        this.datemodifiedtime = datemodifiedtime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

@@ -1,59 +1,64 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Document
 public class UserFollowed {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @Indexed(unique = true)
+    private ObjectId user;
 
-    private Integer intuserid;
+    private Set<ObjectId> followedUsers;
 
-    private Integer intfolloweduserid;
-
-    private Date datecreatetime;
+    private Date createTime;
 
     @PersistenceConstructor
-    public UserFollowed(Integer intid, Integer intuserid, Integer intfolloweduserid, Date datecreatetime) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.intfolloweduserid = intfolloweduserid;
-        this.datecreatetime = datecreatetime;
+
+    public UserFollowed(ObjectId id, ObjectId user, Set<ObjectId> followedUsers, Date createTime) {
+        this.id = id;
+        this.user = user;
+        this.followedUsers = followedUsers;
+        this.createTime = createTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public ObjectId getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(ObjectId user) {
+        this.user = user;
     }
 
-    public Integer getIntfolloweduserid() {
-        return intfolloweduserid;
+    public Set<ObjectId> getFollowedUsers() {
+        return followedUsers;
     }
 
-    public void setIntfolloweduserid(Integer intfolloweduserid) {
-        this.intfolloweduserid = intfolloweduserid;
+    public void setFollowedUsers(Set<ObjectId> followedUsers) {
+        this.followedUsers = followedUsers;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

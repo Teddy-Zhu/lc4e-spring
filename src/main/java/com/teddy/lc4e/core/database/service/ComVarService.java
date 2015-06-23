@@ -23,20 +23,20 @@ public class ComVarService {
     private CommonConfigRepository commonConfigRepository;
 
     public String getValueByComVarByName(String name){
-        SysComVar sysComVar =commonConfigRepository.findByStrComConfigName(name);
+        SysComVar sysComVar =commonConfigRepository.findByName(name);
         if (sysComVar == null){
             return "";
         }else{
-            return sysComVar.getStrComConfigValue();
+            return sysComVar.getValue();
         }
     }
 
     public String getValueById(String id){
-        return commonConfigRepository.findOne(new ObjectId(id)).getStrComConfigValue();
+        return commonConfigRepository.findOne(new ObjectId(id)).getValue();
     }
 
     public List<SysComVar> getValuesByIds(String[] ids){
-        return commonConfigRepository.findByStrComConfigNameIn(ids);
+        return commonConfigRepository.findByNameIn(ids);
     }
 
 }

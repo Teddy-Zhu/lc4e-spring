@@ -33,7 +33,7 @@ public class UIData {
 
     private void getMenu(List<SysMenu> allMenus,SysMenu curMenu){
         for (int i = 0,len=allMenus.size(); i <len ;) {
-            if (allMenus.get(i).getIntParentMenuId().toString().equals(curMenu.getId().toString())){
+            if (allMenus.get(i).getParentId().toString().equals(curMenu.getId().toString())){
                 curMenu.getChildMenus().add(allMenus.get(i));
                 allMenus.remove(i);
                 len--;

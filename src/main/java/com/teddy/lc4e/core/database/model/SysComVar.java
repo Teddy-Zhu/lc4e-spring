@@ -23,24 +23,34 @@ public class SysComVar implements Serializable {
     private ObjectId id;
 
     @Indexed(unique = true)
-    private String strComConfigName;
+    private String name;
 
-    private String strComConfigValue;
+    private String value;
 
     private Date createTime;
+
+    private Date updateTime;
 
     public SysComVar() {
     }
 
 
     @PersistenceConstructor
-    public SysComVar(ObjectId id, String strComConfigName, String strComConfigValue, Date createTime) {
+
+    public SysComVar(ObjectId id, String name, String value, Date createTime, Date updateTime) {
         this.id = id;
-        this.strComConfigName = strComConfigName;
-        this.strComConfigValue = strComConfigValue;
+        this.name = name;
+        this.value = value;
         this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
+    public SysComVar(ObjectId id, String name, String value, Date createTime) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.createTime = createTime;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -54,20 +64,20 @@ public class SysComVar implements Serializable {
         this.id = id;
     }
 
-    public String getStrComConfigName() {
-        return strComConfigName;
+    public String getName() {
+        return name;
     }
 
-    public void setStrComConfigName(String strComConfigName) {
-        this.strComConfigName = strComConfigName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStrComConfigValue() {
-        return strComConfigValue;
+    public String getValue() {
+        return value;
     }
 
-    public void setStrComConfigValue(String strComConfigValue) {
-        this.strComConfigValue = strComConfigValue;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Date getCreateTime() {
@@ -76,5 +86,13 @@ public class SysComVar implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

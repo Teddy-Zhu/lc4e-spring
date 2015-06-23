@@ -49,7 +49,7 @@ public class UserRealm extends AuthorizingRealm {
 			throw new LockedAccountException();
 		}
 
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getUserPass(), ByteSource.Util.bytes(user.getUserPassSalt()), getName());
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getName(), user.getPassword(), ByteSource.Util.bytes(user.getPassSalt()), getName());
 		return authenticationInfo;
 	}
 

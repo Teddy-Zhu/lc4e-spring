@@ -1,59 +1,63 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Document
 public class SysTopicBlocked {
     @Id
-    private Integer intid;
+    private ObjectId id;
+    @Indexed(unique = true)
+    private ObjectId user;
 
-    private Integer intuserid;
+    private Set<ObjectId> blockedTopics;
 
-    private Integer intblockedtopicid;
-
-    private Date datecreatetime;
+    private Date createTime;
 
     @PersistenceConstructor
-    public SysTopicBlocked(Integer intid, Integer intuserid, Integer intblockedtopicid, Date datecreatetime) {
-        this.intid = intid;
-        this.intuserid = intuserid;
-        this.intblockedtopicid = intblockedtopicid;
-        this.datecreatetime = datecreatetime;
+
+    public SysTopicBlocked(ObjectId id, ObjectId user, Set<ObjectId> blockedTopics, Date createTime) {
+        this.id = id;
+        this.user = user;
+        this.blockedTopics = blockedTopics;
+        this.createTime = createTime;
     }
 
-    public Integer getIntid() {
-        return intid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntid(Integer intid) {
-        this.intid = intid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public ObjectId getUser() {
+        return user;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setUser(ObjectId user) {
+        this.user = user;
     }
 
-    public Integer getIntblockedtopicid() {
-        return intblockedtopicid;
+    public Set<ObjectId> getBlockedTopics() {
+        return blockedTopics;
     }
 
-    public void setIntblockedtopicid(Integer intblockedtopicid) {
-        this.intblockedtopicid = intblockedtopicid;
+    public void setBlockedTopics(Set<ObjectId> blockedTopics) {
+        this.blockedTopics = blockedTopics;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public interface CommonConfigRepository extends MongoRepository<SysComVar, ObjectId> {
 
-    SysComVar findByStrComConfigName(String comConfigName);
+    SysComVar findByName(String comConfigName);
 
-    List<SysComVar> findByStrComConfigNameIn(String[] comConfigNames);
+    List<SysComVar> findByNameIn(String[] comConfigNames);
 }

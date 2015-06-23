@@ -6,7 +6,7 @@ import com.teddy.lc4e.core.database.service.ComVarService;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.SetComVar;
 import com.teddy.lc4e.core.util.cache.CacheHandler;
-import com.teddy.lc4e.core.util.commonfuncion.ReflectTool;
+import com.teddy.lc4e.core.util.common.ReflectTool;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -87,7 +87,7 @@ public class ComVarAspectHandle {
             if (fromDB.size()>0){
                 List<SysComVar> sysComVars = comVarService.getValuesByIds(fromDB.toArray(new String[fromDB.size()]));
                 for (int i = 0,len = sysComVars.size(); i <len ; i++) {
-                    String key = sysComVars.get(i).getStrComConfigName(),value= sysComVars.get(i).getStrComConfigValue();
+                    String key = sysComVars.get(i).getName(),value= sysComVars.get(i).getValue();
                     cacheHandler.setCache(fields.cacheName(),key,value);
                     model.addAttribute(key,value);
                 }
@@ -95,7 +95,7 @@ public class ComVarAspectHandle {
         }else{
             List<SysComVar> sysComVars = comVarService.getValuesByIds(configs);
             for (int i = 0,len = sysComVars.size(); i <len ; i++) {
-                String key = sysComVars.get(i).getStrComConfigName(),value= sysComVars.get(i).getStrComConfigValue();
+                String key = sysComVars.get(i).getName(),value= sysComVars.get(i).getValue();
                 cacheHandler.setCache(fields.cacheName(),key,value);
                 model.addAttribute(key,value);
             }

@@ -5,7 +5,7 @@ import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.SetUIDataField;
 import com.teddy.lc4e.core.util.annotation.SetUIDataGroup;
 import com.teddy.lc4e.core.util.cache.CacheHandler;
-import com.teddy.lc4e.core.util.commonfuncion.ReflectTool;
+import com.teddy.lc4e.core.util.common.ReflectTool;
 import com.teddy.lc4e.core.web.service.UIData;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**

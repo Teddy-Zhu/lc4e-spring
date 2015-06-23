@@ -1,9 +1,12 @@
 package com.teddy.lc4e.core.database.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import sun.dc.pr.PRError;
 
 import java.util.Date;
 
@@ -11,116 +14,120 @@ import java.util.Date;
 public class SysArea {
 
     @Id
-    private Integer intareaid;
-    private Integer intparentareaid;
+    private ObjectId id;
+
+    private ObjectId parentId;
+
     @Indexed(unique = true)
-    private String strareaabbr;
+    private String abbr;
 
-    private String strareaname;
+    private String name;
 
-    private String strareadescription;
+    private String description;
 
-    private String strareacss;
+    private String css;
 
-    private String strareaicon;
+    private String icon;
 
-    private Integer isshow;
+    @DBRef
+    private SysAreaStatus status;
 
-    private Integer intuserid;
+    private Date createTime;
 
-    private Date datecreatetime;
+    private Date updateTime;
 
     @PersistenceConstructor
-    public SysArea(Integer intareaid, Integer intparentareaid, String strareaabbr, String strareaname, String strareadescription, String strareacss, String strareaicon, Integer isshow, Integer intuserid, Date datecreatetime) {
-        this.intareaid = intareaid;
-        this.intparentareaid = intparentareaid;
-        this.strareaabbr = strareaabbr;
-        this.strareaname = strareaname;
-        this.strareadescription = strareadescription;
-        this.strareacss = strareacss;
-        this.strareaicon = strareaicon;
-        this.isshow = isshow;
-        this.intuserid = intuserid;
-        this.datecreatetime = datecreatetime;
+
+    public SysArea(ObjectId id, ObjectId parentId, String abbr, String name, String description, String css, String icon, SysAreaStatus status, Date createTime, Date updateTime) {
+        this.id = id;
+        this.parentId = parentId;
+        this.abbr = abbr;
+        this.name = name;
+        this.description = description;
+        this.css = css;
+        this.icon = icon;
+        this.status = status;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
-    public Integer getIntareaid() {
-        return intareaid;
+    public ObjectId getId() {
+        return id;
     }
 
-    public void setIntareaid(Integer intareaid) {
-        this.intareaid = intareaid;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
-    public Integer getIntparentareaid() {
-        return intparentareaid;
+    public ObjectId getParentId() {
+        return parentId;
     }
 
-    public void setIntparentareaid(Integer intparentareaid) {
-        this.intparentareaid = intparentareaid;
+    public void setParentId(ObjectId parentId) {
+        this.parentId = parentId;
     }
 
-    public String getStrareaabbr() {
-        return strareaabbr;
+    public String getAbbr() {
+        return abbr;
     }
 
-    public void setStrareaabbr(String strareaabbr) {
-        this.strareaabbr = strareaabbr == null ? null : strareaabbr.trim();
+    public void setAbbr(String abbr) {
+        this.abbr = abbr;
     }
 
-    public String getStrareaname() {
-        return strareaname;
+    public String getName() {
+        return name;
     }
 
-    public void setStrareaname(String strareaname) {
-        this.strareaname = strareaname == null ? null : strareaname.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getStrareadescription() {
-        return strareadescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStrareadescription(String strareadescription) {
-        this.strareadescription = strareadescription == null ? null : strareadescription.trim();
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getStrareacss() {
-        return strareacss;
+    public String getCss() {
+        return css;
     }
 
-    public void setStrareacss(String strareacss) {
-        this.strareacss = strareacss == null ? null : strareacss.trim();
+    public void setCss(String css) {
+        this.css = css;
     }
 
-    public String getStrareaicon() {
-        return strareaicon;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setStrareaicon(String strareaicon) {
-        this.strareaicon = strareaicon == null ? null : strareaicon.trim();
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
-    public Integer getIsshow() {
-        return isshow;
+    public SysAreaStatus getStatus() {
+        return status;
     }
 
-    public void setIsshow(Integer isshow) {
-        this.isshow = isshow;
+    public void setStatus(SysAreaStatus status) {
+        this.status = status;
     }
 
-    public Integer getIntuserid() {
-        return intuserid;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setIntuserid(Integer intuserid) {
-        this.intuserid = intuserid;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getDatecreatetime() {
-        return datecreatetime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setDatecreatetime(Date datecreatetime) {
-        this.datecreatetime = datecreatetime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
