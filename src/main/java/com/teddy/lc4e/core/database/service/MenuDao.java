@@ -17,7 +17,7 @@ import java.util.List;
  * Created by teddy on 2015/6/12.
  */
 @Service
-public class MenuService {
+public class MenuDao {
 
 
     @Autowired

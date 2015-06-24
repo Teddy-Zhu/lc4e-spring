@@ -166,7 +166,7 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
         <property name="arguments">
             <list>
                 <ref bean="userRealm"/>
-                <ref bean="userService"/>
+                <ref bean="userDao"/>
             </list>
         </property>
     </bean>

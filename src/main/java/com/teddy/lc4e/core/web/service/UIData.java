@@ -1,7 +1,7 @@
 package com.teddy.lc4e.core.web.service;
 
 import com.teddy.lc4e.core.database.model.SysMenu;
-import com.teddy.lc4e.core.database.service.MenuService;
+import com.teddy.lc4e.core.database.service.MenuDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import java.util.List;
 public class UIData {
     private static final Logger LOGGER = Logger.getLogger(UIData.class);
     @Autowired
-    private MenuService menuService;
+    private MenuDao menuDao;
 
     public List<SysMenu> getMenuTree(){
 
-        List<SysMenu> allMenus = menuService.getSysMenus();
+        List<SysMenu> allMenus = menuDao.getSysMenus();
         SysMenu menuTree = new SysMenu();
         if(allMenus==null || allMenus.isEmpty()){
             return new ArrayList<SysMenu>();

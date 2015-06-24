@@ -8,11 +8,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ValidateGroup {
-	public ValidateField[] fields();
+    public ValidateField[] fields() default @ValidateField;
 
-	public int reqIndex() default 0;
+    public boolean useSelect() default false;
 
-	public int resIndex() default 1;
+    public ValidateComVar validate() default  @ValidateComVar ;
 
-	public int modIndex() default 2;
+    public ValidateField[] trueFields() default {};
+
+    public ValidateField[] falseFields() default {};
+
+    public int reqIndex() default 0;
+
+    public int resIndex() default 1;
+
+    public int modIndex() default 2;
 }

@@ -12,8 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SetUIDataField {
 
-    public  boolean useCache() default true; //if use Vars  ,the useCache will be aborted
-
     public String functionName() default "";
 
     public String attributeName() default "";

@@ -1,19 +1,19 @@
 package com.teddy.lc4e.core.util.annotationhandle;
 
-import com.alibaba.fastjson.JSONObject;
-import com.teddy.lc4e.core.entity.webui.Message;
-import com.teddy.lc4e.core.util.annotation.ValidateField;
-import com.teddy.lc4e.core.util.annotation.ValidateGroup;
-import com.teddy.lc4e.core.util.annotation.ValidateToken;
+import com.teddy.lc4e.core.database.model.SysComVar;
+import com.teddy.lc4e.core.database.service.ComVarDao;
+import com.teddy.lc4e.core.util.annotation.*;
+import com.teddy.lc4e.core.util.cache.CacheHandler;
+import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.core.util.common.ReflectTool;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -28,6 +28,15 @@ public class ValidateAspectHandle {
      */
     private static final Logger logger = Logger.getLogger(ValidateAspectHandle.class);
 
+
+    @Autowired
+    private CacheHandler cacheHandler;
+
+    @Autowired
+    private ComVarDao comVarDao;
+
+    private boolean useCache;
+
     @SuppressWarnings("finally")
     @Around("@annotation(com.teddy.lc4e.core.util.annotation.ValidateGroup)")
     public Object validateAroundParameter(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -40,17 +49,17 @@ public class ValidateAspectHandle {
         try {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
-            method = getMethodByClassAndName(target.getClass(), methodName);
+            method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (ValidateGroup) getAnnotationByMethod(method, ValidateGroup.class);
-            flag = validateField(an.fields(), args);
+            an = (ValidateGroup) ReflectTool.getAnnotationByMethod(method, ValidateGroup.class);
+            flag = validateFieldBefore(an, args);
         } catch (Exception e) {
             flag = false;
         } finally {
             if (flag) {
                 return joinPoint.proceed();
             } else {
-                return returnHandle(method, args, an.modIndex(), "Parameter validation error");
+                return ReflectTool.returnHandle(method, args, an.modIndex(), "Parameter validation error");
             }
         }
     }
@@ -67,9 +76,9 @@ public class ValidateAspectHandle {
         try {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
-            method = getMethodByClassAndName(target.getClass(), methodName);
+            method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (ValidateToken) getAnnotationByMethod(method, ValidateToken.class);
+            an = (ValidateToken) ReflectTool.getAnnotationByMethod(method, ValidateToken.class);
             flag = validateToken(an, args);
         } catch (Exception e) {
             flag = false;
@@ -77,19 +86,8 @@ public class ValidateAspectHandle {
             if (flag) {
                 return joinPoint.proceed();
             } else {
-                return returnHandle(method, args, an.modIndex(), "Token Auth Error");
+                return ReflectTool.returnHandle(method, args, an.modIndex(), "Token Auth Error");
             }
-        }
-    }
-
-
-    private Object returnHandle(Method method, Object[] args, Integer modelIndex, String failed) {
-        if (method.getReturnType().getName().equals("java.lang.String")) {
-            Model model = (Model) args[modelIndex];
-            model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
-            return "System/Message";
-        } else {
-            return new Message(failed);
         }
     }
 
@@ -141,6 +139,53 @@ public class ValidateAspectHandle {
         return true;
     }
 
+    private boolean validateFieldBefore(ValidateGroup vt, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (!validateField(vt.fields(), args)) {
+            return false;
+        }
+
+
+        if (vt.useSelect()) {
+            ValidateComVar validateVar = vt.validate();
+            useCache = cacheHandler.useCache();
+            if (useCache) {
+                SysComVar var = (SysComVar) cacheHandler.getCache(Global.VAR, validateVar.name());
+                if (var == null) {
+                    var = comVarDao.getSysComVarByName(validateVar.name());
+                    cacheHandler.setCache(Global.VAR, validateVar.name(), var);
+                }
+                if (validateValue(var.getValue(), validateVar)) {
+                    return validateField(vt.trueFields(), args);
+                } else {
+                    return validateField(vt.falseFields(), args);
+                }
+            } else {
+                SysComVar var = var = comVarDao.getSysComVarByName(validateVar.name());
+                if (validateValue(var.getValue(), validateVar)) {
+                    return validateField(vt.trueFields(), args);
+                } else {
+                    return validateField(vt.falseFields(), args);
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean validateValue(Object value, ValidateComVar validateValue) {
+        if (value instanceof String) {
+            return validateValue.needString().equals(value.toString());
+        } else if (value instanceof Integer) {
+            return (Integer) value == validateValue.needInt();
+        } else if (value instanceof Boolean) {
+            return (Boolean) value == validateValue.needBoolean();
+        } else if (value instanceof Float) {
+            return (Float) value == validateValue.needFloat();
+        } else if (value instanceof Double) {
+            return (Double) value == validateValue.needDouble();
+        }
+        return false;
+    }
+
     /**
      * handle parameters
      *
@@ -155,14 +200,14 @@ public class ValidateAspectHandle {
      */
     private boolean validateField(ValidateField[] valiedatefiles, Object[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         for (ValidateField validateField : valiedatefiles) {
+            if ("".equals(validateField.fieldName()) && validateField.index() == -1){
+                continue;
+            }
             Object arg = null;
             if ("".equals(validateField.fieldName())) {
                 arg = args[validateField.index()];
             } else {
-                arg = getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
-            }
-            if (validateField.defaultInt() != -1 || !"".equals(validateField.defaultString())) {
-                arg = validateField.defaultInt() == -1 ? validateField.defaultString() : validateField.defaultInt();
+                arg = ReflectTool.getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
             }
 
             if (validateField.NotNull() && arg == null) {
@@ -173,37 +218,32 @@ public class ValidateAspectHandle {
                 if (arg == null) {
                     arg = validateField.defaultString();
                 }
-                if (validateField.maxLen() > 0) {
-                    if (((String) arg).length() > validateField.maxLen())
+                if (validateField.maxLen() > 0 && ((String) arg).length() > validateField.maxLen()) {
                         return false;
                 }
 
-                if (validateField.minLen() > 0) {
-                    if (((String) arg).length() < validateField.minLen())
+                if (validateField.minLen() > 0 && ((String) arg).length() < validateField.minLen()) {
                         return false;
                 }
-                if (!"".equals(validateField.regStr())) {
-                    if (!((String) arg).matches(validateField.regStr()))
+                if (!"".equals(validateField.regexStr()) && !((String) arg).matches(validateField.regexStr())) {
                         return false;
                 }
             } else if (arg instanceof Integer) {
                 if (arg == null) {
                     arg = validateField.defaultInt();
                 }
-                if (validateField.maxVal() != -1) {
-                    if ((Integer) arg > validateField.maxVal())
+                if (validateField.maxVal() != -1 && (Integer) arg > validateField.maxVal()) {
                         return false;
                 }
 
-                if (validateField.minVal() != -1) {
-                    if ((Integer) arg < validateField.minVal())
+                if (validateField.minVal() != -1 && (Integer) arg < validateField.minVal()) {
                         return false;
                 }
-            }else if(arg instanceof Double){
+            } else if (arg instanceof Double) {
                 if (arg == null) {
                     arg = validateField.defaultDouble();
                 }
-            }else if(arg instanceof Boolean){
+            } else if (arg instanceof Boolean) {
                 if (arg == null) {
                     arg = validateField.defaultBoolean();
                 }
@@ -212,46 +252,4 @@ public class ValidateAspectHandle {
         return true;
     }
 
-    private Object getFieldByObjectAndFileName(Object targetObj, String fileName) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        String tmp[] = fileName.split("\\.");
-        Object arg = targetObj;
-        for (int i = 0; i < tmp.length; i++) {
-            Method methdo = arg.getClass().getMethod(getGetterNameByFieldName(tmp[i]));
-            arg = methdo.invoke(arg);
-        }
-        return arg;
-    }
-
-    /**
-     * get field get function
-     */
-    private String getGetterNameByFieldName(String fieldName) {
-        return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-    }
-
-    /**
-     * according annotation class to get annotation
-     */
-    private Annotation getAnnotationByMethod(Method method, Class annoClass) {
-        Annotation all[] = method.getAnnotations();
-        for (Annotation annotation : all) {
-            if (annotation.annotationType() == annoClass) {
-                return annotation;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * according method and class to get method
-     */
-    private Method getMethodByClassAndName(Class c, String methodName) {
-        Method[] methods = c.getDeclaredMethods();
-        for (Method method : methods) {
-            if (method.getName().equals(methodName)) {
-                return method;
-            }
-        }
-        return null;
-    }
 }

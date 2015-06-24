@@ -10,7 +10,7 @@
 
                 <div class="menu">
                     <c:set var="menulist" value="${curMenu.childMenus}" scope="request"/>
-                    <c:import url="common/menudropdown.jsp"/>
+                    <c:import url="/WEB-INF/views/common/menudropdown.jsp"/>
                 </div>
             </div>
         </c:when>

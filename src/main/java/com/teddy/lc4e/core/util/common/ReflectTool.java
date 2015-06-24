@@ -1,6 +1,11 @@
 package com.teddy.lc4e.core.util.common;
 
+import com.alibaba.fastjson.JSONObject;
+import com.teddy.lc4e.core.entity.webui.Message;
+import org.springframework.ui.Model;
+
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -33,4 +38,31 @@ public class ReflectTool {
         return null;
     }
 
+
+    public static Object returnHandle(Method method, Object[] args, Integer modelIndex, String failed) {
+        if (method.getReturnType().getName().equals("java.lang.String")) {
+            Model model = (Model) args[modelIndex];
+            model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
+            return "System/Message";
+        } else {
+            return new Message(failed);
+        }
+    }
+
+    public static Object getFieldByObjectAndFileName(Object targetObj, String fileName) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        String tmp[] = fileName.split("\\.");
+        Object arg = targetObj;
+        for (int i = 0; i < tmp.length; i++) {
+            Method methdo = arg.getClass().getMethod(getGetterNameByFieldName(tmp[i]));
+            arg = methdo.invoke(arg);
+        }
+        return arg;
+    }
+
+    /**
+     * get field get function
+     */
+    public static String getGetterNameByFieldName(String fieldName) {
+        return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    }
 }

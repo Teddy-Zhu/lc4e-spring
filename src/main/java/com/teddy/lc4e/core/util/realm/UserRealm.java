@@ -1,7 +1,7 @@
 package com.teddy.lc4e.core.util.realm;
 
 import com.teddy.lc4e.core.database.model.User;
-import com.teddy.lc4e.core.database.service.UserService;
+import com.teddy.lc4e.core.database.service.UserDao;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,14 +13,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 
 
 public class UserRealm extends AuthorizingRealm {
 
-	private UserService userService;
+	private UserDao userService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -38,7 +37,6 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
 		String username = (String) token.getPrincipal();
-
 		User user = userService.findByUsername(username);
 
 		if (user == null) {
@@ -81,7 +79,7 @@ public class UserRealm extends AuthorizingRealm {
 		clearAllCachedAuthorizationInfo();
 	}
 
-	public void setService(UserService userService){
+	public void setService(UserDao userService){
 		this.userService = userService;
 	}
 

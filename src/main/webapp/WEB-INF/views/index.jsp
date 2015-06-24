@@ -3,10 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE>
 <html>
-<c:import url="common/title.jsp"></c:import>
+<head><c:import url="/WEB-INF/views/common/title.jsp"></c:import>
+    <link rel="stylesheet" type="text/css" class="ui" href="/css/view/index.css">
+</head>
 <body>
 <!-- Header Menu Start -->
-<c:import url="common/header.jsp"></c:import>
+<c:import url="/WEB-INF/views/common/header.jsp"></c:import>
 <!-- Heard Menu End -->
 <!-- Content Start -->
 <div id="content">
@@ -121,37 +123,8 @@
     </div>
 </div>
 <!-- Slider Bar End -->
-<div class="ui inverted black footer vertical segment">
-    <div class="container">
-        <div class="ui stackable inverted divided relaxed grid">
-            <div class="eight wide column">
-                <h3 class="ui inverted header">Light Community</h3>
+<c:import url="common/footer.jsp"></c:import>
 
-                <p>Designed By ZhuXi.Drived by Semantic UI.</p>
-
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="hosted_button_id"
-                                                                              value="7ZAF2Q8DBZAQL">
-                    <button type="submit" class="ui teal button">Donate Semantic</button>
-                </form>
-            </div>
-            <div class="four wide column">
-                <h5 class="ui teal inverted header">Contributers</h5>
-
-                <div class="ui inverted link list">
-                    <a class="item" href="http://www.lc4e.com/" target="_blank">ZhuXi</a>
-                </div>
-            </div>
-            <div class="four wide column">
-                <h5 class="ui teal inverted header">LC4E Network</h5>
-
-                <div class="ui inverted link list">
-                    <a class="item" href="http://coding.net">Coding.Net</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="/plugins/require.js/2.1.17/require.min.js" data-main="/js/index"></script>
 
 </body>

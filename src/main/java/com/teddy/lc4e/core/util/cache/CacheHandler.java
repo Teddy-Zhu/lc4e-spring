@@ -1,9 +1,16 @@
 package com.teddy.lc4e.core.util.cache;
 
+import com.teddy.lc4e.core.database.model.SysComVar;
+import com.teddy.lc4e.core.database.service.ComVarDao;
+import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.core.web.service.ComVariableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
+import sun.dc.pr.PRError;
+
+import javax.net.ssl.SSLContext;
 
 /**
  * Created by teddy on 2015/5/21.
@@ -14,6 +21,8 @@ public class CacheHandler {
 
     @Autowired
     private EhCacheCacheManager springCacheManager;
+    @Autowired
+    private ComVarDao comVarDao;
 
     public boolean setCache(String cacheName, Object key, Object value) {
         try {
@@ -66,17 +75,36 @@ public class CacheHandler {
         }
     }
 
-    public boolean clear(String cacheName){
+    public boolean clear(String cacheName) {
         try {
-            Cache cache =springCacheManager.getCache(cacheName);
-            if (cache==null){
+            Cache cache = springCacheManager.getCache(cacheName);
+            if (cache == null) {
                 return true;
             }
             cache.clear();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getCause();
             return false;
         }
+    }
+
+    public boolean useCache() {
+        Object obj = getCache(Global.VAR, Global.Cache);
+        if (obj == null) {
+            SysComVar var = comVarDao.getSysComVarByName(Global.Cache);
+            if (var != null) {
+                obj = var.getValue();
+            } else {
+                var = new SysComVar();
+                var.setName(Global.Cache);
+                var.setValue(true);
+                obj = true;
+            }
+            setCache(Global.VAR, Global.Cache, var);
+        }else{
+            obj = ((SysComVar) obj).getValue();
+        }
+        return (boolean) obj;
     }
 }

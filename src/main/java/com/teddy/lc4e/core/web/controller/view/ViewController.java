@@ -1,8 +1,5 @@
 package com.teddy.lc4e.core.web.controller.view;
 
-import com.alibaba.fastjson.JSONObject;
-import com.teddy.lc4e.core.database.service.MenuService;
-import com.teddy.lc4e.core.database.service.UserService;
 import com.teddy.lc4e.core.entity.webui.Article;
 import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
@@ -31,11 +28,6 @@ import java.util.*;
 public class ViewController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private MenuService menuService;
-    @Autowired
     private ParserMessage msg;
 
     @Autowired
@@ -57,7 +49,7 @@ public class ViewController {
     @RequestMapping(value = {"/Page/{page}"}, method = RequestMethod.GET)
     @ResponseBody
     public Message home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, Locale locale) {
-        Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize", 1);
+        Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize");
         String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
         String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
         Date now = new Date();
@@ -82,20 +74,21 @@ public class ViewController {
         return "template/articleIndex";
     }
 
-    @RequestMapping(value = "/SignUp", method = RequestMethod.GET)
-    public String signUp(HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "SignUp";
-    }
-
     @RequestMapping(value = "/Articles", method = RequestMethod.GET)
     public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "articletest";
+    }
+
+    @RequestMapping(value = "/Exception", method = RequestMethod.GET)
+    public String exception(HttpServletRequest request, HttpServletResponse response, Model model) {
+        return "exceptions/common";
     }
 
     @RequestMapping(value = "/TopHots", method = RequestMethod.GET)
     public String tophostsTest(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "topHotTest";
     }
+
 
     @ValidateToken
     @RequestMapping(value = "/TestShiro", method = RequestMethod.GET)
@@ -122,6 +115,8 @@ public class ViewController {
     public String getMenus(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "System/Message";
     }
+
+
 
 
     @RequestMapping(value = "/ClearCache", method = RequestMethod.GET)

@@ -31,6 +31,8 @@ public class UIDataAspectHandle {
     @Autowired
     private CacheHandler cacheHandler;
 
+    private boolean useCache;
+
     @SuppressWarnings("finally")
     @Around("@annotation(com.teddy.lc4e.core.util.annotation.SetUIDataGroup)")
     public Object setUIDataForAn(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -45,7 +47,7 @@ public class UIDataAspectHandle {
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (SetUIDataGroup)ReflectTool.getAnnotationByMethod(method, SetUIDataGroup.class);
+            an = (SetUIDataGroup) ReflectTool.getAnnotationByMethod(method, SetUIDataGroup.class);
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
@@ -53,22 +55,13 @@ public class UIDataAspectHandle {
             if (flag) {
                 return joinPoint.proceed();
             } else {
-                return returnHandle(method, args, an.modIndex(), "Set UI Data Failed");
+                return ReflectTool.returnHandle(method, args, an.modIndex(), "Set UI Data Failed");
             }
         }
     }
 
-    private Object returnHandle(Method method, Object[] args, Integer modelIndex, String failed) {
-        if (method.getReturnType().getName().equals("java.lang.String")) {
-            Model model = (Model) args[modelIndex];
-            model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
-            return "System/Message";
-        } else {
-            return new Message(failed);
-        }
-    }
-
     private boolean setValueByFunctionName(SetUIDataGroup setUIDataGroup, Object[] args) {
+        useCache = cacheHandler.useCache();
         SetUIDataField[] uiDataFields = setUIDataGroup.fields();
         Model model = (Model) args[setUIDataGroup.modIndex()];
         Class clazz = uiData.getClass();
@@ -90,7 +83,7 @@ public class UIDataAspectHandle {
                 for (int j = 0, lenj = useVars.length; j < lenj; j++) {
                     objs[j] = args[useVars[j]];
                 }
-            } else if (curField.useCache()) {
+            } else if (useCache) {
                 obj = cacheHandler.getCache(curField.cacheName(), curField.key());
                 if (obj != null) {
                     model.addAttribute(attributeName, obj);
@@ -102,8 +95,11 @@ public class UIDataAspectHandle {
                 method = clazz.getDeclaredMethod(functionName);
                 obj = method.invoke(uiData, objs);
                 if (obj != null) {
-                    cacheHandler.setCache(curField.cacheName(), curField.key(), obj);
+                    if (useCache) {
+                        cacheHandler.setCache(curField.cacheName(), curField.key(), obj);
+                    }
                     model.addAttribute(attributeName, obj);
+
                 } else {
                     return false;
                 }

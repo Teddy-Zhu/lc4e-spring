@@ -1,19 +1,12 @@
 package com.teddy.lc4e.core.web.controller.action;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.teddy.lc4e.core.database.service.ComVarService;
-import com.teddy.lc4e.core.entity.webui.Article;
-import com.teddy.lc4e.core.entity.webui.Popup;
-import com.teddy.lc4e.core.util.timeformat.RelativeDateFormat;
+import com.teddy.lc4e.core.database.model.UserBasicInfo;
+import com.teddy.lc4e.core.database.service.ComVarDao;
+import com.teddy.lc4e.core.util.annotation.ValidateComVar;
+import com.teddy.lc4e.core.web.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresGuest;
@@ -26,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teddy.lc4e.core.database.model.User;
-import com.teddy.lc4e.core.database.service.UserService;
+import com.teddy.lc4e.core.database.service.UserDao;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.ValidateField;
 import com.teddy.lc4e.core.util.annotation.ValidateGroup;
@@ -41,16 +34,13 @@ public class MemberController {
     @Autowired
     private PassDisposer passDisposer;
     @Autowired
-    private ComVarService comVarService;
+    private ComVarDao comVarService;
 
     @RequestMapping(value = "/SignUp", method = RequestMethod.GET)
     @ResponseBody
     @RequiresGuest
-    @ValidateGroup(fields = {@ValidateField(index = 0, NotNull = true, minLen = 4, maxLen = 15), @ValidateField(index = 1, NotNull = true, minLen = 6)})
-    public Message signUp(String username, String password, HttpServletRequest request, HttpServletResponse response, Model model) {
-        User user = new User(username, password);
-        passDisposer.encryptPassword(user);
-        if (userService.createUser(user)) {
+    public Message SignUp( HttpServletRequest request, HttpServletResponse response, Model model,User user,UserBasicInfo basic) {
+        if (userService.createUser(user,basic)) {
             return new Message(true, "Register Success");
         } else {
             return new Message("Register failed");

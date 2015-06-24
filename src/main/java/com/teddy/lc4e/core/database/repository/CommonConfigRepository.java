@@ -15,4 +15,6 @@ public interface CommonConfigRepository extends MongoRepository<SysComVar, Objec
     SysComVar findByName(String comConfigName);
 
     List<SysComVar> findByNameIn(String[] comConfigNames);
+
+    List<SysComVar> findByIdIn(ObjectId[] ids);
 }

@@ -28,7 +28,7 @@ public @interface ValidateField {
 	/**
 	 * regex
 	 */
-	public String regStr() default "";
+	public String regexStr() default "";
 
 	/**
 	 * validate parameter is not null

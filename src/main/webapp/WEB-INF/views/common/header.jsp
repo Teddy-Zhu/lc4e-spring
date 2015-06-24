@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <div id="menu" class="ui secondary menu large page grid">
     <div class="column">
         <div class="hidden-pc">
@@ -8,7 +9,7 @@
         </div>
         <div class="left menu">
             <img class="logo ui image item hidden-mb" src="/images/logo.png">
-            <c:import url="common/menudropdown.jsp"></c:import>
+            <c:import url="/WEB-INF/views/common/menudropdown.jsp"></c:import>
         </div>
         <div class="right menu">
             <div class="item">
@@ -16,6 +17,7 @@
                     <input id="searchSite" type="text" placeholder="Search..."> <i class="search link icon"></i>
                 </div>
             </div>
+            <shiro:user>
             <div id="userItem" class="item">
                 <img class="ui headered linked image" src="/images/wireframe/image.png">
 
@@ -23,7 +25,7 @@
                 <div id="userCardPop" class="ui flowing popup">
                     <div id="userCard" class="ui card">
                         <div class="content">
-                            <div class="centered aligned header">Admin</div>
+                            <div class="centered aligned header"><shiro:principal /></div>
                             <div class="ui clearing divider"></div>
                             <div class="description">
                                 <div class="ui divided items">
@@ -55,18 +57,22 @@
                     </div>
                 </div>
             </div>
-            <div class="ui item animated fade button">
-                <div class="visible content">Sign Up</div>
-                <div class="hidden content">
-                    <i class="add user icon"></i>
+            </shiro:user>
+            <shiro:guest>
+                <div class="ui item animated fade button">
+                    <div class="visible content">Sign Up</div>
+                    <div class="hidden content">
+                        <i class="add user icon"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="ui item animated button">
-                <div class="visible content">Sign In</div>
-                <div class="hidden content">
-                    <i class="user icon"></i>
+                <div class="ui item animated button">
+                    <div class="visible content">Sign In</div>
+                    <div class="hidden content">
+                        <i class="user icon"></i>
+                    </div>
                 </div>
-            </div>
+            </shiro:guest>
+
             <div id="expendHeader" class="ui item hidden-mb">
                 <div class="ui linked label">
                     <i class="maximize icon"></i>

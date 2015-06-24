@@ -25,7 +25,11 @@ public class SysComVar implements Serializable {
     @Indexed(unique = true)
     private String name;
 
-    private String value;
+    private Object value;
+
+    private String error;
+
+    private String description;
 
     private Date createTime;
 
@@ -34,22 +38,24 @@ public class SysComVar implements Serializable {
     public SysComVar() {
     }
 
-
     @PersistenceConstructor
-
-    public SysComVar(ObjectId id, String name, String value, Date createTime, Date updateTime) {
+    public SysComVar(ObjectId id, String name, Object value, String error, String description, Date createTime, Date updateTime) {
         this.id = id;
         this.name = name;
         this.value = value;
+        this.error = error;
+        this.description = description;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
 
-    public SysComVar(ObjectId id, String name, String value, Date createTime) {
+    public SysComVar(ObjectId id, String name, Object value, Date createTime) {
         this.id = id;
         this.name = name;
         this.value = value;
         this.createTime = createTime;
+        this.description = "";
+        this.error = "";
     }
 
     public static long getSerialVersionUID() {
@@ -72,11 +78,11 @@ public class SysComVar implements Serializable {
         this.name = name;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
@@ -94,5 +100,21 @@ public class SysComVar implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
