@@ -1,6 +1,5 @@
 package com.teddy.lc4e.core.database.model;
 
-import com.teddy.lc4e.core.entity.Status.TopicStatus;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -9,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.Set;
 
 @Document
 public class SysTopic {
@@ -26,6 +26,8 @@ public class SysTopic {
 
     private String body;
 
+    private Set<String> tags;
+
     @DBRef
     private SysTACStatus status;
 
@@ -38,12 +40,13 @@ public class SysTopic {
 
     @PersistenceConstructor
 
-    public SysTopic(ObjectId id, SysArea area, UserBasicInfo user, String title, String body, SysTACStatus status, Date createTime, Date updateTime) {
+    public SysTopic(ObjectId id, SysArea area, UserBasicInfo user, String title, String body, Set<String> tags, SysTACStatus status, Date createTime, Date updateTime) {
         this.id = id;
         this.area = area;
         this.user = user;
         this.title = title;
         this.body = body;
+        this.tags = tags;
         this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -87,6 +90,14 @@ public class SysTopic {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Set<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<String> tags) {
+        this.tags = tags;
     }
 
     public SysTACStatus getStatus() {

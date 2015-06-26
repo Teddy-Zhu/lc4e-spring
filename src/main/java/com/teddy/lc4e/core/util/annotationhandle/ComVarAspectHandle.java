@@ -15,8 +15,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +53,7 @@ public class ComVarAspectHandle {
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
             an = (ValidateComVarGroup) ReflectTool.getAnnotationByMethod(method, ValidateComVarGroup.class);
+            Assert.noNullElements(args,"Some Variables must be not empty.");
             flag = validateComVar(an.fields(), args, errorString);
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,6 +83,7 @@ public class ComVarAspectHandle {
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
             an = (SetComVar) ReflectTool.getAnnotationByMethod(method, SetComVar.class);
+            Assert.noNullElements(args,"Some Variables must be not empty.");
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
@@ -89,12 +91,13 @@ public class ComVarAspectHandle {
             if (flag) {
                 return joinPoint.proceed();
             } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), "Set Config Value" + an.comVar().toString() + " failed");
+                return ReflectTool.returnHandle(method, args, an.modIndex(), "Set Config Value [" + an.comVar().toString() + "] failed");
             }
         }
     }
 
     private boolean validateComVar(ValidateComVar[] vt, Object[] args, Str errorString) {
+        Assert.noNullElements(vt,"the ValidateFields must be not empty.");
         useCache = cacheHandler.useCache();
 
         Map<String, ValidateComVar> maps = new HashMap<String, ValidateComVar>();
@@ -160,6 +163,7 @@ public class ComVarAspectHandle {
     }
 
     private boolean setValueByFunctionName(SetComVar fields, Object[] objects) {
+        Assert.notEmpty(fields.comVar(),"the given ComVars must be not empty");
         useCache = cacheHandler.useCache();
         String[] configs = fields.comVar();
         if (configs.length == 0) {

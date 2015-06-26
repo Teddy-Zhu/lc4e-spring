@@ -3,14 +3,10 @@ package com.teddy.lc4e.core.util.cache;
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
 import com.teddy.lc4e.core.util.common.Global;
-import com.teddy.lc4e.core.web.service.ComVariableData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
-import sun.dc.pr.PRError;
-
-import javax.net.ssl.SSLContext;
 
 /**
  * Created by teddy on 2015/5/21.

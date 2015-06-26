@@ -82,6 +82,4 @@ public class DefaultExceptionHandler {
         }
         return new Message(error);
     }
-
-
 }

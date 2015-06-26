@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.teddy.lc4e.core.database.model.UserBasicInfo;
 import com.teddy.lc4e.core.database.service.ComVarDao;
-import com.teddy.lc4e.core.util.annotation.ValidateComVar;
 import com.teddy.lc4e.core.web.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teddy.lc4e.core.database.model.User;
-import com.teddy.lc4e.core.database.service.UserDao;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.util.annotation.ValidateField;
 import com.teddy.lc4e.core.util.annotation.ValidateGroup;
