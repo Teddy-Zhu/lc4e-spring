@@ -5,8 +5,8 @@ import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.entity.webui.Popup;
 import com.teddy.lc4e.core.util.annotation.*;
+import com.teddy.lc4e.core.util.common.RelativeDate;
 import com.teddy.lc4e.core.util.l18n.ParserMessage;
-import com.teddy.lc4e.core.util.timeformat.RelativeDateFormat;
 import com.teddy.lc4e.core.web.service.ComVariableData;
 import com.teddy.lc4e.core.web.service.InitDBService;
 import com.teddy.lc4e.core.web.service.WebCacheManager;
@@ -41,8 +41,9 @@ public class ViewController {
 
     @Autowired
     private ComVariableData comVariableData;
+
     @Autowired
-    private RelativeDateFormat dateFormat;
+    private RelativeDate dateFormat;
 
     @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1)})
     @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})

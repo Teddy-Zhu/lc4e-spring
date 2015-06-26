@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by teddy on 2015/5/21.
@@ -21,6 +22,9 @@ public class CacheHandler {
     private ComVarDao comVarDao;
 
     public boolean setCache(String cacheName, Object key, Object value) {
+        Assert.notNull(cacheName,"the given name of cache must be not empty.");
+        Assert.notNull(key,"the given key must be not empty.");
+        Assert.notNull(value,"the given value must be not empty.");
         try {
             Cache cache = springCacheManager.getCache(cacheName);
             if (cache == null) {
@@ -35,6 +39,8 @@ public class CacheHandler {
     }
 
     public Object getCache(String cacheName, Object key) {
+        Assert.notNull(cacheName,"the given name of cache must be not empty.");
+        Assert.notNull(key,"the given key must be not empty.");
         try {
             Cache cache = springCacheManager.getCache(cacheName);
             if (cache == null) {
@@ -48,6 +54,7 @@ public class CacheHandler {
     }
 
     public Cache createCacheName(String cacheName) {
+        Assert.notNull(cacheName,"the given name of cache must be not empty.");
         try {
             springCacheManager.getCacheManager().addCache(cacheName);
             return springCacheManager.getCache(cacheName);
@@ -58,6 +65,8 @@ public class CacheHandler {
     }
 
     public boolean remove(String cacheName, Object key) {
+        Assert.notNull(cacheName,"the given name of cache must be not empty.");
+        Assert.notNull(key,"the given key must be not empty.");
         try {
             Cache cache = springCacheManager.getCache(cacheName);
             if (cache == null) {
@@ -72,6 +81,7 @@ public class CacheHandler {
     }
 
     public boolean clear(String cacheName) {
+        Assert.notNull(cacheName,"the given name of cache must be not empty.");
         try {
             Cache cache = springCacheManager.getCache(cacheName);
             if (cache == null) {
