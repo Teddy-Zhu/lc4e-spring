@@ -730,6 +730,10 @@
         ,
         Lc4eAjax: function (data) {
             var loptions = {};
+            data = $.extend(true, {
+                    cjson: true,
+                }, data
+            )
             if (data["cjson"]) {
                 var tdata = data["data"];
                 if(typeof tdata == "object"){
