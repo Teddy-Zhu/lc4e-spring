@@ -1,6 +1,6 @@
 package com.teddy.lc4e.plugins.annotation;
 
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

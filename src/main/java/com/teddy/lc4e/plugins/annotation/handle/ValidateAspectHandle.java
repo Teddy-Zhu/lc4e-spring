@@ -3,7 +3,7 @@ package com.teddy.lc4e.plugins.annotation.handle;
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateField;

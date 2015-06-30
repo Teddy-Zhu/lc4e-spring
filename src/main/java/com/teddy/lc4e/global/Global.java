@@ -1,4 +1,4 @@
-package com.teddy.lc4e.core.util.common;
+package com.teddy.lc4e.global;
 
 /**
  * Created by teddy on 2015/6/23.

@@ -2,7 +2,7 @@ package com.teddy.lc4e.plugins.cache;
 
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

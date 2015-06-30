@@ -8,7 +8,7 @@ import com.teddy.lc4e.plugins.annotation.ValidateComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVarGroup;
 import com.teddy.lc4e.plugins.annotation.ValidateField;
 import com.teddy.lc4e.plugins.annotation.ValidateGroup;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 import com.teddy.lc4e.core.web.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresGuest;

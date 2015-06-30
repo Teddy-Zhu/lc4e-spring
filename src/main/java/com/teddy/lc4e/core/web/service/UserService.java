@@ -4,7 +4,7 @@ import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.database.model.UserBasicInfo;
 import com.teddy.lc4e.core.database.service.UserBasicDao;
 import com.teddy.lc4e.core.database.service.UserDao;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

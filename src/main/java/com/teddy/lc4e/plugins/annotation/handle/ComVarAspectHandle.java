@@ -7,7 +7,7 @@ import com.teddy.lc4e.plugins.annotation.SetComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVarGroup;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

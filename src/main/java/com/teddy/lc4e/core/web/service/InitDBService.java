@@ -5,7 +5,7 @@ import com.teddy.lc4e.core.database.model.SysMenu;
 import com.teddy.lc4e.core.database.repository.CommonConfigRepository;
 import com.teddy.lc4e.core.database.repository.MenuRepository;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
-import com.teddy.lc4e.core.util.common.Global;
+import com.teddy.lc4e.global.Global;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
