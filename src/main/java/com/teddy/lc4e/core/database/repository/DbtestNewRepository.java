@@ -1,7 +1,7 @@
 package com.teddy.lc4e.core.database.repository;
 
 import com.teddy.lc4e.core.database.model.Dbtest;
-import com.teddy.lc4e.core.util.mongodb.BaseMongoRepository;
+import com.teddy.lc4e.plugins.mongodb.BaseMongoRepository;
 import org.bson.types.ObjectId;
 
 /**

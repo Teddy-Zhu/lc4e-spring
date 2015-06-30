@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Document
-public class SysMenu implements Serializable {
+public class SysMenu extends BaseModel implements Serializable {
 
     @Transient
     private static final long serialVersionUID = 201606140748327L;
@@ -32,10 +33,6 @@ public class SysMenu implements Serializable {
 
     private String icon;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     @Transient
     List<SysMenu> childMenus = new ArrayList<SysMenu>();
 
@@ -50,12 +47,13 @@ public class SysMenu implements Serializable {
         this.name = name;
         this.css = css;
         this.icon = icon;
-        this.createTime = createTime;
+        this.setCreateTime(createTime);
     }
 
     @PersistenceConstructor
 
     public SysMenu(ObjectId id, ObjectId parentId, Integer order, String path, String name, String css, String icon, Date createTime, Date updateTime) {
+        super(createTime, updateTime);
         this.id = id;
         this.parentId = parentId;
         this.order = order;
@@ -63,8 +61,6 @@ public class SysMenu implements Serializable {
         this.name = name;
         this.css = css;
         this.icon = icon;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public static long getSerialVersionUID() {
@@ -125,22 +121,6 @@ public class SysMenu implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public List<SysMenu> getChildMenus() {

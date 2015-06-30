@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.entity.webui.Message;
-import com.teddy.lc4e.core.util.annotation.ValidateField;
-import com.teddy.lc4e.core.util.annotation.ValidateGroup;
-import com.teddy.lc4e.core.util.credentials.PassDisposer;
+import com.teddy.lc4e.plugins.annotation.ValidateField;
+import com.teddy.lc4e.plugins.annotation.ValidateGroup;
+import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 
 @Controller
 @RequestMapping(value = "/Member")

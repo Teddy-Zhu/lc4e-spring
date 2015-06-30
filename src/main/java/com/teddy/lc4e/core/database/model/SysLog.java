@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -9,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document
-public class SysLog {
+public class SysLog extends BaseModel{
     @Id
     private ObjectId id;
 
@@ -21,19 +22,14 @@ public class SysLog {
 
     private String description;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     @PersistenceConstructor
 
     public SysLog(ObjectId id, SysOperateType type, User user, String description, Date createTime, Date updateTime) {
+        super(createTime, updateTime);
         this.id = id;
         this.type = type;
         this.user = user;
         this.description = description;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -68,19 +64,4 @@ public class SysLog {
         this.description = description;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

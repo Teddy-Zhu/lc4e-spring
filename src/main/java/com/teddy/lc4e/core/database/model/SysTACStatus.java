@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -9,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document
-public class SysTACStatus {
+public class SysTACStatus extends BaseModel{
     @Id
     private ObjectId id;
 
@@ -29,13 +30,10 @@ public class SysTACStatus {
 
     private boolean move;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     @PersistenceConstructor
 
     public SysTACStatus(ObjectId id, String name, String abbr, boolean visible, boolean editable, boolean lock, boolean release, boolean delete, boolean move, Date createTime, Date updateTime) {
+        super(createTime,updateTime);
         this.id = id;
         this.name = name;
         this.abbr = abbr;
@@ -45,8 +43,6 @@ public class SysTACStatus {
         this.release = release;
         this.delete = delete;
         this.move = move;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -121,19 +117,4 @@ public class SysTACStatus {
         this.move = move;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

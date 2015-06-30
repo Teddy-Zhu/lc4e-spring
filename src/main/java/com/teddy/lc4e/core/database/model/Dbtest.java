@@ -1,20 +1,20 @@
 package com.teddy.lc4e.core.database.model;
 
-import com.teddy.lc4e.core.entity.validate.Str;
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
 
 /**
  * Created by teddy on 2015/6/25.
  */
 @Document
-public class Dbtest {
+public class Dbtest extends BaseModel {
     @Id
     private ObjectId id;
 
@@ -24,14 +24,23 @@ public class Dbtest {
     private String value;
 
     private String t;
+
     private Set<String> tags;
 
     public Dbtest() {
     }
 
-    @PersistenceConstructor
-
     public Dbtest(ObjectId id, String name, String value, String t, Set<String> tags) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.t = t;
+        this.tags = tags;
+    }
+
+    @PersistenceConstructor
+    public Dbtest(Date createTime, Date updateTime, ObjectId id, String name, String value, String t, Set<String> tags) {
+        super(createTime, updateTime);
         this.id = id;
         this.name = name;
         this.value = value;

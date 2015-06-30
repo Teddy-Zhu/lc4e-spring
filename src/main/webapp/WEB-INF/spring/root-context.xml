@@ -37,13 +37,13 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
         <constructor-arg ref="mongoDbFactory"/>
     </bean>
 
-    <mongo:repositories base-package="com.teddy.lc4e.core.database.repository" factory-class="com.teddy.lc4e.core.util.mongodb.BaseMongoRepositoryFactoryBean"/>
+    <mongo:repositories base-package="com.teddy.lc4e.core.database.repository" factory-class="com.teddy.lc4e.plugins.mongodb.BaseMongoRepositoryFactoryBean"/>
 
     <mongo:mapping-converter base-package="com.teddy.lc4e.core.database.model"/>
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="com.teddy.lc4e.core" use-default-filters="false">
+    <context:component-scan base-package="com.teddy.lc4e" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
@@ -60,18 +60,18 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
         <property name="cacheManager" ref="ehcacheManager"/>
     </bean>
 
-    <bean id="cacheManager" class="com.teddy.lc4e.core.util.cache.SpringCacheManagerWrapper">
+    <bean id="cacheManager" class="com.teddy.lc4e.plugins.cache.SpringCacheManagerWrapper">
         <property name="cacheManager" ref="springCacheManager"/>
     </bean>
 
-    <bean id="credentialsMatcher" class="com.teddy.lc4e.core.util.credentials.RetryLimitHashedCredentialsMatcher">
+    <bean id="credentialsMatcher" class="com.teddy.lc4e.plugins.shiro.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
 
-    <bean id="userRealm" class="com.teddy.lc4e.core.util.realm.UserRealm">
+    <bean id="userRealm" class="com.teddy.lc4e.plugins.shiro.realm.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="cachingEnabled" value="false"/>
     </bean>
@@ -147,7 +147,7 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
         </property>
     </bean>
 
-    <bean id="L18NMessageParser" class="com.teddy.lc4e.core.util.l18n.ParserMessage">
+    <bean id="L18NMessageParser" class="com.teddy.lc4e.plugins.tools.ParserMessage">
         <property name="messages" ref="messageSource"/>
     </bean>
 
@@ -157,7 +157,7 @@ http://www.springframework.org/schema/context/spring-context-4.1.xsd
 
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="targetClass">
-            <value>com.teddy.lc4e.core.util.exception.ShiroRealmServiceBridge</value>
+            <value>com.teddy.lc4e.plugins.exception.ShiroRealmServiceBridge</value>
         </property>
         <property name="targetMethod">
             <value>postInject</value>

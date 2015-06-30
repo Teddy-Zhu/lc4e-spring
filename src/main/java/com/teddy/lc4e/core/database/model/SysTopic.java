@@ -1,17 +1,21 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.TACBase;
+import com.teddy.lc4e.core.entity.back.Attach;
+import com.teddy.lc4e.core.entity.back.Attitude;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Document
-public class SysTopic {
+@CompoundIndex(name = "sysComment_attitudes", def = "{'attitudes._id': 1}", unique = true)
+public class SysTopic extends TACBase{
     @Id
     private ObjectId id;
 
@@ -21,35 +25,24 @@ public class SysTopic {
     @DBRef
     private UserBasicInfo user;
 
-    @Indexed(unique = true)
-    private String title;
-
-    private String body;
-
     private Set<String> tags;
 
-    @DBRef
-    private SysTACStatus status;
+    private Integer otherCount;
 
-    private Date createTime;
-
-    private Date updateTime;
+    private Set<ObjectId> viewedUsers;
 
     public SysTopic() {
     }
 
     @PersistenceConstructor
-
-    public SysTopic(ObjectId id, SysArea area, UserBasicInfo user, String title, String body, Set<String> tags, SysTACStatus status, Date createTime, Date updateTime) {
+    public SysTopic(Date createTime, Date updateTime, String title, String body, List<Attach> attachs, SysTACStatus status, List<Attitude> attitudes, ObjectId id, SysArea area, UserBasicInfo user, Set<String> tags, Integer otherCount, Set<ObjectId> viewedUsers) {
+        super(createTime, updateTime, title, body, attachs, status, attitudes);
         this.id = id;
         this.area = area;
         this.user = user;
-        this.title = title;
-        this.body = body;
         this.tags = tags;
-        this.status = status;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+        this.otherCount = otherCount;
+        this.viewedUsers = viewedUsers;
     }
 
     public ObjectId getId() {
@@ -76,22 +69,6 @@ public class SysTopic {
         this.user = user;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public Set<String> getTags() {
         return tags;
     }
@@ -100,27 +77,19 @@ public class SysTopic {
         this.tags = tags;
     }
 
-    public SysTACStatus getStatus() {
-        return status;
+    public Integer getOtherCount() {
+        return otherCount;
     }
 
-    public void setStatus(SysTACStatus status) {
-        this.status = status;
+    public void setOtherCount(Integer otherCount) {
+        this.otherCount = otherCount;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Set<ObjectId> getViewedUsers() {
+        return viewedUsers;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setViewedUsers(Set<ObjectId> viewedUsers) {
+        this.viewedUsers = viewedUsers;
     }
 }

@@ -590,7 +590,7 @@
             }
         }
         return $progressBar;
-    }
+    };
     $.fn.Lc4eAjaxTemplate = function (options) {
         var defaults = {
             url: null,
@@ -709,7 +709,7 @@
                     }
                 })
             });
-        })
+        });
         return $(this);
     };
     $.extend({
@@ -730,6 +730,25 @@
         ,
         Lc4eAjax: function (data) {
             var loptions = {};
+            if (data["cjson"]) {
+                var tdata = data["data"];
+                if(typeof tdata == "object"){
+                    tdata = JSON.stringify(tdata);
+                }
+                data["data"] = tdata;
+                data = $.extend(true, {
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json"
+                    }, data
+                )
+            }else{
+                data = $.extend(true, {
+                        type: 'post',
+                        dataType: 'json',
+                    }, data
+                )
+            }
             if (data.hasOwnProperty("beforeSend")) {
                 loptions["beforeSend"] = data["beforeSend"];
             }

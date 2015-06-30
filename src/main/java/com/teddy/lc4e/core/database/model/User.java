@@ -1,13 +1,16 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document
-public class User {
+public class User extends BaseModel {
     @Id
     private ObjectId id;
     @Indexed(unique = true)
@@ -26,7 +29,7 @@ public class User {
     public User() {
     }
 
-    public User (String name, String password) {
+    public User(String name, String password) {
         this.id = null;
         this.name = name;
         this.mail = "";
@@ -37,8 +40,8 @@ public class User {
     }
 
     @PersistenceConstructor
-
-    public User(ObjectId id, String name, String mail, String nick, String password, String passSalt, boolean locked) {
+    public User(Date createTime, Date updateTime, ObjectId id, String name, String mail, String nick, String password, String passSalt, boolean locked) {
+        super(createTime, updateTime);
         this.id = id;
         this.name = name;
         this.mail = mail;
@@ -47,6 +50,7 @@ public class User {
         this.passSalt = passSalt;
         this.locked = locked;
     }
+
 
     public ObjectId getId() {
         return id;

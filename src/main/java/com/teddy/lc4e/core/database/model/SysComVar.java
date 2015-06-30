@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -14,7 +15,7 @@ import java.util.Date;
  * Created by teddy on 2015/6/14.
  */
 @Document
-public class SysComVar implements Serializable {
+public class SysComVar extends BaseModel implements Serializable {
 
     @Transient
     private static final long serialVersionUID = 201606141153239L;
@@ -31,29 +32,24 @@ public class SysComVar implements Serializable {
 
     private String description;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     public SysComVar() {
     }
-
     @PersistenceConstructor
-    public SysComVar(ObjectId id, String name, Object value, String error, String description, Date createTime, Date updateTime) {
+    public SysComVar(ObjectId id, String name, Object value, String error, String description,Date createTime, Date updateTime) {
+        super(createTime, updateTime);
         this.id = id;
         this.name = name;
         this.value = value;
         this.error = error;
         this.description = description;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
+
 
     public SysComVar(ObjectId id, String name, Object value, Date createTime) {
         this.id = id;
         this.name = name;
         this.value = value;
-        this.createTime = createTime;
+        this.setCreateTime(createTime);
         this.description = "";
         this.error = "";
     }
@@ -84,22 +80,6 @@ public class SysComVar implements Serializable {
 
     public void setValue(Object value) {
         this.value = value;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getError() {

@@ -4,7 +4,7 @@ import com.teddy.lc4e.core.database.model.*;
 import com.teddy.lc4e.core.database.repository.RolePermissionRepoistory;
 import com.teddy.lc4e.core.database.repository.UserRepository;
 import com.teddy.lc4e.core.database.repository.UserRoleRepository;
-import com.teddy.lc4e.core.util.credentials.PassDisposer;
+import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

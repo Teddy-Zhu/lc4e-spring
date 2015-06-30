@@ -1,16 +1,19 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 /**
  * Created by teddy on 2015/6/20.
  */
 @Document
-public class SysOperateType {
+public class SysOperateType extends BaseModel{
 
     @Id
     private ObjectId id;
@@ -23,7 +26,8 @@ public class SysOperateType {
     private String description;
 
     @PersistenceConstructor
-    public SysOperateType(ObjectId id, String abbr, String name, String description) {
+    public SysOperateType(ObjectId id, String abbr, String name, String description,Date createTime, Date updateTime) {
+        super(createTime, updateTime);
         this.id = id;
         this.abbr = abbr;
         this.name = name;

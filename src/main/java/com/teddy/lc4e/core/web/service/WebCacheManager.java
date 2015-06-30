@@ -1,10 +1,8 @@
 package com.teddy.lc4e.core.web.service;
 
-import com.teddy.lc4e.core.util.cache.CacheHandler;
+import com.teddy.lc4e.plugins.cache.CacheHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 /**
  * Created by teddy on 2015/5/21.

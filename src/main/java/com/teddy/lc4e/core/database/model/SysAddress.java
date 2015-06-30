@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by teddy on 2015/6/19.
  */
 @Document
-public class SysAddress {
+public class SysAddress extends BaseModel {
 
     @Id
     private ObjectId id;
@@ -25,20 +26,14 @@ public class SysAddress {
 
     private String street;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     @PersistenceConstructor
-
-    public SysAddress(ObjectId id, String province, String city, String region, String street, Date createTime, Date updateTime) {
+    public SysAddress(Date createTime, Date updateTime, ObjectId id, String province, String city, String region, String street) {
+        super(createTime, updateTime);
         this.id = id;
         this.province = province;
         this.city = city;
         this.region = region;
         this.street = street;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -81,19 +76,4 @@ public class SysAddress {
         this.street = street;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

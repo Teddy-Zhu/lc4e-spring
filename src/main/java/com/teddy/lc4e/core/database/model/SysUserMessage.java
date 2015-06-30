@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -8,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Document
-public class SysUserMessage {
+public class SysUserMessage extends BaseModel {
     @Id
     private ObjectId id;
 
@@ -22,20 +23,17 @@ public class SysUserMessage {
 
     private String body;
 
-    private Date createTime;
-
-    private Date updateTime;
 
     @PersistenceConstructor
-    public SysUserMessage(ObjectId id, ObjectId user, ObjectId destUser, boolean read, String title, String body, Date createTime, Date updateTime) {
+
+    public SysUserMessage(Date createTime, Date updateTime, ObjectId id, ObjectId user, ObjectId destUser, boolean read, String title, String body) {
+        super(createTime, updateTime);
         this.id = id;
         this.user = user;
         this.destUser = destUser;
         this.read = read;
         this.title = title;
         this.body = body;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -84,21 +82,5 @@ public class SysUserMessage {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

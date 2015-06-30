@@ -771,7 +771,7 @@ $.fn.transition = function() {
 
         clear: {
           queue: function() {
-            module.debug('Clearing animation queue')
+            module.debug('Clearing animation queue');
             module.remove.queueCallback();
           }
         },

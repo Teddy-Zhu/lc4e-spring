@@ -5,9 +5,7 @@ import com.teddy.lc4e.core.database.repository.DbtestNewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-
-import static org.springframework.data.mongodb.core.query.Update.update;
+import java.util.*;
 
 /**
  * Created by teddy on 2015/6/25.
@@ -55,15 +53,19 @@ public class dbtestDao {
 
     public void test2() {
         testdbRepository.drop();
+        List<Dbtest> lists = new ArrayList<Dbtest>();
         for (int i = 1; i < 10; i++) {
             Dbtest person = new Dbtest();
             person.setName("username" + i);
             person.setValue("password" + i);
             person.setT("t" + i);
             person.setTags(new HashSet<String>());
-            testdbRepository.insert(person);
+            person.setCreateTime(new Date());
+            lists.add(person);
 
         }
+        testdbRepository.insert((Iterable<Dbtest>) lists);
+
     }
 
 }

@@ -417,7 +417,7 @@ $.fn.modal = function(parameters) {
           }
           else {
             module.debug('Dimmer is not visible cannot hide');
-            return;
+
           }
         },
 

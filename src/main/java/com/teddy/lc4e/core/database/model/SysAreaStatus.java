@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -12,7 +13,7 @@ import java.util.Date;
  * Created by teddy on 2015/6/23.
  */
 @Document
-public class SysAreaStatus {
+public class SysAreaStatus extends BaseModel{
 
     @Id
     private ObjectId id;
@@ -32,12 +33,10 @@ public class SysAreaStatus {
 
     private boolean pubComment;
 
-    private Date createTime;
-
-    private Date updateTime;
-
     @PersistenceConstructor
-    public SysAreaStatus(ObjectId id, String name, String abbr, boolean visible, boolean close, boolean move, boolean pubTopic, boolean pubComment, Date createTime, Date updateTime) {
+
+    public SysAreaStatus(Date createTime, Date updateTime, ObjectId id, String name, String abbr, boolean visible, boolean close, boolean move, boolean pubTopic, boolean pubComment) {
+        super(createTime, updateTime);
         this.id = id;
         this.name = name;
         this.abbr = abbr;
@@ -46,8 +45,6 @@ public class SysAreaStatus {
         this.move = move;
         this.pubTopic = pubTopic;
         this.pubComment = pubComment;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public ObjectId getId() {
@@ -112,21 +109,5 @@ public class SysAreaStatus {
 
     public void setPubComment(boolean pubComment) {
         this.pubComment = pubComment;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

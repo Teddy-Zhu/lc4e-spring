@@ -1,5 +1,6 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -11,7 +12,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Document
-public class UserBasicInfo {
+public class UserBasicInfo extends BaseModel{
     @Id
     private ObjectId id;
 
@@ -36,16 +37,19 @@ public class UserBasicInfo {
 
     private Set<ObjectId> followedUsers;
 
-    private Date createTime;
+    private Set<ObjectId> blockedTopics;
 
-    private Date updateTime;
+    private Set<ObjectId> collectedTopics;
+
+
 
     public UserBasicInfo() {
     }
 
     @PersistenceConstructor
 
-    public UserBasicInfo(ObjectId id, User user, String phoneNumber, String sign, String avatar, Long balances, SysAddress address, Date birth, Set<ObjectId> blockedUsers, Set<ObjectId> followedUsers, Date createTime, Date updateTime) {
+    public UserBasicInfo(Date createTime, Date updateTime, ObjectId id, User user, String phoneNumber, String sign, String avatar, Long balances, SysAddress address, Date birth, Set<ObjectId> blockedUsers, Set<ObjectId> followedUsers, Set<ObjectId> blockedTopics, Set<ObjectId> collectedTopics) {
+        super(createTime, updateTime);
         this.id = id;
         this.user = user;
         this.phoneNumber = phoneNumber;
@@ -56,8 +60,8 @@ public class UserBasicInfo {
         this.birth = birth;
         this.blockedUsers = blockedUsers;
         this.followedUsers = followedUsers;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+        this.blockedTopics = blockedTopics;
+        this.collectedTopics = collectedTopics;
     }
 
     public ObjectId getId() {
@@ -140,19 +144,19 @@ public class UserBasicInfo {
         this.followedUsers = followedUsers;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Set<ObjectId> getBlockedTopics() {
+        return blockedTopics;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setBlockedTopics(Set<ObjectId> blockedTopics) {
+        this.blockedTopics = blockedTopics;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Set<ObjectId> getCollectedTopics() {
+        return collectedTopics;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setCollectedTopics(Set<ObjectId> collectedTopics) {
+        this.collectedTopics = collectedTopics;
     }
 }

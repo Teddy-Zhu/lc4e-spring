@@ -67,11 +67,11 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
             $(this).addClass('expended');
         }).on('blur', function () {
             $(this).removeClass('expended')
-        })
+        });
 
         $('#expendHeader').on('click', function () {
             $('#menu').toggleClass('expended');
-        })
+        });
 
         $('#menu .column div:first a').on('click', function () {
             $('#menu .column>.menu').slideToggle();
@@ -132,13 +132,13 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 $('#content').toggleClass('footerFixed');
                 $('.ui.footer').toggleClass('fixed');
             }
-        })
+        });
 
         $('#boxedLayout').checkbox({
             onChange: function (e) {
                 $('#articlelist').toggleClass('nobox');
             }
-        })
+        });
 
         $('#announce').shape();
         $('#announce').data('interval', setInterval(function () {
@@ -163,7 +163,7 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 $that.find('.ui.fluid.image img').popup();
                 $("#articlelist").attr("page", page);
             },
-        })
+        });
 
 
         $.get('/TopHots').done(function (data) {
@@ -172,14 +172,14 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 animation: 'fadeInRightArt',
                 speed: 'fast',
                 interval: 80,
-            })
+            });
             $('#yesterdayHot>.ui.divided.items').append(data);
             $('#yesterdayHot>.ui.divided.items>.item').Lc4eAnimate({
                 animation: 'fadeInRightArt',
                 speed: 'fast',
                 interval: 80,
             })
-        })
+        });
 
         $('#GTTop').on('click', function (e) {
             e.preventDefault();
@@ -187,7 +187,7 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                 scrollSpeed: 1000,
                 easing: 'easeOutBounce'
             });
-        })
+        });
 
         $('#prePage,#nextPage').on('click', function () {
             var page = parseInt($("#articlelist").attr("page")) + 1;

@@ -19,32 +19,37 @@ public class testController {
 
     @RequestMapping("/test")
     @ResponseBody
-    public Message test1(String a){
+    public Message test1(String a) {
         dbtestDao.test(a);
         return new Message(a);
     }
+
     @RequestMapping("/test2")
     @ResponseBody
-    public Message test2(String a){
+    public Message test2(String a) {
         dbtestDao.test2();
         return new Message(a);
     }
+
     @RequestMapping("/test3")
     @ResponseBody
-    public Message test3(String a){
+    public Message test3(String a) {
         dbtestDao.test3(a);
         return new Message(a);
     }
+
     @RequestMapping("/test4")
     @ResponseBody
-    public Message test4(String a){
+    public Message test4(String a) {
         dbtestDao.test4();
         return new Message(a);
     }
+
     @RequestMapping("/test5")
     @ResponseBody
-    public Message test5(String a){
+    public Message test5(String a) {
         dbtestDao.test5(a);
         return new Message(a);
     }
+
 }

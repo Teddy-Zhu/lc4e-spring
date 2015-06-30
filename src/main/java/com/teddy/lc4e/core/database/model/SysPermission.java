@@ -1,13 +1,16 @@
 package com.teddy.lc4e.core.database.model;
 
+import com.teddy.lc4e.core.database.basemodel.BaseModel;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document
-public class SysPermission {
+public class SysPermission extends BaseModel{
     @Id
     private ObjectId id;
     @Indexed(unique = true)
@@ -24,7 +27,8 @@ public class SysPermission {
 
     @PersistenceConstructor
 
-    public SysPermission(ObjectId id, String abbr, String name, String description, boolean available) {
+    public SysPermission(ObjectId id, String abbr, String name, String description, boolean available,Date createTime, Date updateTime) {
+        super(createTime,updateTime);
         this.id = id;
         this.abbr = abbr;
         this.name = name;
