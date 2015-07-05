@@ -41,6 +41,10 @@ body {
     background-color: #DADADA;
 }
 
+#menu .left.menu>a.item #menu .left.menu>div.item,{
+    border-radius: 0.25em;
+}
+
 #menu .column .left.menu > img {
     width: 2.8rem;
     padding: 0px;

@@ -4,6 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="alternate icon" type="image/png" href="/images/logo.png">
 <title>${SiteName}</title>
-<link rel="stylesheet" type="text/css" class="ui" href="/plugins/semantic-ui/1.12.0/semantic.min.css">
+<link rel="stylesheet" type="text/css" class="ui" href="/plugins/semantic-ui/2.0/semantic.min.css">
 <link rel="stylesheet" type="text/css" class="ui" href="/js/lc4e/jquery-extend.css">
 <link rel="stylesheet" type="text/css" class="ui" href="/css/view/common.css">
