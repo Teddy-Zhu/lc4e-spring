@@ -47,7 +47,6 @@ public class InitDBService {
         //clear cache
         cacheHandler.remove("data", "menus");
 
-
         //init Config
         commonConfigRepository.deleteAll();
         commonConfigRepository.insert(new SysComVar(null, "SiteName", "Light Community", new Date()));

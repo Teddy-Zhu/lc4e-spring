@@ -24,8 +24,8 @@ public class MenuDao {
 
     public List<SysMenu> getSysMenus() {
         List<Order> orders = new ArrayList<Order>();
-        orders.add(new Order(Sort.Direction.ASC, "intParentMenuId"));
-        orders.add(new Order(Sort.Direction.ASC, "intMenuOrderId"));
+        orders.add(new Order(Sort.Direction.ASC, "parentId"));
+        orders.add(new Order(Sort.Direction.ASC, "order"));
         return menuRepository.findAll(new Sort(orders));
     }
 

@@ -83,7 +83,7 @@ public class UIDataAspectHandle {
                 }
             } else if (useCache) {
                 obj = cacheHandler.getCache(curField.cacheName(), curField.key());
-                if (obj != null) {
+                if (obj != null ) {
                     model.addAttribute(attributeName, obj);
                     continue;
                 }
