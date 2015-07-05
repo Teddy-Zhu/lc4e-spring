@@ -227,6 +227,7 @@
         element: "html,body"
     };
 
+    //TODO
     $.fn.Lc4eDimmer = function (options, data) {
         var defaults = {
                 type: 'loader', // loader or dimmer
@@ -402,7 +403,7 @@
         });
         return $operate;
     };
-
+    //TODO
     $.fn.Lc4eProgress = function (option, data) {
 
         switch (option) {

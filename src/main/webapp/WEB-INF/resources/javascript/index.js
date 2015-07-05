@@ -165,39 +165,15 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                     }
                 })
         })
-        /*
-         $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
-         url: '/Page/' + $("#articlelist").attr("page"),
-         templateUrl: '/articleTemplate',
-         animation: 'fadeInUpArt',
-         speed: 'fast',
-         dataVal: 'data.list',
-         Lc4eCache: {
-         use: true,
-         name: 'articleTemplate',
-         dom: '#articlelist'
-         },
-         interval: 100,
-         onFinish: function ($that) {
-         $that.find('.ui.fluid.image img').popup();
-
-         },
-         });
-         */
 
         $.get('/TopHots').done(function (data) {
-            $('#todayHot>.ui.divided.items').append(data);
-            $('#todayHot>.ui.divided.items>.item').Lc4eAnimate({
-                animation: 'fadeInRightArt',
-                speed: 'fast',
-                interval: 80,
-            });
-            $('#yesterdayHot>.ui.divided.items').append(data);
-            $('#yesterdayHot>.ui.divided.items>.item').Lc4eAnimate({
-                animation: 'fadeInRightArt',
-                speed: 'fast',
-                interval: 80,
-            })
+            $('#todayHot>.ui.divided.items,#yesterdayHot>.ui.divided.items').empty().append(data);
+            $('#todayHot>.ui.divided.items>.item,#yesterdayHot>.ui.divided.items>.item').
+                transition({
+                    animation: 'fade right',
+                    duration: 300,
+                    interval: 80,
+                })
         });
 
         $('#GTTop').on('click', function (e) {
