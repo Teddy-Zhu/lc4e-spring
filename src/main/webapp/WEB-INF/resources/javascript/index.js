@@ -74,7 +74,12 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
         });
 
         $('#menu .column div:first a').on('click', function () {
-            $('#menu .column>.menu').slideToggle();
+            $('#menu>.column>.allmenus').transition({
+                animation: "swing down",
+                onComplete: function () {
+                    $('#menu>.column>.allmenus').toggleClass('menuhidden').removeClass("transition visible hidden").attr('style', '');
+                }
+            });
         });
 
         $('#config-tool-options .angle.double.left.icon').on('click', function () {

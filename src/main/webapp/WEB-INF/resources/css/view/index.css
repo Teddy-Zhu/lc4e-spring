@@ -1,4 +1,10 @@
 
+#articlebottons:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
 #announcement .item:first-child .ui.label .hidden-mb {
     display: inline-block;
 }
@@ -101,7 +107,8 @@
 }
 
 #rightContent > .ui.segment > .ui.divided.items > .item > .ui.label {
-    padding: .1em .2em;
+    padding: 0.3em .2em;
+    text-align: center;
 }
 
 #rightContent > .ui.segment > .ui.divided.items > .item > .content {

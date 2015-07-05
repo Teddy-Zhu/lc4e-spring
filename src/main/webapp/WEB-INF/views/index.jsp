@@ -14,9 +14,9 @@
 <div id="content">
     <div id="mainContent" class="ui page grid centered">
         <div id="leftContent" class="ten wide column">
-            <div id="announcement">
+            <div id="announcement" class="ui segment">
                 <div class="item">
-                    <div class="ui label">
+                    <div class="ui white label">
                         <i class="announcement icon"></i>
 
                         <div class="hidden-mb">AnnounceMent</div>
@@ -30,10 +30,10 @@
                     </div>
                 </div>
             </div>
-            <div id="articlelist" class="ui nobox segment" page="${page}">
+            <div id="articlelist" class="ui nobox raised segment" page="${page}">
                 <div class="ui divided items"></div>
             </div>
-            <div id="articlebottons" class="ui segment">
+            <div id="articlebottons" class="ui raised clearing segment">
                 <div id="prePage" class="ui left floated labeled icon button">
                     <i class="angle double left icon"></i>
                     <spring:message code="index.preBtn"/>
@@ -47,14 +47,14 @@
 
         </div>
         <div id="rightContent" class="four wide column">
-            <div id="todayHot" class="ui sticky segment">
+            <div id="todayHot" class="ui raised  segment">
                 <h4 class="ui horizontal header divider">
                     <i class="bar chart icon"></i> Today HotSpot
                 </h4>
 
                 <div class="ui divided items"></div>
             </div>
-            <div id="yesterdayHot" class="ui sticky segment">
+            <div id="yesterdayHot" class="ui raised  segment">
                 <h4 class="ui horizontal header divider">
                     <i class="bar chart icon"></i> Yesterday HotSpot
                 </h4>
@@ -67,10 +67,10 @@
 </div>
 <!-- Content  End -->
 <!-- Right Buttons Start -->
-<a id="GTTop" href="#"><i class="circular large arrow up icon"></i></a>
+<a id="GTTop" href="#" tabindex="1"><i class="circular large arrow up icon"></i></a>
 <!-- Right Buttons End -->
 <!-- Slider Bar Start -->
-<div id="config-tool" class="closed">
+<div id="config-tool" class="closed" style="display: none;">
     <a id="config-tool-cog"> <i class="large setting loading icon"></i>
     </a>
 
