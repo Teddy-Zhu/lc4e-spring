@@ -1,10 +1,5 @@
 package com.teddy.lc4e.plugins.mongodb;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,20 +12,15 @@ import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
 import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import static org.springframework.data.mongodb.core.query.Criteria.where;
-//import static org.springframework.data.mongodb.core.query.Update.update;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 
-/**
- * 因为一个属性值为null时,在数据库中的意义是指这个属性不存在,
- * 以前很多地方不可以传null的参数,现在将null纳入参数范围
- *
- * @param <T>
- * @param <ID>
- * @author KEN
- * @version 2013-03-30
- */
 public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleMongoRepository<T, ID> implements BaseMongoRepository<T, ID> {
 
     private final MongoOperations mongoOperations;
@@ -76,8 +66,6 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
     private Criteria getEqualCriteria(String key, Object value) {
         return where(key).is(value);
     }
-
-    //---------------------
 
 
     @Override
@@ -129,8 +117,7 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
         if (value != null) {
             return findAll(getEqualQuery(key, value));
-        } else//findAll(KEY,null) 等价于 key: { $exists: false}
-        {
+        } else {
             return findAll(getKeyExistsQuery(key, false));
         }
     }
@@ -169,8 +156,7 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
         if (value != null) {
             return mongoOperations.count(getEqualQuery(key, value), entityClass);
-        } else    //count(KEY,null) 等价于 key: { $exists: false}
-        {
+        } else {
             return mongoOperations.count(getKeyExistsQuery(key, false), entityClass);
         }
     }
@@ -181,20 +167,12 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
     }
 
 
-
     @Override
     public boolean exists(ID id) {
         Assert.notNull(id, "The given id must not be null!");
         return count(entityInformation.getIdAttribute(), id) > 0;
     }
 
-    /**
-     * count number to judge exist
-     * it can faster than find all objects
-     * @param key 属性名
-     * @param value 属性值
-     * @return
-     */
     @Override
     public boolean exists(String key, Object value) {
         return count(key, value) > 0;
@@ -207,8 +185,7 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
         if (value != null) {
             mongoOperations.remove(getEqualQuery(key, value), entityClass);
-        } else //delete(KEY,null) 等价于 key: { $exists: false}
-        {
+        } else {
             mongoOperations.remove(getKeyExistsQuery(key, false), entityClass);
         }
     }
@@ -227,8 +204,7 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
         if (value != null) {
             return findAndRemove(getEqualQuery(key, value));
-        } else    //KEY : null 等价于 KEY : { $exists: false}
-        {
+        } else {
             return findAndRemove(getKeyExistsQuery(key, false));
         }
     }
@@ -256,22 +232,10 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
         if (value != null) {
             return findAndUpdate(getEqualQuery(key, value), update);
-        } else //KEY : null 等价于 KEY : { $exists: false}
-        {
+        } else {
             return findAndUpdate(getKeyExistsQuery(key, false), update);
         }
     }
-
-
-    /**
-     * 根据查询条件查找第一个实体,并执行更新操作
-     * <p>
-     * Finds the first document in the query and updates it. the old document is returned!
-     *
-     * @param query
-     * @param update
-     * @return 返回更新前的实体
-     */
 
     private T findAndUpdate(Query query, Update update) {
         return mongoOperations.findAndModify(query, update, entityClass, collectionName);
@@ -314,8 +278,6 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
         mongoOperations.updateMulti(query, update, entityClass);
     }
 
-
-    //单属性更新操作-------------------------------------------------------------------------
 
     @Override
     public void set(ID id, String key, Object value) {
@@ -419,7 +381,7 @@ public class BaseMongoRepositoryImpl<T, ID extends Serializable> extends SimpleM
 
 
     @Override
-    public  void drop(){
+    public void drop() {
         mongoOperations.dropCollection(collectionName);
     }
 
