@@ -12,6 +12,10 @@ body {
     z-index: 500;
 }
 
+#menu.fixed > .column {
+    padding: .5rem 12% .5rem 12%;
+}
+
 #menu.expended > .column {
     padding-left: 0px;
     padding-right: 0px;
@@ -126,11 +130,11 @@ body {
 }
 
 #searchSite {
-    width: 100px;
+    width: 140px;
 }
 
 #searchSite.expended {
-    width: 12rem;
+    width: 240px;
 }
 
 /* header expend button*/
@@ -184,30 +188,20 @@ body {
 /* media */
 
 @media screen and (min-width: 1200px) {
-    #menu.fixed > .column {
-        padding: .5rem 12% .5rem 12%;
-    }
+
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-    #menu.fixed > .column {
-        padding: .5rem 12% .5rem 12%;
-    }
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-    #menu.fixed > .column {
-        padding: .5rem 12% .5rem 12%;
-    }
+
 }
 
 @media screen and ( min-width: 769px) {
     .hidden-pc {
         display: none !important;
-    }
-
-    #menu.fixed > .column {
-        padding: .5rem 12% .5rem 12%;
     }
 }
 
@@ -236,7 +230,7 @@ body {
         display: block;
     }
 
-    #menu > .column {
+    #menu > .column, #menu.fixed > .column {
         padding: 0;
     }
 

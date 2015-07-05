@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div id="articlelist" class="ui nobox raised segment" page="${page}">
+            <div id="articlelist" class="ui piled raised segment" page="${page}">
                 <div class="ui divided items"></div>
             </div>
             <div id="articlebottons" class="ui raised clearing segment">
