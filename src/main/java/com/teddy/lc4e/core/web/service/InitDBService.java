@@ -48,7 +48,7 @@ public class InitDBService {
         cacheHandler.remove("data", "menus");
 
         //init Config
-        commonConfigRepository.deleteAll();
+        commonConfigRepository.drop();
         commonConfigRepository.insert(new SysComVar(null, "SiteName", "Light Community", new Date()));
         commonConfigRepository.insert(new SysComVar(null, "IndexPageSize", 20, new Date()));
         commonConfigRepository.insert(new SysComVar(null, "UseCache", true, new Date()));
