@@ -203,7 +203,7 @@ public class ValidateAspectHandle {
      */
     private boolean validateField(ValidateField[] valiedatefiles, Object[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         for (ValidateField validateField : valiedatefiles) {
-            if ("".equals(validateField.fieldName()) && validateField.index() == -1){
+            if ("".equals(validateField.fieldName()) && validateField.index() == -1) {
                 continue;
             }
             Object arg = null;
@@ -222,25 +222,25 @@ public class ValidateAspectHandle {
                     arg = validateField.defaultString();
                 }
                 if (validateField.maxLen() > 0 && ((String) arg).length() > validateField.maxLen()) {
-                        return false;
+                    return false;
                 }
 
                 if (validateField.minLen() > 0 && ((String) arg).length() < validateField.minLen()) {
-                        return false;
+                    return false;
                 }
                 if (!"".equals(validateField.regexStr()) && !((String) arg).matches(validateField.regexStr())) {
-                        return false;
+                    return false;
                 }
             } else if (arg instanceof Integer) {
                 if (arg == null) {
                     arg = validateField.defaultInt();
                 }
                 if (validateField.maxVal() != -1 && (Integer) arg > validateField.maxVal()) {
-                        return false;
+                    return false;
                 }
 
                 if (validateField.minVal() != -1 && (Integer) arg < validateField.minVal()) {
-                        return false;
+                    return false;
                 }
             } else if (arg instanceof Double) {
                 if (arg == null) {
