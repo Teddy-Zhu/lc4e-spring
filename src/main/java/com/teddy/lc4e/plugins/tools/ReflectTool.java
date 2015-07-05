@@ -4,9 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.entity.webui.Message;
 import org.springframework.ui.Model;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by teddy on 2015/6/14.
@@ -65,4 +70,56 @@ public class ReflectTool {
     public static String getGetterNameByFieldName(String fieldName) {
         return "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     }
+
+    public static <T, S> S Mapper(T source, Class<S> target) {
+        Set<String> sourceFields = new HashSet<String>(), targetFields = new HashSet<String>(), resultFields = new HashSet<String>();
+        for (Class<?> clazz = source.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (int i = 0, len = fields.length; i < len; i++) {
+                sourceFields.add(fields[i].getName());
+            }
+        }
+        for (Class<?> clazz = target.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (int i = 0, len = fields.length; i < len; i++) {
+                targetFields.add(fields[i].getName());
+            }
+        }
+        S result = null;
+        try {
+            result = (S) target.getClass().newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        resultFields.addAll(sourceFields);
+        resultFields.retainAll(targetFields);
+
+
+        for (String name : resultFields) {
+            Method sourceGet = null, targetSet = null;
+            try {
+                PropertyDescriptor sourcePd = new PropertyDescriptor(name, source.getClass());
+                PropertyDescriptor targetPd = new PropertyDescriptor(name, target.getClass());
+                sourceGet = sourcePd.getReadMethod();
+                targetSet = targetPd.getWriteMethod();
+            } catch (IntrospectionException e) {
+                e.printStackTrace();
+            }
+            if (sourceGet != null && targetSet != null) {
+                try {
+                    Object value = sourceGet.invoke(source, new Object[]{});
+                    targetSet.invoke(result, value);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return result;
+    }
+
 }

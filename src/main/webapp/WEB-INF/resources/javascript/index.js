@@ -1,31 +1,31 @@
 require.config({
     paths: {
         "jquery": "/plugins/jquery/2.1.3/jquery.min",
-        "semantic": "/plugins/semantic-ui/1.12.0/semantic.min",
+        "semantic": "/plugins/semantic-ui/2.0/semantic.min",
         "lc4e": "/js/lc4e/jquery-extend",
-        "se-accordion": "/plugins/semantic-ui/1.12.0/components/accordion.min",
-        "se-api": "/plugins/semantic-ui/1.12.0/components/api.min",
-        "se-breadcrumb": "/plugins/semantic-ui/1.12.0/components/breadcrumb.min",
-        "se-checkbox": "/plugins/semantic-ui/1.12.0/components/checkbox.min",
-        "se-dimmer": "/plugins/semantic-ui/1.12.0/components/dimmer.min",
-        "se-form": "/plugins/semantic-ui/1.12.0/components/form.min",
-        "se-dropdown": "/plugins/semantic-ui/1.12.0/components/dropdown.min",
-        "se-modal": "/plugins/semantic-ui/1.12.0/components/modal.min",
-        "se-nag": "/plugins/semantic-ui/1.12.0/components/nag.min",
-        "se-popup": "/plugins/semantic-ui/1.12.0/components/popup.min",
-        "se-progress": "/plugins/semantic-ui/1.12.0/components/progress.min",
-        "se-rating": "/plugins/semantic-ui/1.12.0/components/rating.min",
-        "se-search": "/plugins/semantic-ui/1.12.0/components/search.min",
-        "se-shape": "/plugins/semantic-ui/1.12.0/components/shape.min",
-        "se-sidebar": "/plugins/semantic-ui/1.12.0/components/sidebar.min",
-        "se-site": "/plugins/semantic-ui/1.12.0/components/site.min",
-        "se-state": "/plugins/semantic-ui/1.12.0/components/state.min",
-        "se-sticky": "/plugins/semantic-ui/1.12.0/components/sticky.min",
-        "se-tab": "/plugins/semantic-ui/1.12.0/components/tab.min",
-        "se-table": "/plugins/semantic-ui/1.12.0/components/table.min",
-        "se-transition": "/plugins/semantic-ui/1.12.0/components/transition.min",
-        "se-video": "/plugins/semantic-ui/1.12.0/components/video.min",
-        "se-visibility": "/plugins/semantic-ui/1.12.0/components/visibility.min",
+        "se-accordion": "/plugins/semantic-ui/2.0/components/accordion.min",
+        "se-api": "/plugins/semantic-ui/2.0/components/api.min",
+        "se-breadcrumb": "/plugins/semantic-ui/2.0/components/breadcrumb.min",
+        "se-checkbox": "/plugins/semantic-ui/2.0/components/checkbox.min",
+        "se-dimmer": "/plugins/semantic-ui/2.0/components/dimmer.min",
+        "se-form": "/plugins/semantic-ui/2.0/components/form.min",
+        "se-dropdown": "/plugins/semantic-ui/2.0/components/dropdown.min",
+        "se-modal": "/plugins/semantic-ui/2.0/components/modal.min",
+        "se-nag": "/plugins/semantic-ui/2.0/components/nag.min",
+        "se-popup": "/plugins/semantic-ui/2.0/components/popup.min",
+        "se-progress": "/plugins/semantic-ui/2.0/components/progress.min",
+        "se-rating": "/plugins/semantic-ui/2.0/components/rating.min",
+        "se-search": "/plugins/semantic-ui/2.0/components/search.min",
+        "se-shape": "/plugins/semantic-ui/2.0/components/shape.min",
+        "se-sidebar": "/plugins/semantic-ui/2.0/components/sidebar.min",
+        "se-site": "/plugins/semantic-ui/2.0/components/site.min",
+        "se-state": "/plugins/semantic-ui/2.0/components/state.min",
+        "se-sticky": "/plugins/semantic-ui/2.0/components/sticky.min",
+        "se-tab": "/plugins/semantic-ui/2.0/components/tab.min",
+        "se-table": "/plugins/semantic-ui/2.0/components/table.min",
+        "se-transition": "/plugins/semantic-ui/2.0/components/transition.min",
+        "se-video": "/plugins/semantic-ui/2.0/components/video.min",
+        "se-visibility": "/plugins/semantic-ui/2.0/components/visibility.min",
     },
     shim: {
         'lc4e': ['jquery', 'semantic'],
@@ -147,24 +147,43 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
 
 
         var page = parseInt($("#articlelist").attr("page"));
-        $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
-            url: '/Page/' + $("#articlelist").attr("page"),
-            templateUrl: '/articleTemplate',
-            animation: 'fadeInUpArt',
-            speed: 'fast',
-            dataVal: 'data.list',
-            Lc4eCache: {
-                use: true,
-                name: 'articleTemplate',
-                dom: '#articlelist'
-            },
-            interval: 100,
-            onFinish: function ($that) {
-                $that.find('.ui.fluid.image img').popup();
-                $("#articlelist").attr("page", page);
-            },
-        });
+        $.Lc4eAjax({
+            url: "/Articles",
+            cjson: false,
+            type: "get",
+            dataType: "html"
+        }).done(function (data) {
+            $('#articlelist>.ui.divided.items').append(data);
+            $('#articlelist>.ui.divided.items>.item').
+                transition({
+                    animation: 'fade up',
+                    duration: 500,
+                    interval: 100,
+                    onComplete: function () {
+                        $('#articlelist>.ui.divided.items>.item').find('.ui.fluid.image img').popup();
+                        $("#articlelist").attr("page", page);
+                    }
+                })
+        })
+        /*
+         $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
+         url: '/Page/' + $("#articlelist").attr("page"),
+         templateUrl: '/articleTemplate',
+         animation: 'fadeInUpArt',
+         speed: 'fast',
+         dataVal: 'data.list',
+         Lc4eCache: {
+         use: true,
+         name: 'articleTemplate',
+         dom: '#articlelist'
+         },
+         interval: 100,
+         onFinish: function ($that) {
+         $that.find('.ui.fluid.image img').popup();
 
+         },
+         });
+         */
 
         $.get('/TopHots').done(function (data) {
             $('#todayHot>.ui.divided.items').append(data);
@@ -191,25 +210,23 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
 
         $('#prePage,#nextPage').on('click', function () {
             var page = parseInt($("#articlelist").attr("page")) + 1;
-            $('#articlelist>.ui.divided.items').Lc4eAjaxTemplate({
-                url: '/Page/' + page,
-                templateUrl: '/articleTemplate',
-                animation: 'fadeInUpArt',
-                speed: 'fast',
-                interval: 100,
-                dataVal: 'data.list',
-                Lc4eCache: {
-                    use: true,
-                    name: 'articleTemplate',
-                    dom: '#articlelist'
-                },
-                onBefore: function () {
-                    $("#articlelist").attr("page", page);
-                },
-                onFinish: function ($that) {
-
-                    $that.find('.ui.fluid.image img').popup();
-                },
+            $.Lc4eAjax({
+                url: "/Articles",
+                cjson: false,
+                type: "get",
+                dataType: "html"
+            }).done(function (data) {
+                $('#articlelist>.ui.divided.items').empty().append(data);
+                $('#articlelist>.ui.divided.items>.item').
+                    transition({
+                        animation: 'fade up',
+                        duration: 500,
+                        interval: 100,
+                        onComplete: function () {
+                            $('#articlelist>.ui.divided.items>.item').find('.ui.fluid.image img').popup();
+                            $("#articlelist").attr("page", page);
+                        }
+                    })
             })
         })
     })

@@ -46,7 +46,6 @@ public class ViewController {
     private RelativeDate dateFormat;
 
     @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1)})
-    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @RequestMapping(value = {"/Page/{page}"}, method = RequestMethod.GET)
     @ResponseBody
     public Message home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, Locale locale) {
@@ -76,8 +75,18 @@ public class ViewController {
     }
 
     @RequestMapping(value = "/Articles", method = RequestMethod.GET)
-    public String articletest(HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "articletest";
+    public String articletest(HttpServletRequest request, HttpServletResponse response, Model model,Locale locale) {
+        Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize");
+        String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
+        String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
+        Date now = new Date();
+        List<Article> list = new ArrayList<Article>();
+        for (int i = 0; i < size; i++) {
+            list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
+                    dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
+        }
+        model.addAttribute("lists",list);
+        return "template/article";
     }
 
     @RequestMapping(value = "/Exception", method = RequestMethod.GET)
