@@ -86,7 +86,7 @@ body {
     box-shadow: none;
 }
 
-#menu.ui.menu .item:before {
+#menu .item:before {
     content: initial;
 }
 

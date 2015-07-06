@@ -97,26 +97,25 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
         $('#config-tool-cog').on('click', function () {
             $('#config-tool').toggleClass('closed');
         });
-        var timer;
+
+        $('#menu').visibility({
+            type: 'fixed',
+            offset: -1
+        });
+
         $('html').visibility({
             offset: -1,
             once: false,
             continuous: false,
             onTopPassed: function () {
-                function animate() {
-                    $('#menu').addClass('fixed');
+                $.requestAnimationFrame(function () {
                     $('#GTTop').transition('fade');
-                }
-
-                $.requestAnimationFrame(animate);
+                });
             },
             onTopPassedReverse: function () {
-                function animate() {
-                    $('#menu.fixed').removeClass('fixed');
+                $.requestAnimationFrame(function () {
                     $('#GTTop').transition('fade');
-                }
-
-                $.requestAnimationFrame(animate);
+                });
             }
         });
 
