@@ -17,8 +17,8 @@ body {
 }
 
 #menu.expended > .column {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 5em;
+    padding-right: 5em;
 }
 
 #menu .ui.animated.button .visible.content {
@@ -70,7 +70,7 @@ body {
 #menu .ui.headered.image {
     margin-left: auto;
     margin-right: auto;
-    width: 2.7em;
+    width: 3em;
     border-radius: .25rem;
     -webkit-transition: width 0.2s ease, height 0.2s ease;
     transition: width 0.2s ease, height 0.2s ease;
@@ -90,28 +90,24 @@ body {
     content: initial;
 }
 
-#userCard .item > i.icon {
-    opacity: 1;
-    float: none;
-    margin: .5em 0 0 0;
+#userItem > .ui.tiny.attached.label {
+    padding: .1em .3em;
 }
 
 #userItem {
     padding: 0 0 0 0;
 }
 
-#userItem > .ui.floating.label {
-    top: -.2em;
-    min-width: 1em;
-    min-height: 1em;
-    width: 1.5em;
-    height: 1.5em;
-    left: 120%;
-    padding: .25em !important;
-}
-
 #userCard > .content > .header {
     text-align: center;
+}
+
+#userCard .description .item {
+    display: inline-block;
+}
+
+#userCard .description .item a.label {
+    padding: .1em .35em;
 }
 
 #userCard > .content > .description {

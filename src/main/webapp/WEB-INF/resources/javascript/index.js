@@ -1,7 +1,7 @@
 require.config({
     paths: {
         "jquery": "/plugins/jquery/2.1.3/jquery.min",
-        "semantic": "/plugins/semantic-ui/2.0/semantic.min",
+        "semantic": "http://semantic-ui.com/dist/semantic.min",
         "lc4e": "/js/lc4e/jquery-extend",
         "se-accordion": "/plugins/semantic-ui/2.0/components/accordion.min",
         "se-api": "/plugins/semantic-ui/2.0/components/api.min",
@@ -98,22 +98,19 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
             $('#config-tool').toggleClass('closed');
         });
 
-        $('#menu').visibility({
-            type: 'fixed',
-            offset: -1
-        });
-
         $('html').visibility({
             offset: -1,
             once: false,
             continuous: false,
             onTopPassed: function () {
                 $.requestAnimationFrame(function () {
+                    $('#menu').addClass('fixed');
                     $('#GTTop').transition('fade');
                 });
             },
             onTopPassedReverse: function () {
                 $.requestAnimationFrame(function () {
+                    $('#menu').removeClass('fixed');
                     $('#GTTop').transition('fade');
                 });
             }

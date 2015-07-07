@@ -22,7 +22,7 @@
                     <div id="userItem" class="item">
                         <img class="ui headered linked image" src="/images/wireframe/image.png">
 
-                        <div class="floating circular ui red label">22</div>
+                        <div class="ui tiny top right attached label">22</div>
                         <div id="userCardPop" class="ui flowing popup">
                             <div id="userCard" class="ui card">
                                 <div class="content">
