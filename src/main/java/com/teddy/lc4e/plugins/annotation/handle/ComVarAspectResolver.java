@@ -8,10 +8,11 @@ import com.teddy.lc4e.plugins.annotation.SetComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVars;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
+import com.teddy.lc4e.plugins.exception.Lc4eException;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -38,8 +39,8 @@ public class ComVarAspectResolver {
     private boolean useCache;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateComVars)")
-    public Object validateComVarAround(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(com.teddy.lc4e.plugins.annotation.ValidateComVars)")
+    public void validateComVarAround(JoinPoint joinPoint) throws Throwable {
         boolean flag = false;
         ValidateComVars an = null;
         Object[] args = null;
@@ -51,7 +52,7 @@ public class ComVarAspectResolver {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
-            args = joinPoint.getArgs(); // all parameters
+            args = joinPoint.getArgs();
             an = (ValidateComVars) ReflectTool.getAnnotationByMethod(method, ValidateComVars.class);
             Assert.noNullElements(args, "Some Variables must be not empty.");
             flag = validateComVar(an.fields(), args, errorString);
@@ -59,18 +60,16 @@ public class ComVarAspectResolver {
             e.printStackTrace();
             flag = false;
         } finally {
-            if (flag) {
-                return joinPoint.proceed();
-            } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), errorString.s);
+            if (!flag) {
+                throw new Lc4eException(errorString.s);
             }
         }
     }
 
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.SetComVar)")
-    public Object setComVar(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(com.teddy.lc4e.plugins.annotation.SetComVar)")
+    public void setComVar(JoinPoint joinPoint) throws Throwable {
         boolean flag = false;
         SetComVar an = null;
         Object[] args = null;
@@ -81,17 +80,15 @@ public class ComVarAspectResolver {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
-            args = joinPoint.getArgs(); // all parameters
+            args = joinPoint.getArgs();
             an = (SetComVar) ReflectTool.getAnnotationByMethod(method, SetComVar.class);
             Assert.notEmpty(args, "Some Variables must be not empty.");
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
         } finally {
-            if (flag) {
-                return joinPoint.proceed();
-            } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), "Set Config Value [" + an.comVar().toString() + "] failed");
+            if (!flag) {
+                throw new Lc4eException("Set Config Value [" + an.comVar().toString() + "] failed");
             }
         }
     }

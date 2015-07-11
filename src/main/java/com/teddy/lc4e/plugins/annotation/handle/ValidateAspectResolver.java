@@ -11,14 +11,13 @@ import com.teddy.lc4e.plugins.cache.CacheHandler;
 import com.teddy.lc4e.plugins.exception.Lc4eException;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
 import org.apache.log4j.Logger;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -42,8 +41,8 @@ public class ValidateAspectResolver {
     private boolean useCache;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateParams)")
-    public Object validateAroundParameter(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(com.teddy.lc4e.plugins.annotation.ValidateParams)")
+    public void validateAroundParameter(JoinPoint joinPoint) throws Throwable {
         boolean flag = false;
         ValidateParams an = null;
         Object[] args = null;
@@ -56,23 +55,21 @@ public class ValidateAspectResolver {
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             types = method.getParameterTypes();
-            args = joinPoint.getArgs(); // all parameters
+            args = joinPoint.getArgs();
             an = (ValidateParams) ReflectTool.getAnnotationByMethod(method, ValidateParams.class);
             flag = validateFieldBefore(an, args, types);
         } catch (Exception e) {
             flag = false;
         } finally {
-            if (flag) {
-                return joinPoint.proceed();
-            } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), "Parameter validation error");
+            if (!flag) {
+                throw new Lc4eException("Parameter validation error");
             }
         }
     }
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateToken)")
-    public Object validateAroundToken(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(com.teddy.lc4e.plugins.annotation.ValidateToken)")
+    public void validateAroundToken(JoinPoint joinPoint) throws Throwable {
         boolean flag = false;
         ValidateToken an = null;
         Object[] args = null;
@@ -83,16 +80,14 @@ public class ValidateAspectResolver {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
-            args = joinPoint.getArgs(); // all parameters
+            args = joinPoint.getArgs();
             an = (ValidateToken) ReflectTool.getAnnotationByMethod(method, ValidateToken.class);
             flag = validateToken(an, args);
         } catch (Exception e) {
             flag = false;
         } finally {
-            if (flag) {
-                return joinPoint.proceed();
-            } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), "Token Auth Error");
+            if (!flag) {
+                throw new Lc4eException("Token Auth Error");
             }
         }
     }
@@ -193,19 +188,14 @@ public class ValidateAspectResolver {
 
 
     /**
-     * handle parameters
-     *
-     * @param valiedatefiles
+     * @param valiedateFields
      * @param args
+     * @param types
      * @return
-     * @throws SecurityException
-     * @throws IllegalArgumentException
-     * @throws NoSuchMethodException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
+     * @throws Lc4eException
      */
-    private boolean validateField(ValidateParam[] valiedatefiles, Object[] args, Class<?>[] types) throws Lc4eException {
-        for (ValidateParam validateField : valiedatefiles) {
+    private boolean validateField(ValidateParam[] valiedateFields, Object[] args, Class<?>[] types) throws Lc4eException {
+        for (ValidateParam validateField : valiedateFields) {
             int index = validateField.index();
             if ("".equals(validateField.fieldName()) && validateField.index() == -1) {
                 continue;

@@ -44,23 +44,12 @@ public class ReflectTool {
         return null;
     }
 
-
-    public static Object returnHandle(Method method, Object[] args, Integer modelIndex, String failed) {
-        if (method.getReturnType().getName().equals("java.lang.String")) {
-            Model model = (Model) args[modelIndex];
-            model.addAttribute("Message", JSONObject.toJSONString(new Message(failed)));
-            return "System/Message";
-        } else {
-            return new Message(failed);
-        }
-    }
-
     public static Object getFieldByObjectAndFileName(Object targetObj, String fileName) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         String tmp[] = fileName.split("\\.");
         Object arg = targetObj;
         for (int i = 0; i < tmp.length; i++) {
-            Method methdo = arg.getClass().getMethod(getGetterNameByFieldName(tmp[i]));
-            arg = methdo.invoke(arg);
+            Method method = arg.getClass().getMethod(getGetterNameByFieldName(tmp[i]));
+            arg = method.invoke(arg);
         }
         return arg;
     }

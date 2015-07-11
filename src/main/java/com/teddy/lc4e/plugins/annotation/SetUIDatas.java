@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface SetUIDataGroup {
+public @interface SetUIDatas {
 
-    SetUIDataField[] fields();
+    SetUIData[] fields();
 
     int reqIndex() default 0;
 

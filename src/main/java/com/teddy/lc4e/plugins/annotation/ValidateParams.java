@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(value = {ElementType.METHOD, ElementType.TYPE})
 public @interface ValidateParams {
     ValidateParam[] fields() default @ValidateParam;
 
     boolean useSelect() default false;
 
-    ValidateComVar validate() default  @ValidateComVar ;
+    ValidateComVar validate() default @ValidateComVar;
 
     ValidateParam[] trueFields() default {};
 

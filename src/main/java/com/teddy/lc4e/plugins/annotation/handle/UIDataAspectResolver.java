@@ -1,13 +1,14 @@
 package com.teddy.lc4e.plugins.annotation.handle;
 
 import com.teddy.lc4e.core.web.service.UIData;
-import com.teddy.lc4e.plugins.annotation.SetUIDataField;
-import com.teddy.lc4e.plugins.annotation.SetUIDataGroup;
+import com.teddy.lc4e.plugins.annotation.SetUIData;
+import com.teddy.lc4e.plugins.annotation.SetUIDatas;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
+import com.teddy.lc4e.plugins.exception.Lc4eException;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -32,10 +33,10 @@ public class UIDataAspectResolver {
     private boolean useCache;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.SetUIDataGroup)")
-    public Object setUIDataForAn(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Before("@annotation(com.teddy.lc4e.plugins.annotation.SetUIDatas)")
+    public void setUIDataForAn(JoinPoint joinPoint) throws Throwable {
         boolean flag = false;
-        SetUIDataGroup an = null;
+        SetUIDatas an = null;
         Object[] args = null;
         Method method = null;
         Object target = null;
@@ -45,27 +46,25 @@ public class UIDataAspectResolver {
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (SetUIDataGroup) ReflectTool.getAnnotationByMethod(method, SetUIDataGroup.class);
+            an = (SetUIDatas) ReflectTool.getAnnotationByMethod(method, SetUIDatas.class);
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
         } finally {
-            if (flag) {
-                return joinPoint.proceed();
-            } else {
-                return ReflectTool.returnHandle(method, args, an.modIndex(), "Set UI Data Failed");
+            if (!flag) {
+                throw new Lc4eException("Set UI Data Failed");
             }
         }
     }
 
-    private boolean setValueByFunctionName(SetUIDataGroup setUIDataGroup, Object[] args) {
+    private boolean setValueByFunctionName(SetUIDatas setUIDataGroup, Object[] args) {
         useCache = cacheHandler.useCache();
-        SetUIDataField[] uiDataFields = setUIDataGroup.fields();
+        SetUIData[] uiDataFields = setUIDataGroup.fields();
         Model model = (Model) args[setUIDataGroup.modIndex()];
         Class clazz = uiData.getClass();
 
         for (int i = 0, len = uiDataFields.length; i < len; i++) {
-            SetUIDataField curField = uiDataFields[i];
+            SetUIData curField = uiDataFields[i];
             String functionName = curField.functionName();
             String attributeName = curField.attributeName();
             int[] useVars = curField.useVarIndex();
@@ -83,7 +82,7 @@ public class UIDataAspectResolver {
                 }
             } else if (useCache) {
                 obj = cacheHandler.getCache(curField.cacheName(), curField.key());
-                if (obj != null ) {
+                if (obj != null) {
                     model.addAttribute(attributeName, obj);
                     continue;
                 }

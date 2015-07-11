@@ -4,6 +4,8 @@ import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.database.service.dbtestDao;
 import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
+import com.teddy.lc4e.plugins.annotation.ValidateParam;
+import com.teddy.lc4e.plugins.annotation.ValidateParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +61,7 @@ public class testController {
 
     @RequestMapping("/test6")
     @ResponseBody
+    @ValidateParams(fields = {@ValidateParam(index = 0, required = true, minLen = 1, maxLen = 15)})
     public Message test6(String a) {
         if (a.equals("0"))
             throw new UnknownFormatConversionException("aaaaa");

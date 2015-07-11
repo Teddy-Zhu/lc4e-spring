@@ -62,7 +62,7 @@ public class ViewController {
     }
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
+    @SetUIDatas(fields = {@SetUIData(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @SetComVar(comVar = {"SiteName"})
     @ValidateParams(fields = {@ValidateParam(index = 3, defaultValue = "1")})
     public String homeIndex(HttpServletRequest request, HttpServletResponse response, Model model, Integer p) {
@@ -126,7 +126,7 @@ public class ViewController {
 
 
     @RequestMapping(value = "/GetMenus", method = RequestMethod.GET)
-    @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "Message", key = " ")})
+    @SetUIDatas(fields = {@SetUIData(functionName = "getMenuTree", attributeName = "Message", key = " ")})
     public String getMenus(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "System/Message";
     }
