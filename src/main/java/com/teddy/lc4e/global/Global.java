@@ -13,4 +13,6 @@ public class Global {
     public static final String SREG = "SimpleRegister";
 
     public static final String Cache = "UseCache";
+
+    public static final String DEFAULT_NONE = "\n\t\t\n\t\t\n\uE000\uE001\uE002\n\t\t\t\t\n";
 }

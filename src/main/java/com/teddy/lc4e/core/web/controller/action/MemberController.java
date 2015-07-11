@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.entity.webui.Message;
-import com.teddy.lc4e.plugins.annotation.ValidateField;
-import com.teddy.lc4e.plugins.annotation.ValidateGroup;
+import com.teddy.lc4e.plugins.annotation.ValidateParam;
+import com.teddy.lc4e.plugins.annotation.ValidateParams;
 import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 
 @Controller
@@ -48,7 +48,7 @@ public class MemberController {
     @RequestMapping(value = "/SignIn", method = RequestMethod.GET)
     @ResponseBody
     @RequiresGuest
-    @ValidateGroup(fields = {@ValidateField(index = 0, NotNull = true, minLen = 4, maxLen = 15), @ValidateField(index = 1, NotNull = true, minLen = 6)})
+    @ValidateParams(fields = {@ValidateParam(index = 0, required = true, minLen = 4, maxLen = 15), @ValidateParam(index = 1, required = true, minLen = 6)})
     public Message SignIn(String username, String password, HttpServletRequest request, HttpServletResponse response, Model model) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);

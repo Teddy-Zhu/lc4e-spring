@@ -1,11 +1,15 @@
 package com.teddy.lc4e.core.web.controller.view;
 
+import com.teddy.lc4e.core.database.model.User;
 import com.teddy.lc4e.core.database.service.dbtestDao;
+import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.UnknownFormatConversionException;
 
 /**
  * Created by teddy on 2015/6/25.
@@ -52,4 +56,19 @@ public class testController {
         return new Message(a);
     }
 
+
+    @RequestMapping("/test6")
+    @ResponseBody
+    public Message test6(String a) {
+        if (a.equals("0"))
+            throw new UnknownFormatConversionException("aaaaa");
+        return new Message(a);
+    }
+
+
+    @RequestMapping("/test7")
+    @ResponseBody
+    public Message test6(User a) {
+        return new Message(false, new Data("a", a));
+    }
 }

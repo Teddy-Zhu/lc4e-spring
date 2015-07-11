@@ -436,9 +436,7 @@
             )
             if (data["cjson"]) {
                 var tdata = data["data"];
-                if(typeof tdata == "object"){
-                    tdata = JSON.stringify(tdata);
-                }
+                tdata = JSON.stringify(tdata);
                 data["data"] = tdata;
                 data = $.extend(true, {
                         type: "post",
@@ -446,20 +444,22 @@
                         contentType: "application/json"
                     }, data
                 )
-            }else{
+            } else {
                 data = $.extend(true, {
                         type: 'post',
                         dataType: 'json',
                     }, data
                 )
             }
-            if (data.hasOwnProperty("beforeSend")) {
+            if (data.hasOwnProperty("beforeSend") && typeof data.beforeSend === "function") {
                 loptions["beforeSend"] = data["beforeSend"];
             }
             if (data.needToken) {
-                data.beforeSend = function (xhr) {
-                    var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
-                    xhr.setRequestHeader(tk, l + t + l);
+                data.beforeSend = function (xhr, settings) {
+                    if (data.needToken) {
+                        var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
+                        xhr.setRequestHeader(tk, l + t + l);
+                    }
                     if (typeof loptions.beforeSend === "function") {
                         loptions.beforeSend(xhr);
                     }

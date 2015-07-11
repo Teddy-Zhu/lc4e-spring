@@ -1,7 +1,7 @@
 require.config({
     paths: {
         "jquery": "/plugins/jquery/2.1.3/jquery.min",
-        "semantic": "http://semantic-ui.com/dist/semantic.min",
+        "semantic": "/plugins/semantic-ui/2.0/semantic.min",
         "lc4e": "/js/lc4e/jquery-extend",
         "se-accordion": "/plugins/semantic-ui/2.0/components/accordion.min",
         "se-api": "/plugins/semantic-ui/2.0/components/api.min",
@@ -55,145 +55,127 @@ require.config({
         "se-visibility": ['jquery'],
     }
 });
+
 require(['jquery', 'lc4e', 'semantic'], function ($) {
-    $(function () {
-        var getArticles;
-        $('#menu .ui.dropdown.item').dropdown({
-            action: "nothing",
-            transition: "scale",
-            on: 'click'
-        });
-        $('#searchSite').on('focus', function () {
-            $(this).addClass('expended');
-        }).on('blur', function () {
-            $(this).removeClass('expended')
-        });
+    $.lc4e.index = {
+        ready: function () {
+            var getArticles;
+            $('#menu .ui.dropdown.item').dropdown({
+                action: "nothing",
+                transition: "scale",
+                on: 'click'
+            });
+            $('#searchSite').on('focus', function () {
+                $(this).addClass('expended');
+            }).on('blur', function () {
+                $(this).removeClass('expended')
+            });
 
-        $('#expendHeader').on('click', function () {
-            $('#menu').toggleClass('expended');
-        });
+            $('#expendHeader').on('click', function () {
+                $('#menu').toggleClass('expended');
+            });
 
-        $('#menu .column div:first a').on('click', function () {
-            $('#menu>.column>.allmenus').transition({
-                animation: "swing down",
-                onComplete: function () {
-                    $('#menu>.column>.allmenus').toggleClass('menuhidden').removeClass("transition visible hidden").attr('style', '');
+            $('#menu .column div:first a').on('click', function () {
+                $('#menu>.column>.allmenus').transition({
+                    animation: "fly down",
+                    duration: 500,
+                    onComplete: function () {
+                        $('#menu>.column>.allmenus').toggleClass('menuhidden').removeClass("transition visible hidden").attr('style', '');
+                    }
+                });
+            });
+
+            $('#config-tool-options .angle.double.left.icon').on('click', function () {
+                if ($($('#config-tool-options .ui.animated.selection.list:not(.hidden)').transition('fade left').attr('data-parent')).transition('fade left').attr('id') == 'menu1') {
+                    $(this).addClass('transition hidden');
                 }
             });
-        });
 
-        $('#config-tool-options .angle.double.left.icon').on('click', function () {
-            if ($($('#config-tool-options .ui.animated.selection.list:not(.hidden)').transition('fade left').attr('data-parent')).transition('fade left').attr('id') == 'menu1') {
-                $(this).addClass('transition hidden');
-            }
-        });
-
-        $("#config-tool-options .ui.list .item[data-target^='#']").on('click', function () {
-            $(this).parent().transition('fade left');
-            $($(this).attr('data-target')).transition('fade left');
-            $('#config-tool-options .angle.double.left.icon').removeClass('transition hidden');
-        });
-
-        $('#config-tool-cog').on('click', function () {
-            $('#config-tool').toggleClass('closed');
-        });
-
-        $('html').visibility({
-            offset: -1,
-            once: false,
-            continuous: false,
-            onTopPassed: function () {
-                $.requestAnimationFrame(function () {
-                    $('#menu').addClass('fixed');
-                    $('#GTTop').transition('fade');
-                });
-            },
-            onTopPassedReverse: function () {
-                $.requestAnimationFrame(function () {
-                    $('#menu').removeClass('fixed');
-                    $('#GTTop').transition('fade');
-                });
-            }
-        });
-
-        $('#userItem .ui.image').popup({
-            position: 'bottom center',
-            transition: "horizontal flip",
-            popup: $('#userCardPop'),
-            exclusive: false,
-            hideOnScroll: false,
-            on: 'click',
-            closable: true
-        });
-
-        $('#config-tool-options .ui.checkbox').checkbox();
-
-        $('#fixFooter').checkbox({
-            onChange: function (e) {
-                $('#content').toggleClass('footerFixed');
-                $('.ui.footer').toggleClass('fixed');
-            }
-        });
-
-        $('#boxedLayout').checkbox({
-            onChange: function (e) {
-                $('#articlelist').toggleClass('nobox');
-            }
-        });
-
-        $('#announce').shape();
-        $('#announce').data('interval', setInterval(function () {
-            $('#announce').shape('flip down');
-        }, 3000));
-
-
-        var page = parseInt($("#articlelist").attr("page"));
-        $.Lc4eAjax({
-            url: "/Articles",
-            cjson: false,
-            type: "get",
-            dataType: "html"
-        }).done(function (data) {
-            $('#articlelist>.ui.divided.items').append(data);
-            $('#articlelist>.ui.divided.items>.item').
-                transition({
-                    animation: 'fade up',
-                    duration: 500,
-                    interval: 100,
-                    onComplete: function () {
-                        $('#articlelist>.ui.divided.items>.item').find('.ui.fluid.image img').popup();
-                        $("#articlelist").attr("page", page);
-                    }
-                })
-        })
-
-        $.get('/TopHots').done(function (data) {
-            $('#todayHot>.ui.divided.items,#yesterdayHot>.ui.divided.items').empty().append(data);
-            $('#todayHot>.ui.divided.items>.item,#yesterdayHot>.ui.divided.items>.item').
-                transition({
-                    animation: 'fade right',
-                    duration: 300,
-                    interval: 80,
-                })
-        });
-
-        $('#GTTop').on('click', function (e) {
-            e.preventDefault();
-            $('html').animatescroll({
-                scrollSpeed: 1000,
-                easing: 'easeOutBounce'
+            $("#config-tool-options .ui.list .item[data-target^='#']").on('click', function () {
+                $(this).parent().transition('fade left');
+                $($(this).attr('data-target')).transition('fade left');
+                $('#config-tool-options .angle.double.left.icon').removeClass('transition hidden');
             });
-        });
 
-        $('#prePage,#nextPage').on('click', function () {
-            var page = parseInt($("#articlelist").attr("page")) + 1;
+            $('#config-tool-cog').on('click', function () {
+                $('#config-tool').toggleClass('closed');
+            });
+            var timer;
+            $('#menuheader').visibility({
+                offset: -1,
+                continuous: true,
+                onTopPassed: function () {
+                    $.requestAnimationFrame(function () {
+                        $('#menu').addClass('fixed');
+                    })
+                },
+                onTopPassedReverse: function () {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        $.requestAnimationFrame(function () {
+                            $('#menu').removeClass('fixed');
+                        })
+                    }, 300);
+                }
+            });
+            $('#GTTop').visibility({
+                offset: -1,
+                once: false,
+                continuous: false,
+                onTopPassed: function () {
+                    $.requestAnimationFrame(function () {
+                        $('#GTTop').transition('fade');
+                    });
+                },
+                onTopPassedReverse: function () {
+                    $.requestAnimationFrame(function () {
+                        $('#GTTop').transition('fade');
+                    });
+                }
+            });
+
+            $('#userItem img.ui.image').popup({
+                position: 'bottom center',
+                transition: "horizontal flip",
+                popup: $('#userCardPop'),
+                exclusive: false,
+                hideOnScroll: false,
+                on: 'click',
+                closable: true
+            });
+
+            $('#config-tool-options .ui.checkbox').checkbox();
+
+            $('#fixFooter').checkbox({
+                onChange: function (e) {
+                    $('#content').toggleClass('footerFixed');
+                    $('.ui.footer').toggleClass('fixed');
+                }
+            });
+
+            $('#boxedLayout').checkbox({
+                onChange: function (e) {
+                    $('#articlelist').toggleClass('nobox');
+                }
+            });
+
+            $('#announce').shape();
+            setInterval(function () {
+                $('#announce').shape('flip down');
+            }, 4000);
+
+
+            var page = parseInt($("#articlelist").attr("page"));
+            window.onpopstate = function (e) {
+                console.log(e);
+            }
             $.Lc4eAjax({
                 url: "/Articles",
                 cjson: false,
                 type: "get",
-                dataType: "html"
-            }).done(function (data) {
-                $('#articlelist>.ui.divided.items').empty().append(data);
+                dataType: "html",
+            }).success(function (data) {
+                $('#articlelist>.ui.divided.items').append(data);
                 $('#articlelist>.ui.divided.items>.item').
                     transition({
                         animation: 'fade up',
@@ -205,6 +187,49 @@ require(['jquery', 'lc4e', 'semantic'], function ($) {
                         }
                     })
             })
-        })
+
+            $.get('/TopHots').done(function (data) {
+                $('#todayHot>.ui.divided.items,#yesterdayHot>.ui.divided.items').empty().append(data);
+                $('#todayHot>.ui.divided.items>.item,#yesterdayHot>.ui.divided.items>.item').
+                    transition({
+                        animation: 'fade right',
+                        duration: 300,
+                        interval: 80,
+                    })
+            });
+
+            $('#GTTop').on('click', function (e) {
+                e.preventDefault();
+                $('html').animatescroll({
+                    scrollSpeed: 1000,
+                    easing: 'easeOutBounce'
+                });
+            });
+
+            $('#prePage,#nextPage').on('click', function () {
+                var page = parseInt($("#articlelist").attr("page")) + 1;
+                $.Lc4eAjax({
+                    url: "/Articles",
+                    cjson: false,
+                    type: "get",
+                    dataType: "html"
+                }).success(function (data) {
+                    $('#articlelist>.ui.divided.items').empty().append(data);
+                    $('#articlelist>.ui.divided.items>.item').
+                        transition({
+                            animation: 'fade up',
+                            duration: 500,
+                            interval: 100,
+                            onComplete: function () {
+                                $('#articlelist>.ui.divided.items>.item').find('.ui.fluid.image img').popup();
+                                $("#articlelist").attr("page", page);
+                            }
+                        })
+                })
+            })
+        }
+    };
+    $(function () {
+        $.lc4e.index.ready();
     })
-});
+})

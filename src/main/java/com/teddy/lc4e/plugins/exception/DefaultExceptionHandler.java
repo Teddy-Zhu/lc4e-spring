@@ -1,6 +1,8 @@
 package com.teddy.lc4e.plugins.exception;
 
+import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.entity.webui.Message;
+import org.apache.log4j.Logger;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @ControllerAdvice
 public class DefaultExceptionHandler {
+
+    private static final Logger LOGGER = Logger.getLogger(DefaultExceptionHandler.class);
 
     @ExceptionHandler({UnauthorizedException.class})
     @ResponseStatus(HttpStatus.OK)
@@ -79,5 +83,24 @@ public class DefaultExceptionHandler {
             error += "nick is used\n";
         }
         return new Message(error);
+    }
+
+    @ExceptionHandler({Exception.class})
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView processLc4eException(HttpServletRequest request, HttpServletResponse response, Exception e) {
+        ModelAndView mv = new ModelAndView();
+
+        e.printStackTrace();
+        e.getCause();
+        if (request.getHeader("X-Requested-With") == null) {
+            //common
+            mv.addObject("exception", e.getMessage());
+            mv.setViewName("redirect:/Exception");
+        } else {
+            //ajax
+            mv.addObject("Message", JSONObject.toJSONString(new Message(e.getMessage())));
+            mv.setViewName("/System/Message");
+        }
+        return mv;
     }
 }

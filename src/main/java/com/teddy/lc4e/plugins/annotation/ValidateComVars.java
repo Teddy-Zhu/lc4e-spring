@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ValidateComVarGroup {
+public @interface ValidateComVars {
 
     ValidateComVar[] fields() default {};
 

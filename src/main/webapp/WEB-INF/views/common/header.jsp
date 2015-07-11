@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<div id="menuheader"></div>
 <div id="menu" class="ui secondary menu">
     <div class="column">
         <div class="hidden-pc">
@@ -20,9 +21,11 @@
                 </div>
                 <shiro:user>
                     <div id="userItem" class="item">
-                        <img class="ui headered linked image" src="/images/wireframe/image.png">
 
+                        <img class="ui headered linked image" src="/images/wireframe/image.png"></img>
                         <div class="ui tiny top right attached label">22</div>
+
+
                         <div id="userCardPop" class="ui flowing popup">
                             <div id="userCard" class="ui card">
                                 <div class="content">
@@ -53,8 +56,14 @@
                                         class="ui transparent circular label"> 5 </a>
 								</span>
                                 </div>
-                                <div class="ui bottom attached button">
-                                    <i class="setting icon"></i> Settings
+                                <div class="ui two  bottom attached buttons">
+                                    <div class="ui primary button">
+                                        <i class="setting icon"></i> Settings
+                                    </div>
+                                    <div class="ui button">
+                                        <i class="sign out icon"></i>
+                                        Sign Out
+                                    </div>
                                 </div>
                             </div>
                         </div>

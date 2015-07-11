@@ -1,5 +1,7 @@
 package com.teddy.lc4e.plugins.annotation;
 
+import com.teddy.lc4e.global.Global;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,13 +16,5 @@ public @interface ValidateComVar {
 
     String name() default "";
 
-    String needString() default "";
-
-    boolean needBoolean() default true;
-
-    double needDouble() default 0;
-
-    float needFloat() default 0;
-
-    int needInt() default 0;
+    String needValue() default Global.DEFAULT_NONE;
 }

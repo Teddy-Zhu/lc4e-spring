@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 
 @Component
 @Aspect
-public class UIDataAspectHandle {
+public class UIDataAspectResolver {
 
 
     @Autowired

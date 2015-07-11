@@ -2,13 +2,14 @@ package com.teddy.lc4e.plugins.annotation.handle;
 
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
-import com.teddy.lc4e.plugins.cache.CacheHandler;
 import com.teddy.lc4e.global.Global;
-import com.teddy.lc4e.plugins.tools.ReflectTool;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
-import com.teddy.lc4e.plugins.annotation.ValidateField;
-import com.teddy.lc4e.plugins.annotation.ValidateGroup;
+import com.teddy.lc4e.plugins.annotation.ValidateParam;
+import com.teddy.lc4e.plugins.annotation.ValidateParams;
 import com.teddy.lc4e.plugins.annotation.ValidateToken;
+import com.teddy.lc4e.plugins.cache.CacheHandler;
+import com.teddy.lc4e.plugins.exception.Lc4eException;
+import com.teddy.lc4e.plugins.tools.ReflectTool;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,11 +26,11 @@ import java.util.regex.Pattern;
 
 @Component
 @Aspect
-public class ValidateAspectHandle {
+public class ValidateAspectResolver {
     /**
      * Logger for this class
      */
-    private static final Logger logger = Logger.getLogger(ValidateAspectHandle.class);
+    private static final Logger logger = Logger.getLogger(ValidateAspectResolver.class);
 
 
     @Autowired
@@ -41,11 +42,12 @@ public class ValidateAspectHandle {
     private boolean useCache;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateGroup)")
+    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateParams)")
     public Object validateAroundParameter(ProceedingJoinPoint joinPoint) throws Throwable {
         boolean flag = false;
-        ValidateGroup an = null;
+        ValidateParams an = null;
         Object[] args = null;
+        Class<?>[] types = null;
         Method method = null;
         Object target = null;
         String methodName = null;
@@ -53,9 +55,10 @@ public class ValidateAspectHandle {
             methodName = joinPoint.getSignature().getName();
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
+            types = method.getParameterTypes();
             args = joinPoint.getArgs(); // all parameters
-            an = (ValidateGroup) ReflectTool.getAnnotationByMethod(method, ValidateGroup.class);
-            flag = validateFieldBefore(an, args);
+            an = (ValidateParams) ReflectTool.getAnnotationByMethod(method, ValidateParams.class);
+            flag = validateFieldBefore(an, args, types);
         } catch (Exception e) {
             flag = false;
         } finally {
@@ -142,11 +145,10 @@ public class ValidateAspectHandle {
         return true;
     }
 
-    private boolean validateFieldBefore(ValidateGroup vt, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        if (!validateField(vt.fields(), args)) {
+    private boolean validateFieldBefore(ValidateParams vt, Object[] args, Class<?>[] types) throws Lc4eException {
+        if (!validateField(vt.fields(), args, types)) {
             return false;
         }
-
 
         if (vt.useSelect()) {
             ValidateComVar validateVar = vt.validate();
@@ -158,16 +160,16 @@ public class ValidateAspectHandle {
                     cacheHandler.setCache(Global.VAR, validateVar.name(), var);
                 }
                 if (validateValue(var.getValue(), validateVar)) {
-                    return validateField(vt.trueFields(), args);
+                    return validateField(vt.trueFields(), args, types);
                 } else {
-                    return validateField(vt.falseFields(), args);
+                    return validateField(vt.falseFields(), args, types);
                 }
             } else {
                 SysComVar var = var = comVarDao.getSysComVarByName(validateVar.name());
                 if (validateValue(var.getValue(), validateVar)) {
-                    return validateField(vt.trueFields(), args);
+                    return validateField(vt.trueFields(), args, types);
                 } else {
-                    return validateField(vt.falseFields(), args);
+                    return validateField(vt.falseFields(), args, types);
                 }
             }
         }
@@ -176,18 +178,19 @@ public class ValidateAspectHandle {
 
     private boolean validateValue(Object value, ValidateComVar validateValue) {
         if (value instanceof String) {
-            return validateValue.needString().equals(value.toString());
+            return String.valueOf(validateValue.needValue()).equals(value.toString());
         } else if (value instanceof Integer) {
-            return (Integer) value == validateValue.needInt();
+            return (Integer) value == Integer.valueOf(validateValue.needValue());
         } else if (value instanceof Boolean) {
-            return (Boolean) value == validateValue.needBoolean();
+            return (Boolean) value == Boolean.valueOf(validateValue.needValue());
         } else if (value instanceof Float) {
-            return (Float) value == validateValue.needFloat();
+            return (Float) value == Float.valueOf(validateValue.needValue());
         } else if (value instanceof Double) {
-            return (Double) value == validateValue.needDouble();
+            return (Double) value == Double.valueOf(validateValue.needValue());
         }
         return false;
     }
+
 
     /**
      * handle parameters
@@ -201,56 +204,68 @@ public class ValidateAspectHandle {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    private boolean validateField(ValidateField[] valiedatefiles, Object[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        for (ValidateField validateField : valiedatefiles) {
+    private boolean validateField(ValidateParam[] valiedatefiles, Object[] args, Class<?>[] types) throws Lc4eException {
+        for (ValidateParam validateField : valiedatefiles) {
+            int index = validateField.index();
             if ("".equals(validateField.fieldName()) && validateField.index() == -1) {
                 continue;
             }
             Object arg = null;
+
             if ("".equals(validateField.fieldName())) {
-                arg = args[validateField.index()];
+                arg = args[index];
             } else {
-                arg = ReflectTool.getFieldByObjectAndFileName(args[validateField.index()], validateField.fieldName());
+                try {
+                    arg = ReflectTool.getFieldByObjectAndFileName(args[index], validateField.fieldName());
+                } catch (Exception e) {
+                    throw new Lc4eException("Get Field From Arg Error,Field Name is :" + validateField.fieldName() + " Arg is:" + args[index]);
+                }
             }
 
-            if (validateField.NotNull() && arg == null) {
+            arg = ReflectTool.parseDefaultValue(validateField.defaultValue());
+
+            if (validateField.required() && arg == null) {
                 return false;
             }
 
-            if (arg instanceof String) {
-                if (arg == null) {
-                    arg = validateField.defaultString();
-                }
-                if (validateField.maxLen() > 0 && ((String) arg).length() > validateField.maxLen()) {
-                    return false;
-                }
 
-                if (validateField.minLen() > 0 && ((String) arg).length() < validateField.minLen()) {
-                    return false;
-                }
-                if (!"".equals(validateField.regexStr()) && !((String) arg).matches(validateField.regexStr())) {
-                    return false;
-                }
-            } else if (arg instanceof Integer) {
-                if (arg == null) {
-                    arg = validateField.defaultInt();
-                }
-                if (validateField.maxVal() != -1 && (Integer) arg > validateField.maxVal()) {
-                    return false;
-                }
+            try {
+                if (types[index] == String.class) {
+                    arg = String.valueOf(arg);
+                    if (validateField.maxLen() > 0 && ((String) arg).length() > validateField.maxLen()) {
+                        return false;
+                    }
 
-                if (validateField.minVal() != -1 && (Integer) arg < validateField.minVal()) {
-                    return false;
+                    if (validateField.minLen() > 0 && ((String) arg).length() < validateField.minLen()) {
+                        return false;
+                    }
+                    if (!"".equals(validateField.regexStr()) && !((String) arg).matches(validateField.regexStr())) {
+                        return false;
+                    }
+                } else if (types[index] == Integer.class) {
+                    arg = Integer.valueOf(arg.toString());
+                    if (validateField.maxVal() != -1 && ((Integer) arg) > validateField.maxVal()) {
+                        return false;
+                    }
+
+                    if (validateField.minVal() != -1 && ((Integer) arg) < validateField.minVal()) {
+                        return false;
+                    }
+                } else if (types[index] == Double.class) {
+                    arg = Double.valueOf(arg.toString());
+                    if (validateField.maxVal() != -1 && ((Integer) arg) > validateField.maxVal()) {
+                        return false;
+                    }
+                    if (validateField.minVal() != -1 && ((Integer) arg) < validateField.minVal()) {
+                        return false;
+                    }
+                } else if (types[index] == Boolean.class) {
+                    arg = Boolean.valueOf(arg.toString());
                 }
-            } else if (arg instanceof Double) {
-                if (arg == null) {
-                    arg = validateField.defaultDouble();
-                }
-            } else if (arg instanceof Boolean) {
-                if (arg == null) {
-                    arg = validateField.defaultBoolean();
-                }
+            } catch (Exception e) {
+                throw new Lc4eException("Format Default Value ERROR,Value String is" + arg);
             }
+
         }
         return true;
     }

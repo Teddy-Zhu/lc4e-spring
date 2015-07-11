@@ -4,12 +4,12 @@ import com.teddy.lc4e.core.entity.webui.Article;
 import com.teddy.lc4e.core.entity.webui.Data;
 import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.entity.webui.Popup;
-import com.teddy.lc4e.plugins.tools.RelativeDate;
-import com.teddy.lc4e.plugins.tools.ParserMessage;
 import com.teddy.lc4e.core.web.service.ComVariableData;
 import com.teddy.lc4e.core.web.service.InitDBService;
 import com.teddy.lc4e.core.web.service.WebCacheManager;
 import com.teddy.lc4e.plugins.annotation.*;
+import com.teddy.lc4e.plugins.tools.ParserMessage;
+import com.teddy.lc4e.plugins.tools.RelativeDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +45,7 @@ public class ViewController {
     @Autowired
     private RelativeDate dateFormat;
 
-    @ValidateGroup(fields = {@ValidateField(index = 3, defaultInt = 1)})
+    @ValidateParams(fields = {@ValidateParam(index = 3, defaultValue = "1")})
     @RequestMapping(value = {"/Page/{page}"}, method = RequestMethod.GET)
     @ResponseBody
     public Message home(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("page") Integer page, Locale locale) {
@@ -64,8 +64,9 @@ public class ViewController {
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     @SetUIDataGroup(fields = {@SetUIDataField(functionName = "getMenuTree", attributeName = "menulist", key = "menus")})
     @SetComVar(comVar = {"SiteName"})
-    public String homeIndex(HttpServletRequest request, HttpServletResponse response, Model model) {
-        model.addAttribute("page", 1);
+    @ValidateParams(fields = {@ValidateParam(index = 3, defaultValue = "1")})
+    public String homeIndex(HttpServletRequest request, HttpServletResponse response, Model model, Integer p) {
+        model.addAttribute("page", p);
         return "index";
     }
 
@@ -75,7 +76,7 @@ public class ViewController {
     }
 
     @RequestMapping(value = "/Articles", method = RequestMethod.GET)
-    public String articletest(HttpServletRequest request, HttpServletResponse response, Model model,Locale locale) {
+    public String articletest(HttpServletRequest request, HttpServletResponse response, Model model, Locale locale) {
         Integer size = (Integer) comVariableData.getComVarByName("IndexPageSize");
         String[] cate = new String[]{"Java", "Obj-C", "C", "C++", "IOS", "Android"};
         String[] users = new String[]{"Admin", "Test", "Myas", "Liakx", "Google", "vsss"};
@@ -85,13 +86,17 @@ public class ViewController {
             list.add(new Article("/images/wireframe/image.png", new Popup("Matt", "Matt has been a member since July 2014"), "The friction between your thoughts and your code", cate[new Random().nextInt(cate.length - 1)], users[new Random().nextInt(users.length - 1)], new Random().nextInt(100),
                     dateFormat.format(randomDate("2015-05-11 13:00:00", now), locale, now), users[new Random().nextInt(users.length - 1)]));
         }
-        model.addAttribute("lists",list);
+        model.addAttribute("lists", list);
         return "template/article";
     }
 
     @RequestMapping(value = "/Exception", method = RequestMethod.GET)
     public String exception(HttpServletRequest request, HttpServletResponse response, Model model) {
-        return "exceptions/common";
+        Map params = request.getParameterMap();
+        for (Object key : params.keySet()) {
+            model.addAttribute(key.toString(), ((String[]) params.get(key))[0]);
+        }
+        return "/exceptions/common";
     }
 
     @RequestMapping(value = "/TopHots", method = RequestMethod.GET)
@@ -127,10 +132,8 @@ public class ViewController {
     }
 
 
-
-
     @RequestMapping(value = "/ClearCache", method = RequestMethod.GET)
-    @ValidateGroup(fields = {@ValidateField(index = 3, NotNull = true), @ValidateField(index = 4, NotNull = true)})
+    @ValidateParams(fields = {@ValidateParam(index = 3, required = true), @ValidateParam(index = 4, required = true)})
     @ResponseBody
     public Message getMenus2(HttpServletRequest request, HttpServletResponse response, Model model, String cacheName, String key) {
         if (webCacheManager.clearCacheByCacheNameAndKey(cacheName, key))

@@ -2,6 +2,7 @@ package com.teddy.lc4e.plugins.tools;
 
 import com.alibaba.fastjson.JSONObject;
 import com.teddy.lc4e.core.entity.webui.Message;
+import com.teddy.lc4e.global.Global;
 import org.springframework.ui.Model;
 
 import java.beans.IntrospectionException;
@@ -122,4 +123,9 @@ public class ReflectTool {
         return result;
     }
 
+
+    public static String parseDefaultValue(String value) {
+        return Global.DEFAULT_NONE.equals(value) ? null : value;
+
+    }
 }

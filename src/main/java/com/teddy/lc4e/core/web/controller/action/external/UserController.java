@@ -7,9 +7,9 @@ import com.teddy.lc4e.core.entity.webui.Message;
 import com.teddy.lc4e.core.web.service.UserService;
 import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
-import com.teddy.lc4e.plugins.annotation.ValidateComVarGroup;
-import com.teddy.lc4e.plugins.annotation.ValidateField;
-import com.teddy.lc4e.plugins.annotation.ValidateGroup;
+import com.teddy.lc4e.plugins.annotation.ValidateComVars;
+import com.teddy.lc4e.plugins.annotation.ValidateParam;
+import com.teddy.lc4e.plugins.annotation.ValidateParams;
 import com.teddy.lc4e.plugins.shiro.credentials.PassDisposer;
 import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +39,10 @@ public class UserController {
     @RequestMapping(value = "/SignUp", method = RequestMethod.GET)
     @ResponseBody
     @RequiresGuest
-    @ValidateComVarGroup(fields = {@ValidateComVar(name = Global.REG, needBoolean = true)})
-    @ValidateGroup(useSelect = true, validate = @ValidateComVar(name = Global.SREG, needBoolean = true),
-            trueFields = {@ValidateField(index = 3, fieldName = "name", NotNull = true, minLen = 4, maxLen = 12), @ValidateField(index = 3, fieldName = "nick", NotNull = true, minLen = 3, maxLen = 10), @ValidateField(index = 3, fieldName = "password", NotNull = true, minLen = 6, maxLen = 14), @ValidateField(index = 3, fieldName = "mail", NotNull = true, regexStr = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")},
-            falseFields = {@ValidateField(index = 4, fieldName = "user.name", NotNull = true, minLen = 4, maxLen = 12), @ValidateField(index = 4, fieldName = "user.nick", NotNull = true, minLen = 3, maxLen = 10), @ValidateField(index = 4, fieldName = "user.password", NotNull = true, minLen = 6, maxLen = 14), @ValidateField(index = 3, fieldName = "user.mail", NotNull = true, regexStr = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")})
+    @ValidateComVars(fields = {@ValidateComVar(name = Global.REG, needValue = "true")})
+    @ValidateParams(useSelect = true, validate = @ValidateComVar(name = Global.SREG, needValue = "true"),
+            trueFields = {@ValidateParam(index = 3, fieldName = "name", required = true, minLen = 4, maxLen = 12), @ValidateParam(index = 3, fieldName = "nick", required = true, minLen = 3, maxLen = 10), @ValidateParam(index = 3, fieldName = "password", required = true, minLen = 6, maxLen = 14), @ValidateParam(index = 3, fieldName = "mail", required = true, regexStr = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")},
+            falseFields = {@ValidateParam(index = 4, fieldName = "user.name", required = true, minLen = 4, maxLen = 12), @ValidateParam(index = 4, fieldName = "user.nick", required = true, minLen = 3, maxLen = 10), @ValidateParam(index = 4, fieldName = "user.password", required = true, minLen = 6, maxLen = 14), @ValidateParam(index = 3, fieldName = "user.mail", required = true, regexStr = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")})
     public Message SignUp(HttpServletRequest request, HttpServletResponse response, Model model, User user, UserBasicInfo basic) {
         if (userService.createUser(user, basic)) {
             return new Message(true, "Register Success");

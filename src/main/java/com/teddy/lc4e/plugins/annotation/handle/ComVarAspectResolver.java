@@ -3,11 +3,11 @@ package com.teddy.lc4e.plugins.annotation.handle;
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
 import com.teddy.lc4e.core.entity.back.Str;
+import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.annotation.SetComVar;
 import com.teddy.lc4e.plugins.annotation.ValidateComVar;
-import com.teddy.lc4e.plugins.annotation.ValidateComVarGroup;
+import com.teddy.lc4e.plugins.annotation.ValidateComVars;
 import com.teddy.lc4e.plugins.cache.CacheHandler;
-import com.teddy.lc4e.global.Global;
 import com.teddy.lc4e.plugins.tools.ReflectTool;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Component
 @Aspect
-public class ComVarAspectHandle {
+public class ComVarAspectResolver {
 
     @Autowired
     private ComVarDao comVarDao;
@@ -38,10 +38,10 @@ public class ComVarAspectHandle {
     private boolean useCache;
 
     @SuppressWarnings("finally")
-    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateComVarGroup)")
+    @Around("@annotation(com.teddy.lc4e.plugins.annotation.ValidateComVars)")
     public Object validateComVarAround(ProceedingJoinPoint joinPoint) throws Throwable {
         boolean flag = false;
-        ValidateComVarGroup an = null;
+        ValidateComVars an = null;
         Object[] args = null;
         Method method = null;
         Object target = null;
@@ -52,8 +52,8 @@ public class ComVarAspectHandle {
             target = joinPoint.getTarget();
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
-            an = (ValidateComVarGroup) ReflectTool.getAnnotationByMethod(method, ValidateComVarGroup.class);
-            Assert.noNullElements(args,"Some Variables must be not empty.");
+            an = (ValidateComVars) ReflectTool.getAnnotationByMethod(method, ValidateComVars.class);
+            Assert.noNullElements(args, "Some Variables must be not empty.");
             flag = validateComVar(an.fields(), args, errorString);
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class ComVarAspectHandle {
             method = ReflectTool.getMethodByClassAndName(target.getClass(), methodName);
             args = joinPoint.getArgs(); // all parameters
             an = (SetComVar) ReflectTool.getAnnotationByMethod(method, SetComVar.class);
-            Assert.noNullElements(args,"Some Variables must be not empty.");
+            Assert.notEmpty(args, "Some Variables must be not empty.");
             flag = setValueByFunctionName(an, args);
         } catch (Exception e) {
             flag = false;
@@ -97,7 +97,7 @@ public class ComVarAspectHandle {
     }
 
     private boolean validateComVar(ValidateComVar[] vt, Object[] args, Str errorString) {
-        Assert.noNullElements(vt,"the ValidateFields must be not empty.");
+        Assert.noNullElements(vt, "the ValidateFields must be not empty.");
         useCache = cacheHandler.useCache();
 
         Map<String, ValidateComVar> maps = new HashMap<String, ValidateComVar>();
@@ -114,7 +114,7 @@ public class ComVarAspectHandle {
                 if (obj == null) {
                     fromDB.add(allNames[i]);
                 } else {
-                    if (!validateValue(obj.getValue(), maps.get(allNames[i]))){
+                    if (!validateValue(obj.getValue(), maps.get(allNames[i]))) {
                         errorString.s = obj.getError();
                         return false;
                     }
@@ -149,21 +149,21 @@ public class ComVarAspectHandle {
 
     private boolean validateValue(Object value, ValidateComVar validateValue) {
         if (value instanceof String) {
-            return validateValue.needString().equals(value.toString());
+            return String.valueOf(validateValue.needValue()).equals(value.toString());
         } else if (value instanceof Integer) {
-            return (Integer) value == validateValue.needInt();
+            return (Integer) value == Integer.valueOf(validateValue.needValue());
         } else if (value instanceof Boolean) {
-            return (Boolean) value == validateValue.needBoolean();
+            return (Boolean) value == Boolean.valueOf(validateValue.needValue());
         } else if (value instanceof Float) {
-            return (Float) value == validateValue.needFloat();
+            return (Float) value == Float.valueOf(validateValue.needValue());
         } else if (value instanceof Double) {
-            return (Double) value == validateValue.needDouble();
+            return (Double) value == Double.valueOf(validateValue.needValue());
         }
         return false;
     }
 
     private boolean setValueByFunctionName(SetComVar fields, Object[] objects) {
-        Assert.notEmpty(fields.comVar(),"the given ComVars must be not empty");
+        Assert.notEmpty(fields.comVar(), "the given ComVars must be not empty");
         useCache = cacheHandler.useCache();
         String[] configs = fields.comVar();
         if (configs.length == 0) {
