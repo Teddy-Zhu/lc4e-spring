@@ -72,7 +72,7 @@
 
     <mvc:annotation-driven>
         <mvc:argument-resolvers>
-            <bean class="com.teddy.lc4e.plugins.annotation.handle.CurrentUserMethodArgumentResolver"/>
+            <bean class="com.teddy.lc4e.plugins.annotation.support.CurrentUserMethodArgumentResolver"/>
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 

@@ -1,4 +1,4 @@
-package com.teddy.lc4e.plugins.annotation.handle;
+package com.teddy.lc4e.plugins.annotation.support;
 
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
@@ -96,7 +96,7 @@ public class ValidateAspectResolver {
 
         HttpServletRequest request = (HttpServletRequest) args[vt.reqIndex()];
 
-        String urlLen = String.valueOf(request.getRequestURI().length() - 1);
+        String suf = String.valueOf(request.getRequestURI().length() - 2), pre = String.valueOf(request.getRequestURI().length());
         String lc4eToken = request.getHeader("lc4e-token");
 
         if (lc4eToken == null || lc4eToken.trim().equals("")) {
@@ -113,7 +113,7 @@ public class ValidateAspectResolver {
 
                 return false;
             }
-            regex = "\\b" + urlLen + "(.*)" + urlLen + "\\b";
+            regex = "\\b" + suf + "(.*)" + pre + "\\b";
             p = Pattern.compile(regex);
             m = p.matcher(lc4eToken);
 
@@ -243,10 +243,10 @@ public class ValidateAspectResolver {
                     }
                 } else if (types[index] == Double.class) {
                     arg = Double.valueOf(arg.toString());
-                    if (validateField.maxVal() != -1 && ((Integer) arg) > validateField.maxVal()) {
+                    if (validateField.maxVal() != -1 && ((Double) arg) > validateField.maxVal()) {
                         return false;
                     }
-                    if (validateField.minVal() != -1 && ((Integer) arg) < validateField.minVal()) {
+                    if (validateField.minVal() != -1 && ((Double) arg) < validateField.minVal()) {
                         return false;
                     }
                 } else if (types[index] == Boolean.class) {

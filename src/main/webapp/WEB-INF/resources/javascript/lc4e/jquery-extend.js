@@ -457,8 +457,8 @@
             if (data.needToken) {
                 data.beforeSend = function (xhr, settings) {
                     if (data.needToken) {
-                        var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', l = data.url.length.toString(), t = new Date().getTime().toString();
-                        xhr.setRequestHeader(tk, l + t + l);
+                        var tk = 'l' + 'c' + '4' + 'e' + '-' + 't' + 'o' + 'k' + 'e' + 'n', lsuf = (data.url.length - 1).toString(), lpre = (data.url.length + 1).toString(), t = new Date().getTime().toString();
+                        xhr.setRequestHeader(tk, lsuf + t + lpre);
                     }
                     if (typeof loptions.beforeSend === "function") {
                         loptions.beforeSend(xhr);

@@ -1,4 +1,4 @@
-package com.teddy.lc4e.plugins.annotation.handle;
+package com.teddy.lc4e.plugins.annotation.support;
 
 import com.teddy.lc4e.core.web.service.UIData;
 import com.teddy.lc4e.plugins.annotation.SetUIData;

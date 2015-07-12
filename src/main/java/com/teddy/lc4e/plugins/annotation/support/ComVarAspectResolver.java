@@ -1,4 +1,4 @@
-package com.teddy.lc4e.plugins.annotation.handle;
+package com.teddy.lc4e.plugins.annotation.support;
 
 import com.teddy.lc4e.core.database.model.SysComVar;
 import com.teddy.lc4e.core.database.service.ComVarDao;
