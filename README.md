@@ -1,7 +1,7 @@
 
 Deprecated
 底层假设完毕，包括系统规划。鉴于Spring的庞大，定制困难已转Jfinal
-
+new --> [Lc4e](https://github.com/Teddy-Zhu/lc4e)
 #Full Name：[Light Community For Everyone](http://www.lc4e.com)
 ###It's a Light Forum.
 >#### Based On `Maven` `Spring` `Spring MVC4` `MongoDB` `Shiro`
